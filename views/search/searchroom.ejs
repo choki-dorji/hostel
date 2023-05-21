@@ -1,0 +1,338 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+<form id="search-form">
+  <label for="room-name">Room Name:</label>
+  <input type="text" id="room-name" name="room_name">
+  <button type="submit">Search</button>
+</form>
+
+<div id="search-results"></div>
+
+<form id="student-search-form">
+  <label for="student-name">Student Name:</label>
+  <input type="text" id="student-name" name="student_name">
+  <button type="submit">Search</button>
+</form>
+
+<div id="student-search-results"></div>
+
+<script>
+  const searchForm = document.querySelector("#search-form");
+  const searchResults = document.querySelector("#search-results");
+
+  searchForm.addEventListener("submit", async (event) => {
+    event.preventDefault();
+
+    const roomName = searchForm.elements.room_name.value;
+
+    const response = await fetch(`http://localhost:5000/room/api/search?room_name=${roomName}`);
+    const data = await response.json();
+    console.log(data)
+
+    if (response.ok) {
+      const room = data.room;
+      searchResults.innerHTML = `<p>Room Name: ${room.room_name}</p>
+                                  <p>Room Capacity: ${room.room_capacity}</p>
+                                  <p>Is Disabled: ${room.isDisabled}</p>
+                                  <p>Status: ${room.status}</p>`;
+    } else {
+      searchResults.innerHTML = `<p>${data.message}</p>`;
+    }
+  });
+</script>
+
+
+<script>
+  console.log("start")
+  const studentSearchForm = document.querySelector("#student-search-form");
+  const studentSearchResults = document.querySelector("#student-search-results");
+
+  studentSearchForm.addEventListener("submit", async (event) => {
+    event.preventDefault();
+
+    const studentName = studentSearchForm.elements.student_name.value;
+     console.log("res[ponse")
+
+    const response = await fetch(`http://localhost:5000/students/search?studentName=${studentName}`);
+
+    console.log("response", response)
+
+    const data = await response.json();
+    console.log("students ", data)
+
+
+    if (response.ok) {
+      const student = data;
+      for (var i = 0; i <= student.length; i++) {
+         studentSearchResults.innerHTML = `<p>Student Name: ${student[i].name}</p>
+                                  <p>Student ID: ${student[i].sid}</p>`
+      }
+
+
+
+    } else {
+      studentSearchResults.innerHTML = `<p>${data.message}</p>`;
+    }
+  });
+</script>
+
+</body>
+</html> -->
+<%- include("../required/header") %>
+
+
+<main>
+  <main id="block14">
+    <div class="row" style="margin-bottom: 1rem">
+      <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="bx-shadow ">
+          <p class="heading-search text-left pl-2">Search for student and room details</p>
+        </div>
+      </div>
+      <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="bx-shadow1 bxx">
+          <br>
+
+          <div class="col-lg-6 col-md-12 col-sm-12 search-bx search-bx2 text-center cursor-pointer"   id="roomContent" >
+            <div onclick="navigateToPage()">
+              <i class='bx bx-home bx-tada-hover search-rooo pt-3'></i>
+              <h5 class="mt-2 r-de">Room details</h5>
+          <br><br> <br><br> <br>
+          <br> <br>
+
+            </div>
+          </div>
+
+          <div class="col-lg-6 col-md-12 col-sm-12 search-bx text-center"  id="myDiv">
+            <div onclick="navigateTosearch()">
+            <i class="far fa-user fa-outline bx-tada-hover search-user"></i>
+            <h5 class="mt-4 r-de">Student details</h5>
+            <br><br> <br><br> <br>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</main>
+<!-- students -->
+
+<script>
+function navigateTosearch() {
+  var roomContent = document.getElementById("myDiv");
+  roomContent.innerHTML = `
+    <h5 class="text-center font-weight-bold pb-3 search-tit">Search Student details</h5>
+    <form id="search-form1">
+      <div class="form-group ml-3" style="display: flex; flex-direction: row;">
+        <div class="input-box col-8 align-items-center justify-content-center">
+          <label class="input-label ml-3">Student SID</label>
+          <input type="text" class="input-1" name="student" onfocus="setFocus(true)" onblur="setFocus(false)" />
+        </div>
+        <button type="submit" class="sear-button col-3 mt-2 mr-5 align-items-center justify-content-center">Search</button>
+      </div>
+    </form>
+
+    <div id="search-results1"></div>
+  `;
+
+  // Add event listener to the new form
+  document.getElementById("search-form1").addEventListener("submit", handleSearch1);
+}
+
+async function handleSearch1(event) {
+  event.preventDefault();
+
+  const searchForm = document.getElementById("search-form1");
+  const searchResults = document.getElementById("search-results1");
+
+    const studentName = searchForm.elements.student.value;
+
+    console.log(studentName)
+    console.log("fdghjkl")
+
+    const response = await fetch(`http://localhost:5000/students/search?studentSID=${studentName}`);
+    const data = await response.json();
+
+    console.log(data)
+
+
+    if (response.ok) {
+      const student = data;
+        searchResults.innerHTML = `
+                              <div class="dis " id="searchtable">
+                                    <div class=" proo pl-4 pr-4 ">
+                                        <h5 class=" roommate font-weight-bold pb-1 text-left">Search result</h5>
+                                        <div class="table-responsive pt-1" style="overflow-x:auto">
+                                            <table class="tab ">
+                                                <thead>
+                                                    <tr>
+                                                        <th scope="row">Name</th>
+                                                        <td scope="row">${student.name}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th scope="row">Sid</th>
+                                                        <td scope="row">${student.sid}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>gender</th>
+                                                        <td scope="row"> ${student.gender}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>email</th>
+                                                        <td scope="row"> ${student.email} </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>course</th>
+                                                        <td scope="row"> ${student.specialization} </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>year</th>
+                                                        <td scope="row"> ${student.year} </td>
+                                                    </tr>
+
+                                                </thead>
+
+                                            </table>
+                                            <br>
+
+                                        </div>
+
+
+                                    </div>
+                                </div><br>
+
+                              `;
+    } else {
+      searchResults.innerHTML = `<p>No search Results</p>`;
+    }
+
+
+
+  }
+</script>
+
+
+<!-- room -->
+<script>
+  function navigateToPage() {
+    var roomContent = document.getElementById("roomContent");
+    roomContent.innerHTML = `
+      <h5 class="text-center font-weight-bold pb-3 search-tit">Search room details</h5>
+      <form id="search-form">
+        <div class="form-group ml-3" style="display: flex; flex-direction: row;">
+          <div class="input-box col-8 align-items-center justify-content-center">
+            <label class="input-label ml-3">Room Name</label>
+            <input type="text" class="input-1" name="room_name" onfocus="setFocus(true)" onblur="setFocus(false)" />
+          </div>
+          <button type="submit" class="sear-button col-3 mt-2 mr-5 align-items-center justify-content-center">Search</button>
+        </div>
+      </form>
+
+      <div id="search-results"></div>
+    `;
+
+    // Add event listener to the new form
+    document.getElementById("search-form").addEventListener("submit", handleSearch);
+  }
+
+
+
+  async function handleSearch(event) {
+    event.preventDefault();
+
+    const searchForm = document.getElementById("search-form");
+    const searchResults = document.getElementById("search-results");
+
+    const roomName = searchForm.elements.room_name.value;
+
+    const response = await fetch(`http://localhost:5000/room/api/search?room_name=${roomName}`);
+    const data = await response.json();
+
+    console.log(data.room._id)
+
+    const memberResponse = await fetch(`http://localhost:5000/room/api/member/${data.room._id}`)
+    const memberdata = await memberResponse.json()
+
+    console.log(memberdata)
+
+    if (response.ok && memberResponse.ok) {
+      const room = data.room;
+      const members = memberdata.membersInRoom;
+        searchResults.innerHTML = `
+                              <div class="dis " id="searchtable">
+                                    <div class=" proo pl-4 pr-4 ">
+                                        <h5 class=" roommate font-weight-bold pb-1 text-left">Search result</h5>
+                                        <div class="table-responsive pt-1" style="overflow-x:auto">
+                                            <table class="tab ">
+                                                <thead>
+                                                    <tr>
+                                                        <th scope="row">Room</th>
+                                                        <td scope="row">${room.room_name}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th scope="row">Capacity</th>
+                                                        <td scope="row">${room.room_capacity}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>Status</th>
+                                                        <td scope="row"> ${room.status}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>Type</th>
+                                                        <td scope="row"> ${room.type} Hostel</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>
+                                                            Members</th>
+                                                        <td scope="row">
+                                                         <ul>
+                                                          ${members.map(member => `<li>${member.student_name}</li>`).join('')}
+                                                        </ul>
+                                                        </td>
+                                                    </tr>
+                                                </thead>
+
+                                            </table>
+                                            <br>
+
+                                        </div>
+
+
+                                    </div>
+                                </div><br>
+
+                              `;
+    } else if (!response.ok || !memberResponse.ok) {
+      searchResults.innerHTML = "<p>No search Results</p>";
+    }
+  }
+
+  function setFocus(on) {
+    var element = document.activeElement;
+    if (on) {
+      setTimeout(function () {
+        element.parentNode.classList.add("focus");
+      });
+    } else {
+      let box = document.querySelector(".input-box");
+      box.classList.remove("focus");
+      $("input").each(function () {
+        var $input = $(this);
+        var $parent = $input.closest(".input-box");
+        if ($input.val()) $parent.addClass("focus");
+        else $parent.removeClass("focus");
+      });
+    }
+  }
+</script>
+
+</body>
+
+</html>

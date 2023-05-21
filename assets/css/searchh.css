@@ -1,0 +1,204 @@
+/* Block div  */
+#block14 .bx-shadow {
+  box-shadow:0 3px 10px #cfcfcf; /* adds a box shadow */
+  height: atuo;
+  background-color: #ffffff; /* sets the background color */
+  border-radius: 5px; /* rounds the corners */
+  margin: 7.6rem -.8rem 0 2.3rem;
+  overflow-x: none;
+}
+#block14 .bx-shadow1 {
+  height: auto;
+  margin: .2rem 1.7rem 0 1.1rem;
+  border-radius: 5px; /* rounds the corners */
+  height: atuo;
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  overflow-x: none;
+}
+
+#block14 .search-bx {
+  box-shadow:0 3px 10px #cfcfcf;
+  height: auto;
+  background: #ffffff;
+  border-radius: 10px;
+}
+#block14 .search-user {
+  font-size: 120px;
+  color: #ff4b13;
+  opacity: 90%;
+  font-weight: 300;
+  margin-top: 9rem;
+}
+#block14 .search-rooo {
+  font-size: 140px;
+  color: #ff4b13;
+  opacity: 90%;
+  font-weight: 300;
+  margin-top: 8rem;
+  padding-bottom: 0.4rem;
+}
+#block14 .search-tit{
+  margin-top: 3rem;
+}
+#block14 .heading-search {
+  padding-top: 1rem;
+  font-size: 20px;
+  font-weight: 400;
+  opacity: 90%;
+  margin-left: 2rem;
+  padding-bottom: 1rem;
+}
+@media (max-width: 767px) {
+  * {
+    overflow-x: none;
+    font-size: cal(100% -2px);
+  }
+  #block14 .bx-shadow {
+    box-shadow:0 3px 10px #cfcfcf; /* adds a box shadow */
+    height: atuo;
+    background-color: #ffffff; /* sets the background color */
+    border-radius: 5px; /* rounds the corners */
+    margin: 7.6rem -2.5rem 0 2.2rem;
+  }
+  #block14 .bx-shadow1 {
+    width: 100%;
+  }
+  #block14 .search-user{
+    font-size: 60px;
+  } #block14 .search-rooo{
+    font-size: 80px;
+  }
+#block14 .search-tit{
+  margin-top: 1rem;
+  margin-bottom: -.3rem;
+  font-size: 16px;
+}
+  #block14 .search-bx {
+    margin: 0 -4rem 0 0rem;
+  }
+  #block14 .heading-search {
+    font-size: 14px;
+    text-align: center;
+  }
+  #block14 .r-de {
+    font-size: 2.8vw;
+  }
+  #block14 .search-bx2 {
+  
+  }
+  /* #block14 .search-rooo {
+      padding-bottom: 0.4rem;
+    } */
+}
+
+@media (max-width: 575.7px) {
+  #block14 .bx-shadow {
+    margin: 7.4rem -2.5rem 0 2.2rem;
+  }
+  #block14 .bx-shadow1 {
+    height: auto;
+    margin: 0rem -3.4rem 0 1.2rem;
+  }
+}
+/*the container must be positioned relative:*/
+#block14 .custom-select {
+  position: relative;
+  width: 25vw;
+  margin: 0 auto;
+}
+
+#block14 .custom-select select {
+  display: none; /*hide original SELECT element:*/
+}
+
+/*point the arrow upwards when the select box is open (active):*/
+#block14 .select-selected.select-arrow-active:after {
+  border-color: transparent transparent #fff transparent;
+  top: 7px;
+}
+
+/*style the items (options), including the selected item:*/
+#block14 .select-items div {
+  color: #4f4f4f;
+  padding: 6px 0;
+  opacity: 90%;
+  background: #dfdfdf1e;
+  border-radius: 5px;
+  margin-top: 2px;
+  cursor: pointer;
+}
+@media (max-width: 991px) {
+  #block14 .bx-shadow1 {
+    display: grid;
+    flex-direction: column;
+    margin: -2.7rem -1rem 0 2.3rem;
+  }
+}
+/*style items (options):*/
+#block14 .select-items {
+  position: absolute;
+  background-color: white;
+  top: 100%;
+  left: 0;
+  right: 0;
+  z-index: 99;
+}
+
+/*hide the items when the select box is closed:*/
+#block14 .select-hide {
+  display: none;
+}
+
+#block14 .select-items div:hover,
+#block14 .same-as-selected {
+  color: #ff4b13;
+  background: #ff4a131e;
+}
+
+#block14 .sear-button {
+  text-decoration: none;
+  position: absolute;
+  top: .1rem;
+  height: 50px;
+  width: 25vw;
+  margin: 0 auto;
+  position: relative;
+  border: none;
+  background: #ff4b13;
+  color: white;
+  opacity: 90%;
+  cursor: pointer;
+  border-radius: 5px;
+}
+#block14 .done {
+  text-decoration: none;
+}
+#block14 .tab td {
+  width: 100%;
+  margin-left: 1rem;
+  color: #4f4f4f;
+}
+#block14 .tab tr {
+  width: 100%;
+  margin-left: 1rem;
+  color: #ffffff;
+  text-align: center;
+}
+
+#block14 .tab td,
+#block14 .tab th {
+  padding: 1rem;
+  vertical-align: top;
+  border: 1px solid #d7c8c8;
+  opacity: 90%;
+}
+#block14 .tab tbody tr {
+  color: #4f4f4f;
+}
+#block14 .tab thead th {
+  vertical-align: center;
+  background: #ff4b13;
+  opacity: 90%;
+}

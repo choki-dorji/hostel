@@ -1,0 +1,195 @@
+/* Block div  */
+#block13 .bx-shadow {
+  box-shadow:0 3px 10px #cfcfcf; /* adds a box shadow */
+  height: auto;
+  background-color: #ffffff; /* sets the background color */
+  border-radius: 5px; /* rounds the corners */
+  margin: 7.6rem -.9rem 0 2.3rem;
+}
+
+#block13 .allooo {
+  text-align: center;
+
+  margin: 0 auto;
+  padding-top: 3rem;
+  font-size: 18px;
+}
+#block13 .fo {
+  margin-top: 2rem;
+}
+#block13 .row .form-select {
+  border:1px solid #4f4f4f;
+  color: #4f4f4f;
+  padding: 4px 10px;
+width:13rem;
+margin:0 auto;
+  border-radius: 5px;
+  opacity: 90%;
+}
+
+#block13 .form-select option:hover {
+  background-color: #ff4b13;
+  color: #4f4f4f;
+  opacity: 90%;
+}
+#block13 .gee {
+  display: flex;
+  flex-direction: row;
+}
+#block13 .gee .gen-male {
+  position: absolute;
+  right: 3rem;
+}
+#block13 .boxx {
+  position: relative;
+  border: 1px solid #878787;
+  opacity: 90%;
+  width: 62%;
+  height: auto;
+  border-radius: 5px;
+  margin-top: 4rem;
+  padding-top: 1rem;
+  left: 19%;
+}
+/* #block13 .boxx1 {
+  right: 3rem;
+} */
+#block13 .gen-female {
+  margin-bottom: -2rem;
+  margin-left: 1.4rem;
+}
+
+.round-checkbox {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  margin-left: -27%;
+  margin-top: 8px;
+  background-color: #fff;
+  border: 1px solid #6c757d;
+  border-radius: 50%;
+  transition: all 0.3s;
+}
+.round-checkbox:before {
+  content: "";
+  display: block;
+  width: 0.5em;
+  height: 0.5em;
+  margin: 0.2em;
+  background-color: #6c757d;
+  border-radius: 50%;
+  opacity: 0;
+  transform: scale(0);
+  transition: all 0.3s;
+}
+.form-check-input:checked + .form-check-label .round-checkbox:before {
+  opacity: 1;
+  transform: scale(1);
+}
+.fll {
+  display: flex;
+}
+#block13 .slott {
+  display: flex;
+  position: absolute;
+  margin-left: 45%;
+  margin-top: -1.5rem;
+  width: 100px;
+  font-weight: thin;
+  font-size: 14px;
+  color: #4f4f4f;
+}
+#block13 .inssu {
+  font-size: 12px;
+  margin-left: 23%;
+  opacity: 90%;
+  margin-top: 10px;
+  width: 60%;
+}
+#block13 .inss {
+  font-size: 12px;
+  margin-left: 23%;
+  opacity: 90%;
+  margin-top: 13px;
+  width: 60%;
+}
+
+#block13 .allo-button {
+  width: 20%;
+ margin:0 auto;
+  height: 40px;
+  border-radius: 5px;
+  background: #ff4b13;
+  color: #ffffff;
+  opacity: 90%;
+  /* margin-left: 39%; */
+  display: flex;
+  margin-top: 3rem;
+  text-align: center;
+}
+#block13 .al- {
+  padding-left: 38%;
+  margin-top: 5px;
+}
+@media (max-width: 993px) {
+  #block13 .gee {
+    display: flex;
+    flex-direction: column;
+  }
+
+  #block13 .gen-male {
+    /* margin-right: 36%; */
+    padding-top: 1rem;
+    padding-bottom: .5rem;
+    width: 50%;
+    margin: 0px -1.7rem;
+  }
+  #block13 .boxx1 {
+    top: -2.5rem;
+    justify-content:center;
+  }
+  #block13 .boxx {
+    margin-top: 3.8rem;
+   justify-content:center;
+  }
+  #block13 .gen-female {
+    /* margin-right: 36%; */
+    padding-top: 2rem;
+margin-left:45%;
+ padding-bottom:.5rem;
+  }
+  #block13 .allo-button {
+    width: 60%;
+  margin-left:22%;
+  }
+  #block13 .al- {
+    margin-left: 3%;
+  }
+  #block13 .inss {
+    font-size: 12px;
+    margin-left: 20%;
+    opacity: 90%;
+    margin-top: -28px;
+    width: 60%;
+  }
+  @media (max-width: 768px) {
+  }
+  #block13 .allo-button {
+margin:0 20%;
+  }
+  #block13 .al- {
+    padding-left: -10px;
+    margin-left: -1%;
+  }
+  #block13 .gen-female {
+
+margin-left:40%;
+
+  }
+}
+@media (max-width: 575.7px) {
+  #block13 .add {
+    margin-top: 15px;
+    width: 80%;
+  }
+ }

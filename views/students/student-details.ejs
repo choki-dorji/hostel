@@ -1,0 +1,121 @@
+<%- include("../required/header") %>
+
+        <!-- MAIN -->
+        <main>
+            <main id="stu-result">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                        <div class="bx-shadow ">
+                            <% if(students){ %>                                
+                            <p class="heading-search text-left pl-2"><strong>Search result for <span><%= students[0].name %></span> </strong></p>
+                            <% } %>
+                        </div>
+                    </div>
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                        <div class="bx-shadow1 bxx">
+                            <br>
+                            <div class="col-lg-6 col-md-12 col-sm-12  search-bx text-center cursor-pointer">
+                                <img src="/img/rannas.png" width="200px" height="200px" class="picture-profile"
+                                    alt="" style="border-radius:50%;  border:3px solid #FF4B13;">
+                                <h5 class="text-center font-weight-bold pb-3 search-tit mt-4"><%= students[0].name %></h5>
+                            </div>
+
+                            <div class="col-lg-6 col-md-12 col-sm-12 search-bx text-center" id="myDiv"
+                                style="cursor:pointer">
+                                <div class="dis" style="overflow-x:auto;">
+                                    <div class=" proo pl-4 pr-4">
+                                        <div class="table-responsive">
+                                            <table class="tab">
+                                                <thead>
+                                                    <tr>
+                                                        <th scope="row">Enrolment No.</th>
+                                                        <td scope="row"><%= students[0].sid %></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th scope="row">Course</th>
+                                                        <td scope="row"><%= students[0].specialization %></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>Year</th>
+                                                        <td scope="row"><%= students[0].year %></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>Gender</th>
+                                                        <td scope="row"><%= students[0].gender === "M" ? "Male" : "Female" %></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>Email</th>
+                                                        <td scope="row"><%= students[0].email %></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>Block</th>
+                                                        <% let displayedBlock = false; %>
+
+                                                        <% if (allocate) { %>
+                                                        <% for (let j = 0; j < allocate.length; j++) { %>
+                                                            <% for (let i = 0; i < blocks.length; i++) { %>
+                                                            <% if (allocate[j].sid == students[0].sid && allocate[j].blockid == blocks[i]._id) { %>
+                                                                <% if (!displayedBlock) { %>
+                                                                <td scope="row"><%= blocks[i].block_name %></td>
+                                                                <% displayedBlock = true; %>
+                                                                <% } %>
+                                                            <% } %>
+                                                            <% } %>
+                                                        <% } %>
+                                                        <% if (!displayedBlock) { %>
+                                                            <td scope="row">No Block Yet</td>
+                                                        <% } %>
+                                                        <% } %>
+
+                                                    </tr>
+                                                    <tr>
+                                                        <th>Room</th>
+                                                        <% let displayedRoom = false; %>
+
+                                                        <% if (allocate) { %>
+                                                        <% for (let j = 0; j < allocate.length; j++) { %>
+                                                            <% for (let i = 0; i < rooms.length; i++) { %>
+                                                            <% if (allocate[j].sid == students[0].sid && allocate[j].roomid == rooms[i]._id) { %>
+                                                                <% if (!displayedRoom) { %>
+                                                                <td scope="row"><%= rooms[i].room_name %></td>
+                                                                <% displayedRoom = true; %>
+                                                                <% } %>
+                                                            <% } %>
+                                                            <% } %>
+                                                        <% } %>
+                                                        <% if (!displayedRoom) { %>
+                                                            <td scope="row">No Room Yet</td>
+                                                        <% } %>
+                                                        <% } %>
+
+                                                    </tr>
+                                                </thead>
+
+                                            </table>
+                                            <br>
+
+                                        </div>
+                                        <br> <br>
+                                    </div>
+                                </div>
+
+                            </div><br><br> <br>
+
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </main>
+
+    </section>
+
+</body>
+
+</main>
+<!-- MAIN -->
+</section>
+<!-- NAVBAR -->
+
+</body>
+
+</html>

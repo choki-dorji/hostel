@@ -1,0 +1,180 @@
+.bx-shadow5 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* Create 3 columns with equal width */
+  grid-gap: 20px; /* Set gap between grid items */
+  background-color: #fff;
+  border-radius: 5px;
+  height: 110px;
+  box-shadow: 0px 3px 10px #cfcfcf;
+  margin: 7.6rem -2.9rem 1rem 0.35rem;
+  overflow-x:hidden;
+}
+.bx-shadow2 {
+  box-shadow: 0px 3px 10px #cfcfcf; /* adds a box shadow */
+  height: auto;
+  background-color: #ffffff; /* sets the background color */
+  border-radius: 5px; /* rounds the corners */
+  margin: 1.2rem -1.9rem 1rem 1.3rem;
+  overflow-x: hidden;
+}
+
+#stat .tab tr {
+  margin-left: 1rem;
+  color: #ffffff;
+}
+#stat .tab {
+  width: 100%;
+}
+#stat .tab td,
+#stat .tab th {
+  padding: 1rem;
+  vertical-align: top;
+  border: 1px solid #d7c8c8;
+  opacity: 90%;
+}
+#stat .tab tbody tr {
+  color: #4f4f4f;
+}
+#stat .tab thead th {
+  vertical-align: bottom;
+  border: 2px solid #e9e0e0;
+  background: #ff4b13;
+  opacity: 90%;
+}
+#stat .add-bu {
+  width: 100%;
+  background: #ff4b13;
+  border: none;
+  color: white;
+  border-radius: 3px;
+  font-size: 14px;
+}
+#stat .add-bu:active,
+#stat .add-bu:focus {
+  outline: none;
+  border: none;
+}
+.box {
+  background: #ff4a131e;
+  opacity: 90%;
+  padding: 20px;
+  box-sizing: border-box; /* Include padding in the width */
+  height: 85px;
+  margin-top: 0.8rem;
+  border-radius: 5px;
+}
+
+.fon {
+  display: flex;
+  flex-direction: column;
+  margin-top: -0.1rem;
+  margin-left: 8%;
+}
+.nt {
+  margin-left: 10%;
+}
+
+.ico {
+  position: absolute;
+  margin-left: 22%;
+  margin-top: -3.4rem;
+  font-size: 24px;
+}
+.icoo {
+  position: absolute;
+  margin-left: 53%;
+  margin-top: 2rem;
+  font-size: 26px;
+}
+.home {
+  margin-left: 200%;
+}
+
+/* table */
+
+.taa {
+  width: 100%;
+  background: #fff;
+  border-radius: 5px;
+  overflow-y: auto;
+  height: 100%;
+  box-shadow: 0px 3px 10px #cfcfcf;
+  margin: 1.3rem 1rem 0 1.4rem;
+}
+
+.taaa {
+  width: 100%;
+  padding-right: 3rem;
+  overflow-x: none;
+}
+
+.room-ico {
+  font-size: 24px;
+  color: #ff4b13;
+  opacity: 90%;
+}
+
+.room-d {
+  font-size: 18px;
+  color: #ff4b13;
+  opacity: 90%;
+  font-weight: 300;
+  margin-left: 4%;
+  margin-top: 1rem;
+}
+#stat .room-add-but {
+  width: 150px;
+  border-radius: 5px;
+  background: #ff4b13;
+  position: absolute;
+  border: none;
+  opacity: 90%;
+  color: white;
+  right: .7rem;
+  top: 1.5rem;
+  cursor: pointer;
+}
+#stat .room-add-but:active,
+.room-add-but:focus {
+  outline: none;
+  border: none;
+}
+@media (max-width: 1085px) {
+  .ico {
+    margin-left: 18%;
+  }
+}
+@media (max-width: 769px) {
+  .bx-shadow2 {
+    margin: 1rem -3.5rem 1rem .9rem;
+  }
+  #stat .room-add-but {
+    right: -1.5rem;
+    position: absolute;
+  }
+  .bx-shadow5 {
+margin:7.4rem -4.4rem 0 0;
+    height: 89px;
+  }
+  .hot {
+    margin: 7.3rem -2 0 1.5rem;
+  }
+  #stat .di {
+    margin-top: -10px;
+  }
+}
+
+/* dropdown############ */
+.swal2-popup .swal2-styled .swal2-cancel {
+      border: 1px solid #ff4b13;
+      color:#ff4b13;
+      padding-right:2rem;
+      padding-left:2rem; /* Set the border properties as per your requirement */
+      margin-bottom:2rem;
+    }
+
+    .swal2-popup .swal2-styled .swal2-confirm {
+          padding-right:2rem;
+          padding-left:2rem; /* Set the border properties as per your requirement */
+                margin-bottom:2rem;
+}

@@ -1,0 +1,241 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My HTML Page</title>
+</head>
+
+<body>
+<% for(var i = 0; i < room.length; i++) { %>
+  <% if(room[i].status === "available" && room[i].isDisabled){ %>
+    <%= room[i].room_name %>
+  <% } %>
+<% } %>
+
+  <script src="script.js"></script>
+</body>
+
+</html> -->
+
+<%- include("../required/header") %>
+<style>
+    	
+.toastify-success {
+  color: rgba(0,143,32);
+  box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.2);
+  padding:1.5rem 5rem;
+  min-width:360px;
+  border-radius:30px 0 30px 0;
+}
+.toastify-success .toastify-text {
+  border-bottom: 2px solid #00b894;
+}
+.failed, .error{
+	  color: rgba(215, 42, 42);
+	padding:1.5rem 5rem;
+	border-radius:30px 0 30px 0;
+}
+</style>
+
+<main>
+            <main id="block15">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                        <div class="bx-shadow ">
+                            <p class="heading-search font-weight-bold text-left pl-2 pb-0">Allocate
+                                Students <span> with </span><span>Special Ability </span></p>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-12 col-md-12 col-sm-12 search-div1">
+                        <div class="bx-shadow2">
+                            <div class="pad p-5 pl-5 pr-5">
+                                <div class="room-avai">
+                                    <i class="material-icons icon">male</i>
+                                    <h5 class="font-weight-regular ml-5 " style="color:#4f4f4f; opacity:90%;">
+                                        Available
+                                        room
+                                    </h5>
+                                </div>
+                                <div class="table-responsive " style="overflow-x:auto; ">
+                                    <table class="tab p-2 mt-2 text-center" style="margin:0 auto;">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">Room</th>
+                                                <th scope="col">Student name</th>
+                                                <th scope="col">Student course</th>
+                                                <th scope="col">SID</th>
+                                                <th scope="col">Student Year</th>
+                                                <th scope="col">Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                          <% for(var i = 0; i < room.length; i++) { %>
+                                            <% if(room[i].status === "available" && room[i].isDisabled && room[i].type === 'boys'){ %>
+                                                <% for(var k = 0; k < allocate.length; k++) { %>
+                                                  <% if(allocate[k].roomid === room[i]._id) { %>
+                                            <tr>
+                                                <td scope="row"><%= room[i].room_name %></td>
+                                                <td><%= allocate[k].student_name %></td>
+                                                <td><%= allocate[k].course %></td>
+                                                <td><%= allocate[k].sid %></td>
+                                                <td><%= allocate[k].year %></td>
+                                                <td><button class="add-bu p-1" id="myButton" data-id="<%= room[i]._id %>"><span><i
+                                                                class="far fa-outline fa-user">
+                                                            </i></span>
+                                                        Add
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                            <% } %>
+                                            <% } %>
+                                            <tr>
+                                                <td scope="row"><%= room[i].room_name %></td>
+                                                <td><%=  %></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td><button class="add-bu p-1" id="myButton" data-id="<%= room[i]._id %>"><span><i
+                                                                class="far fa-outline fa-user">
+                                                            </i></span>
+                                                        Add
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                            <% } %>
+                                          <% } %>
+
+
+                                        </tbody>
+
+                                    </table>
+                                    <br>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+            </main>
+        </main>
+        <br><br><br><br><br><br><br><br> <br><br><br><br><br><br><br><br> <br><br><br><br><br><br><br><br>
+    </section>
+
+</body>
+
+</main>
+<!-- MAIN -->
+</section>
+<!-- NAVBAR -->
+
+<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+<script src="script.js"></script>
+
+
+
+<script>
+    const myButton = document.querySelectorAll('#myButton');
+    myButton.forEach(button => {
+        button.addEventListener('click', event => {
+            const room = button.getAttribute('data-id');
+            // Rest of the code here
+            // console.log("id was ", id)
+            Swal.fire({
+                html: `
+				<h5 class="font-weight-bold mt-4 mb-3" style="margin-bottom: font-weight:bold; color:#ff4b13; opacity:90%; 30px">Add student</h5>
+								<form>
+										<div class="form-group">
+												<div class="input-box">
+														<label class="input-label" >SID</label>
+														<input type="text" class="input-1" onfocus="setFocus(true)" id="acadyear" onblur="setFocus(false)" />
+												</div>
+										</div>
+								</form>
+				`,
+                confirmButtonText: 'Allocate',
+                confirmButtonColor: '#FF4B13',
+                preConfirm: () => {
+                  // Retrieve the values of the input fields
+                  const sid = document.getElementById('acadyear').value;
+
+                  // Return the values as an object
+                  return { sid };
+                }
+            }).then((result) => {
+                if (result.isConfirmed) {
+                  	const { sid } = result.value;
+                      fetch("/Allocate/disable", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json"
+  },
+  body: JSON.stringify({ room, sid })
+})
+  .then(response => {
+    if (response.ok) {
+      Toastify({
+        text: 'Allocated Successfully',
+        duration: 3000,
+        gravity: 'top',
+        position: 'center',
+        backgroundColor: 'rgba(196,293,206,1)',
+        className: 'toastify-success',
+        stopOnFocus: true,
+        onClick: function() { Toastify.hideAll() }
+      }).showToast();
+
+      window.location.reload();
+    } else if (response.status === 422){
+        throw new Error('Allocation already exist for the given students');
+    } else if (response.status === 400){
+        throw new Error('The given student Id is not a valid student');
+    }
+    
+    else {
+      throw new Error('Error while Allocating ' + response.statusText);
+    }
+  })
+  .catch(error => {
+    console.log(error)
+    Toastify({
+      text: error.message,
+      duration: 3000,
+      gravity: 'top',
+      position: 'center',
+      className: "failed",
+      backgroundColor: 'rgba(243,209,209,1)',
+      stopOnFocus: true,
+      onClick: function() { Toastify.hideAll() }
+    }).showToast();
+  });
+
+                }
+            });
+        });
+    });
+
+    function setFocus(on) {
+        var element = document.activeElement;
+        if (on) {
+            setTimeout(function () {
+                element.parentNode.classList.add("focus");
+            });
+        } else {
+            let box = document.querySelector(".input-box");
+            box.classList.remove("focus");
+            $("input").each(function () {
+                var $input = $(this);
+                var $parent = $input.closest(".input-box");
+                if ($input.val()) $parent.addClass("focus");
+                else $parent.removeClass("focus");
+            });
+        }
+    }
+
+
+</script>
+</body>
+
+</html>

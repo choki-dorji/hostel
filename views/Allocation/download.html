@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Generate PDF</title>
+  </head>
+  <body>
+    <button id="downloadBtn">Download PDF</button>
+
+    <script>
+      document.getElementById('downloadBtn').addEventListener('click', () => {
+        // Create an HTML string for the content you want in the PDF
+        const html = `
+          <html>
+            <head>
+              <style>
+                /* Add your CSS styles here */
+              </style>
+            </head>
+            <body>
+              <div class="col-lg-12 col-md-12 col-sm-12">
+                <div class="table-responsive">
+                  <%- include('./table.ejs') %>
+                  <hr>
+                  <br>
+                </div>
+              </div>
+            </body>
+          </html>
+        `;
+
+        // Create a new Blob with the HTML content
+        const blob = new Blob([html], { type: 'text/html' });
+
+        // Create a temporary link element
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = 'output.pdf';
+
+        // Programmatically click the link to trigger the download
+        link.click();
+
+        // Cleanup
+        URL.revokeObjectURL(link.href);
+        document.body.removeChild(link);
+      });
+    </script>
+  </body>
+</html>
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Simple HTML Table</title>
+  </head>
+  <body>
+    <table>
+      <tr>
+        <th>Column 1</th>
+        <th>Column 2</th>
+        <th>Column 3</th>
+      </tr>
+      <tr>
+        <td>Row 1, Cell 1</td>
+        <td>Row 1, Cell 2</td>
+        <td>Row 1, Cell 3</td>
+      </tr>
+      <tr>
+        <td>Row 2, Cell 1</td>
+        <td>Row 2, Cell 2</td>
+        <td>Row 2, Cell 3</td>
+      </tr>
+      <tr>
+        <td>Row 3, Cell 1</td>
+        <td>Row 3, Cell 2</td>
+        <td>Row 3, Cell 3</td>
+      </tr>
+    </table>
+  </body>
+</html>

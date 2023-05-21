@@ -1,0 +1,408 @@
+<%- include('../required/header') %>
+<style>
+	
+.toastify-success {
+  color: rgba(0,143,32);
+  box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.2);
+  padding:1.5rem 5rem;
+  min-width:360px;
+  border-radius:30px 0 30px 0;
+}
+.toastify-success .toastify-text {
+  border-bottom: 2px solid #00b894;
+}
+.failed, .error{
+	  color: rgba(215, 42, 42);
+	padding:1.5rem 5rem;
+	border-radius:30px 0 30px 0;
+}
+.swal2-popup .swal2-styled.swal2-cancel {
+      border: 1px solid #ff4b13;
+			color:#ff4b13;
+			padding-right:2rem;
+			padding-left:2rem; /* Set the border properties as per your requirement */
+			margin-bottom:2rem;
+    }
+	.swal2-popup .swal2-styled.swal2-confirm:hover, .swal2-popup .swal2-styled.swal2-confirm:focus{
+	color:#fff;
+		background:#ff4b13;
+		outline:#ff4b13;
+	}
+	.swal2-popup .swal2-styled.swal2-cancel:hover, .swal2-popup .swal2-styled.swal2-cancel:focus{
+	background:#fff;
+	}
+		.swal2-popup .swal2-styled.swal2-confirm {
+					padding-right:2rem;
+					padding-left:2rem; /* Set the border properties as per your requirement */
+					margin-bottom:2rem;
+		    }
+
+			.input-1{
+				color:#4f4f4f;
+			}
+
+ </style>
+
+	<main>
+			<main id="block">
+				<div class="row">
+					<div class="col-lg-8 col-md-8 col-sm-8 block1">
+						<div class="shadow-box add-block greetings">
+							<p class="block-title ">Block </p>
+						</div>
+					</div>
+
+					<div class="col-lg-4 col-md-4 col-sm-4 block1">
+						<a class="add" href="#" class="addblik" style="text-decoration:none;">
+						<div class=" add-block add block-a " >
+							<p class="add-block-text text-center">Add block</p>
+
+						</div>
+							</a>
+					</div>
+
+
+
+					<% for(var i = 0; i < blocks.length; i++) { %>
+						<% let sum = 0 %>
+						<% for(var j = 0; j < rooms.length; j++) { %>
+							<% if(rooms[j].blockid === blocks[i]._id) { %>
+								<% sum = sum + rooms[j].members.length %>
+							<% } %>
+						 <% } %>
+
+
+					<div class="col-lg-4 col-md-6 col-sm-12 block1">
+						<div class="shadow-box">
+							<p class="status">Block status: <span clas="act" style="color:#ff4b13"><%= blocks[i].status %></span></p>
+
+							<div class="block-details">
+								<i class="material-icons icon"><%= blocks[i].type %></i>
+								<h5 class="bname"><%= blocks[i].block_name %></h5>
+
+								<a class="edit" data-id=<%= blocks[i]._id%> >
+                  <span class="text-gradient"><i class="bx bx-edit edit-icon" id="edit-btn"></i></span>
+                </a>
+
+
+                <a class="delete" data-id=<%= blocks[i]._id%> >
+                  <span class="text-gradient"><i class="bx bx-trash trash-icon"></i></span>
+                </a>
+							</div>
+
+							<div class="room-details pt-4">
+								<h5 class="room-number "><%= blocks[i].rooms.length %></h5>
+								<span class="room-total">Rooms</span>
+							</div>
+
+							<div class="student-details pt-4">
+									<h5 class="room-number"  blockId="<%= blocks[i]._id %>"></h5>
+								<span class="tot mt-5">Students</span>
+							</div>
+
+							<button class="button mt-4 text-center" onclick="location.href='/view-block?id=<%= blocks[i]._id %>'">
+								<p class="view">View rooms</p>
+							</button>
+
+							<!-- <a href="/view-block?id=<%= blocks[i]._id%>" class="btn border-shadow update">
+								<span class="text-gradient"><i class="fas fa-pencil-alt"></i>njrhbjhbfjahb</span>
+							</a> -->
+						</div>
+					</div>
+
+
+					<% } %>
+
+
+				</div>
+
+			</main>
+			<!-- MAIN -->
+	</section>
+<!-- ************************************************************* add ***************************************** -->
+<script>
+$(".add").click(function() {
+    // Show confirmation message using SweetAlert2
+    Swal.fire({
+        html: `
+				<h5 class="mt-4 pb-3 font-weight-bold" style="color:#ff4b13; opacity:90%;">Create Block</h5>
+								<form>
+										<div class="form-group" >
+												<div class="input-box">
+														<label class="input-label mt-1" style="color:#4f4f4f">Block Name</label>
+														<input type="text" class="input-1" onfocus="setFocus(true)" id="block-name" onblur="setFocus(false)" style="border-color:#4f4f4f;" />
+												</div>
+
+												<div class="input-box active-grey mt-4">
+														<label class="input-label">Block Type</label>
+														<select class="input-1"   onfocus="setFocus(true)" onblur="setFocus(false)" id="block-type" style="color:#4f4f4f; border-color:#4f4f4f; font-size:16px;">
+																<option value="boys" >Boys Hostel</option>
+																<option value="girls">Girls Hostel</option>
+														</select>
+												</div>
+
+												<div class="input-box active-grey mt-4">
+														<label class="input-label">Status</label>
+														<select class="input-1" onfocus="setFocus(true)" onblur="setFocus(false)" id="status"style="color:#4f4f4f; border-color:#4f4f4f;font-size:16px;">
+																<option value="available";">Available</option>
+																<option value="unavailable">Unavailable</option>
+														</select>
+												</div>
+										</div>
+								</form>
+				`,
+				showCancelButton: true,
+				showConfirmButton: true,
+				confirmButtonColor: "#ff4b13",
+				cancelButtonColor: "#ffffff",
+				confirmButtonText: "Create",
+				preConfirm: () => {
+					// Retrieve the values of the input fields
+					const blockName = document.getElementById('block-name').value;
+					const blockType = document.getElementById('block-type').value;
+					const status = document.getElementById('status').value;
+					// Return the values as an object
+					return { blockName, blockType, status };
+				}
+    }).then((result) => {
+        if (result.isConfirmed) {
+            // Send AJAX request to delete block
+						const {blockName, blockType, status} = result.value;
+						console.log(blockName)
+						//
+						//
+						$.ajax({
+								url: "/api/blocks",
+								method: "POST",
+								data: { block_name: blockName, type:blockType, status: status },
+								success: function(response) {
+										// If the block was successfully updated, display a success message using Toastify and reload the page
+										Toastify({
+									      text: 'Block created successfully',
+									      duration: 3000, // Display for 3 seconds
+									      gravity: 'top', // Display at the top of the screen
+									      position: 'center', // Display in the center of the screen
+									      backgroundColor: 'rgba(196,293,206,1)', // Set the background color to white
+									      className: 'toastify-success', // Add a custom CSS class for styling
+									      stopOnFocus: true, // Stop the countdown when the user focuses on the screen
+									      onClick: function() { Toastify.hideAll() } // Hide all toasts when clicked
+									    }).showToast();
+
+									    // Navigate to a different page after the success message is displayed
+										location.reload();
+								},
+								error: function(error) {
+										// If there was an error updating the block, display an error message using Toastify
+
+										  Toastify({
+									          text: 'Please enter required details!',
+									          duration: 3000, // Display for 3 seconds
+									          gravity: 'top', // Display at the top of the screen
+									          position: 'center',
+									          className: "failed", // Display in the center of the screen
+									          backgroundColor: 'rgba(243,209,209,1)', // Set a gradient background color
+									          stopOnFocus: true, // Stop the countdown when the user focuses on the screen
+									          onClick: function() { Toastify.hideAll() } // Hide all toasts when clicked
+									        }).showToast();
+
+								}
+						});
+
+        }
+    });
+});
+
+</script>
+
+
+<!-- ************************************************************* delete***************************************** -->
+			<script>
+				// Attach event listener to delete icon
+$(".delete").click(function() {
+    var id = $(this).attr("data-id");
+
+
+    // Show confirmation message using SweetAlert2
+    Swal.fire({
+        // title: "Are you sure?",
+        html: "<h6 style='font-weight: 400; font-size:18px; opacity:90%; margin-top:2rem; color:#4f4f4f;'>Are you sure you want to delete the Block ?<h6>",
+        showCancelButton: true,
+        confirmButtonColor: "#ff4b13",
+        cancelButtonColor: "#ffffff",
+        confirmButtonText: "Delete",
+        cancelButtonText: "Cancel"
+    }).then((result) => {
+        if (result.isConfirmed) {
+
+            // Send AJAX request to delete block
+            $.ajax({
+                url: "/api/blocks/" + id,
+                method: "DELETE",
+                success: function(response) {
+                    // If the block was successfully deleted, display a success message using Toastify and reload the page
+                   Toastify({
+									      text: 'Block deleted successfully',
+									      duration: 3000, // Display for 3 seconds
+									      gravity: 'top', // Display at the top of the screen
+									      position: 'center', // Display in the center of the screen
+									      backgroundColor: 'rgba(196,293,206,1)', // Set the background color to white
+									      className: 'toastify-success', // Add a custom CSS class for styling
+									      stopOnFocus: true, // Stop the countdown when the user focuses on the screen
+									      onClick: function() { Toastify.hideAll() } // Hide all toasts when clicked
+									    }).showToast();
+									    location.reload();
+                },
+                error: function(error) {
+                    // If there was an error deleting the block, display an error message using Toastify
+                    Toastify({
+                        text: "Error deleting block. Try again!",
+                        backgroundColor:'rgba(243,209,209,1)',
+                        className: "error",
+												position:"top-center",
+                    }).showToast();
+                }
+            });
+        }
+    });
+});
+
+			</script>
+
+	<!-- EDIT -->
+	<script>
+         function setFocus(on) {
+            var element = document.activeElement;
+            if (on) {
+                setTimeout(function () {
+                element.parentNode.classList.add("focus");
+                });
+            } else {
+                let box = document.querySelector(".input-box");
+                box.classList.remove("focus");
+                $("input").each(function () {
+                var $input = $(this);
+                var $parent = $input.closest(".input-box");
+                if ($input.val()) $parent.addClass("focus");
+                else $parent.removeClass("focus");
+                });
+            }
+            }
+		// Attach event listener to edit icon
+		// Attach event listener to edit icon
+		$(".edit").click(function() {
+		    var id = $(this).attr("data-id");
+		    console.log("edit", id);
+
+		    // Send AJAX request to fetch block details
+		    $.ajax({
+		        url: "/api/blocks/" + id,
+		        method: "GET",
+		        success: function(response) {
+		            // If the block details were successfully fetched, display them in the input form inside the SweetAlert popup
+		            Swal.fire({
+		                html: `<h5 class="mt-4 pb-3 font-weight-bold" style="color:#ff4b13; font-size:16px; opacity:90%;">Update Block</h5>
+		                        <form>
+		                            <div class="form-group">
+		                                <div class="input-edit  mt-4">
+		                                    <label class="input-label">Block Name</label>
+		                                    <input type="text" class="input-1" onfocus="setFocus(true)" id="block-name" onblur="setFocus(true)" value="${response.block_name}" style="border-color:#4f4f4f;font-size:16px; color:#4f4f4f;" />
+		                                </div>
+
+		                                <div class="input-box active-grey mt-4">
+		                                    <label class="input-label">Block Type</label>
+		                                    <select class="input-1" onfocus="setFocus(true)" onblur="setFocus(false)" id="block-type" style="border-color:#4f4f4f; font-size:16px;color:#4f4f4f;" >
+		                                        <option value="boys" ${response.type === "boys" ? "selected" : ""}>Boys Hostel</option>
+		                                        <option value="girls" ${response.type === "girls" ? "selected" : ""}>Girls Hostel</option>
+		                                    </select>
+		                                </div>
+
+		                              
+		                                <div class="input-box active-grey  mt-4">
+		                                    <label class="input-label">Status</label>
+		                                    <select class="input-1" onfocus="setFocus(true)" onblur="setFocus(false)" id="status" style="border-color:#4f4f4f;font-size:16px; color:#4f4f4f;"  >
+		                                        <option value="available" ${response.status === "available" ? "selected" : ""}>Available</option>
+		                                        <option value="unavailable" ${response.status === "unavailable" ? "selected" : ""}>Unavailable</option>
+		                                    </select>
+		                                </div>
+
+
+		                            </div>
+		                        </form>`,
+		                showCancelButton: true,
+		                showConfirmButton: true,
+										confirmButtonColor: "#ff4b13",
+										cancelButtonColor: "#ffffff",
+										confirmButtonText: "Update",
+										preConfirm: () => {
+									    // Retrieve the values of the input fields
+									    const blockName = document.getElementById('block-name').value;
+									    const blockType = document.getElementById('block-type').value;
+									    const numRooms = document.getElementById('num-rooms').value;
+									    const status = document.getElementById('status').value;
+									    // Return the values as an object
+									    return { blockName, blockType, numRooms, status };
+									  }
+
+		            }).then((result) => {
+		                if (result.isConfirmed) {
+											const {blockName, blockType, numRooms, status} = result.value;
+											console.log(blockName)
+
+
+											$.ajax({
+													url: "/api/blocks/" + id,
+													method: "PUT",
+													data: { block_name: blockName, type:blockType, no_of_rooms:numRooms, status: status   },
+													success: function(response) {
+															// If the block was successfully updated, display a success message using Toastify and reload the page
+															Toastify({
+																	text: "Block updated successfully!",
+																	backgroundColor:'rgba(196,293,206,1)',
+																	className: "toastify-success",
+																	position:"top-center",
+															}).showToast();
+															location.reload();
+													},
+													error: function(error) {
+															// If there was an error updating the block, display an error message using Toastify
+															Toastify({
+																	text: "Error updating block: " + error.responseText,
+																	backgroundColor:'rgba(243,209,209,1)',
+																	className: "error",
+																	position:"top-center",
+															}).showToast();
+													}
+											});
+		                }
+		            });
+		        },
+		        error: function(error) {
+		            // If there was an error fetching the block details, display an error message using Toastify
+		            Toastify({
+		                text: "Error while updating block. Try again!",
+		                backgroundColor: "rgba(243,209,209,1)",
+		                className: "error",
+		            }).showToast();
+		        }
+		    });
+		});
+	</script>
+	<script>
+		 const spans = document.querySelectorAll('[blockId]');
+
+  spans.forEach(span => {
+    const blockId = span.getAttribute('blockId');
+    console.log(blockId);
+    fetch(`http://localhost:5000/api/${blockId}/students/count`)
+    .then(response => response.json())
+    .then(data => {
+      span.textContent = data;
+    });
+  });
+	</script>
+
+
+
+</body>
+
+</html>

@@ -1,0 +1,538 @@
+
+<%- include('../required/header') %>
+<style>
+
+  tr.disabled-row {
+    background-color: rgba(255, 75, 19, 0.1); /* Set the background color for disabled rows */
+    color: #ffffff; /* Set the text color for disabled rows */
+  }
+  .toastify-su {
+  color: rgba(0,143,32);
+  box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.2);
+  padding:1.5rem 5rem;
+  border-radius:30px 0 30px 0;
+}
+
+.swal2-popup .swal2-styled.swal2-cancel {
+      border: 1px solid #ff4b13;
+			color:#ff4b13;
+			padding-right:2rem;
+			padding-left:2rem; /* Set the border properties as per your requirement */
+			margin-bottom:2rem;
+    }
+    
+	
+    .error{
+	  color: rgba(215, 42, 42);
+	padding:1.5rem 5rem;
+	border-radius:30px 0 30px 0;
+}
+		.swal2-popup .swal2-styled.swal2-confirm {
+					padding-right:2rem;
+					padding-left:2rem; /* Set the border properties as per your requirement */
+								margin-bottom:2rem;
+		    }
+      
+</style>
+
+ <section id="stat">
+             <div class="col">
+                 <div class="col-lg-12 col-md-12 col-sm-12">
+                     <di v class="bx-shadow5">
+                         <div class="box ml-3">
+                             <div class="di">
+                                 <h5 class="fon font-weight-bold nt"><%= block.block_name %></h5>
+                                 <h6 class="fon roo sttt">Block</h6>
+                             </div>
+                             <div class="ico di">
+                                 <i class='far fa-building bulid'></i>
+                             </div>
+                         </div>
+                         <div class="box">
+                             <div class="di">
+                                 <h5 class="fon font-weight-bold nt"><%= block.rooms.length %></h5>
+                                 <h6 class="fon roo stt">Rooms</h6>
+                             </div>
+                             <div class="ico di">
+                                 <i class='bx bx-home bx-tada-hover bui'></i>
+                             </div>
+                         </div>
+                         <div class="box mr-3">
+                             <div class="di">
+                                 <h5 class="fon font-weight-bold nt" blockId="<%= block._id %>"></h5>
+                                 <h6 class="fon roo st">Students</h6>
+                             </div>
+                             <div class="ico di">
+                                 <i class="far fa-user fa-outline builds"></i>
+                             </div>
+                         </div>
+                 </div>
+
+             </div>
+
+             <div class="col-lg-12 col-md-12 col-sm-12 search-div1">
+                 <div class="bx-shadow2">
+                     <div class="pad mt-4 pl-3 pr-3">
+                         <h5 class="font-weight-bold ml-3 pt-2" style="color:#FF4B13; opacity:90%;">
+                             Room details
+                         </h5>
+                         <button class="room-add-but pb-2 pt-2 addroom">Add room</button>
+                         <div class="table-responsive " style="overflow-x:auto; ">
+                             <table class="tab p-2 mt-2 text-center" style="margin:0 auto;">
+                                 <thead>
+                                     <tr>
+                                         <th scope="col">SI.NO</th>
+                                         <th scope="col">Room</th>
+                                         <th scope="col">Capacity</th>
+                                         <th scope="col">Name</th>
+                                         <th scope="col">SID</th>
+                                         <th scope="col">Course</th>
+                                         <th scope="col">Year</th>
+                                         <th scope="col">Action</th>
+                                     </tr>
+                                 </thead>
+                                 <tbody>
+                                   <% for(var i = 0; i < rooms.length; i++) { %>
+                                     <% if (rooms[i].blockid === block._id) { %>
+                                       <% var studentsInRoom = allocate.filter(a => a.roomid === rooms[i]._id); %>
+                                       <% console.log("fghjkl", studentsInRoom) %>
+                                       <% if (studentsInRoom.length > 0) { %>
+                                      
+                                         <tr <% if (rooms[i].isDisabled) { %>class="disabled-row"<% } %>>
+                                           <td><%= i %></td>
+                                           <td><%= rooms[i].room_name %></td>
+                                           <td><%= rooms[i].room_capacity %></td>
+                                           <td class="mw-100">
+                                             <% studentsInRoom.forEach(function(student, index) { %>
+                                               <%= student.student_name %>
+                                               <% if (index < studentsInRoom.length - 1) { %>
+                                                 <br>
+                                               <% } %>
+                                             <% }); %>
+                                           </td>
+                                           <td>
+                                             <% studentsInRoom.forEach(function(student, index) { %>
+                                               <%= student.sid %>
+                                               <% if (index < studentsInRoom.length - 1) { %>
+                                                 <br>
+                                               <% } %>
+                                             <% }); %>
+                                           </td>
+                                           <td>
+                                             <% studentsInRoom.forEach(function(student, index) { %>
+                                               <%= student.course %>
+                                               <% if (index < studentsInRoom.length - 1) { %>
+                                                 <br>
+                                               <% } %>
+                                             <% }); %>
+                                           </td>
+                                           <td>
+                                             <% studentsInRoom.forEach(function(student, index) { %>
+                                               <%= student.year %>
+                                               <% if (index < studentsInRoom.length - 1) { %>
+                                                 <br>
+                                               <% } %>
+                                             <% }); %>
+                                           </td>
+                                           <td>
+                                             <% studentsInRoom.forEach(function(student, index) { %>
+                                               <i data-id=<%= student.sid %> class="bx bx-trash room-ico add"></i>
+                                               <% if (index < studentsInRoom.length - 1) { %>
+                                                 <br>
+                                               <% } %>
+                                             <% }); %>
+                                           </td>
+                                         </tr>
+                                         
+
+                                          
+
+                                       <% } else { %>
+                                       <tr>
+                                         <td><%= i %></td>
+                                         <td><%= rooms[i].room_name %></td>
+                                         <td class="mw-100">
+                                           <%= rooms[i].room_capacity %>
+                                         </td>
+                                         <td>
+                                           <p>No students in the room</p>
+                                         </td>
+                                         <td>
+
+                                         </td>
+                                         <td>
+
+                                         </td>
+                                         <td>
+
+                                         </td>
+                                         <td>
+                                           <i class="bx bx-trash room-ico"></i>
+                                         </td>
+                                       </tr>
+                                        <% }%>
+
+
+                                     <% }%>
+                                     <% } %>
+
+                                 </tbody>
+
+                             </table>
+                             <br>
+
+                         </div>
+                     </div>
+                 </div>
+             </div>
+
+             </div>
+
+
+
+
+
+         </section>
+
+
+
+
+
+
+ </body>
+
+<script>
+$(".addroom").click(function() {
+    // Show confirmation message using SweetAlert2
+    Swal.fire({
+        html: `
+        <h5 class="mt-4 pb-3 font-weight-bold" style="color:#ff4b13; opacity:90%;">Create Room</h5>
+                <form>
+                    <div class="form-group" >
+                        <div class="input-box">
+                            <label class="input-label mt-1" style="color:#4f4f4f">Room Name</label>
+                            <input type="text" class="input-1" onfocus="setFocus(true)" id="room-name" onblur="setFocus(false)" style="border-color:#4f4f4f;font-size:16px;"/>
+                        </div>
+
+                        <div class="input-box mt-4">
+                            <label class="input-label mt-1" style="color:#4f4f4f">Room Capacity</label>
+                            <input type="integer" class="input-1" onfocus="setFocus(true)" id="room-capacity" onblur="setFocus(false)" style="border-color:#4f4f4f;font-size:16px; color:#4f4f4f;"/>
+                        </div>
+
+                        <div class="input-box active-grey mt-4">
+                            <label class="input-label">status</label>
+                            <select class="input-1"   onfocus="setFocus(true)" onblur="setFocus(false)" id="status" style="border-color:#4f4f4f;font-size:16px; color:#4f4f4f;">
+                                <option value="available">Available</option>
+                                <option value="unavailable">Unavailable</option></option>
+                            </select>
+                        </div>
+
+                        <div class="input-box active-grey mt-4">
+                            <label class="input-label">IsHandicaped</label>
+                            <select class="input-1" onfocus="setFocus(true)" onblur="setFocus(false)" id="ishandicapped" style="border-color:#4f4f4f;font-size:16px; color:#4f4f4f;">
+                                <option value="true">True</option>
+                                <option value="false">False</option>
+                            </select>
+                        </div>
+                    </div>
+                </form>
+        `,
+        showCancelButton: true,
+        showConfirmButton: true,
+        confirmButtonColor: "#ff4b13",
+        cancelButtonColor: "#ffffff",
+        confirmButtonText: "Create",
+        preConfirm: () => {
+          // Retrieve the values of the input fields
+          const room_name = document.getElementById('room-name').value;
+          const room_capacity = document.getElementById('room-capacity').value;
+          const status = document.getElementById('status').value;
+          const isDisabled = document.getElementById('ishandicapped').value;
+          // Return the values as an object
+          return { room_name, room_capacity, status,isDisabled };
+        }
+    }).then((result) => {
+        if (result.isConfirmed) {
+            // Send AJAX request to delete block
+            const blockid = "<%= block._id %>"
+            console.log(blockid)
+            const {room_name, room_capacity, status, isDisabled} = result.value;
+
+            //
+            $.ajax({
+                url: "/room/api/rooms",
+                method: "POST",
+                data: {room_name, room_capacity,blockid, status, isDisabled} ,
+                success: function(response) {
+                    // If the block was successfully updated, display a success message using Toastify and reload the page
+                    Toastify({
+                        text: 'Room created Successfully',
+                        duration: 3000, // Display for 3 seconds
+                        gravity: 'top', // Display at the top of the screen
+                        position: 'center', // Display in the center of the screen
+                        backgroundColor: 'rgba(196,293,206,1)', // Set the background color to white
+                        className: 'toastify-su', // Add a custom CSS class for styling
+                        stopOnFocus: true, // Stop the countdown when the user focuses on the screen
+                        onClick: function() { Toastify.hideAll() } // Hide all toasts when clicked
+                      }).showToast();
+
+                      // Navigate to a different page after the success message is displayed
+                    location.reload();
+                },
+                error: function(error) {
+                    // If there was an error updating the block, display an error message using Toastify
+
+                      Toastify({
+                            text: 'Please enter details.',
+                            duration: 4000, // Display for 3 seconds
+                            gravity: 'top', // Display at the top of the screen
+                            position: 'center',
+                            className: "error", // Display in the center of the screen
+                            backgroundColor: 'rgba(243,209,209,1)', // Set a gradient background color
+                            stopOnFocus: true, // Stop the countdown when the user focuses on the screen
+                            onClick: function() { Toastify.hideAll() } // Hide all toasts when clicked
+                          }).showToast();
+
+                }
+            });
+
+        }
+    });
+});
+
+</script>
+
+
+
+ <script>
+
+     function setFocus(on) {
+         var element = document.activeElement;
+         if (on) {
+             setTimeout(function () {
+                 element.parentNode.classList.add("focus");
+             });
+         } else {
+             let box = document.querySelector(".input-box");
+             box.classList.remove("focus");
+             $("input").each(function () {
+                 var $input = $(this);
+                 var $parent = $input.closest(".input-box");
+                 if ($input.val()) $parent.addClass("focus");
+                 else $parent.removeClass("focus");
+             });
+         }
+     }
+
+
+ </script>
+ <script>
+
+     var x, i, j, l, ll, selElmnt, a, b, c;
+     /*look for any elements with the class "custom-select":*/
+     x = document.getElementsByClassName("custom-select");
+     l = x.length;
+     for (i = 0; i < l; i++) {
+         selElmnt = x[i].getElementsByTagName("select")[0];
+         ll = selElmnt.length;
+         /*for each element, create a new DIV that will act as the selected item:*/
+         a = document.createElement("DIV");
+         a.setAttribute("class", "select-selected");
+         a.innerHTML = selElmnt.options[selElmnt.selectedIndex].innerHTML;
+         x[i].appendChild(a);
+         /*for each element, create a new DIV that will contain the option list:*/
+         b = document.createElement("DIV");
+         b.setAttribute("class", "select-items select-hide");
+         for (j = 1; j < ll; j++) {
+             /*for each option in the original select element,
+             create a new DIV that will act as an option item:*/
+             c = document.createElement("DIV");
+             c.innerHTML = selElmnt.options[j].innerHTML;
+             c.addEventListener("click", function (e) {
+                 /*when an item is clicked, update the original select box,
+                 and the selected item:*/
+                 var y, i, k, s, h, sl, yl;
+                 s = this.parentNode.parentNode.getElementsByTagName("select")[0];
+                 sl = s.length;
+                 h = this.parentNode.previousSibling;
+                 for (i = 0; i < sl; i++) {
+                     if (s.options[i].innerHTML == this.innerHTML) {
+                         s.selectedIndex = i;
+                         h.innerHTML = this.innerHTML;
+                         y = this.parentNode.getElementsByClassName("same-as-selected");
+                         yl = y.length;
+                         for (k = 0; k < yl; k++) {
+                             y[k].removeAttribute("class");
+                         }
+                         this.setAttribute("class", "same-as-selected");
+                         break;
+                     }
+                 }
+                 h.click();
+             });
+             b.appendChild(c);
+         }
+         x[i].appendChild(b);
+         a.addEventListener("click", function (e) {
+             /*when the select box is clicked, close any other select boxes,
+             and open/close the current select box:*/
+             e.stopPropagation();
+             closeAllSelect(this);
+             this.nextSibling.classList.toggle("select-hide");
+             this.classList.toggle("select-arrow-active");
+         });
+     }
+     function closeAllSelect(elmnt) {
+         /*a function that will close all select boxes in the document,
+         except the current select box:*/
+         var x, y, i, xl, yl, arrNo = [];
+         x = document.getElementsByClassName("select-items");
+         y = document.getElementsByClassName("select-selected");
+         xl = x.length;
+         yl = y.length;
+         for (i = 0; i < yl; i++) {
+             if (elmnt == y[i]) {
+                 arrNo.push(i)
+             } else {
+                 y[i].classList.remove("select-arrow-active");
+             }
+         }
+         for (i = 0; i < xl; i++) {
+             if (arrNo.indexOf(i)) {
+                 x[i].classList.add("select-hide");
+             }
+         }
+     }
+     /*if the user clicks anywhere outside the select box,
+     then close all select boxes:*/
+     document.addEventListener("click", closeAllSelect);
+ </script>
+
+ </html>
+ <!-- bx-tada-hover -->
+
+<!-- NAVBAR -->
+
+<script>
+  $(".add").click(function() {
+    var id = $(this).attr("data-id");
+		console.log(id);
+
+    // Show confirmation message using SweetAlert2
+    Swal.fire({
+        html: `
+				<h5 class="mt-4 pb-3 font-weight-bold" style="color:#ff4b13; opacity:90%;">Remove Students</h5>
+								<form>
+										<div class="form-group">
+                      <h6>Give a reason to remove a student</h6>
+
+                          <div class="input-box">
+														<label class="input-label">Reason To Remove</label>
+														<textarea type="text" class="input-1" style="height: 150px" onfocus="setFocus(true)" id="reason" onblur="setFocus(false)"></textarea>
+												</div>
+										</div>
+								</form>
+				`,
+        showCancelButton: true,
+        showConfirmButton: true,
+        confirmButtonColor: "#ff4b13",
+        cancelButtonColor: "#ffffff",
+        confirmButtonText: "Remove",
+				preConfirm: () => {
+					// Retrieve the values of the input fields
+					const Description = document.getElementById('reason').value;
+
+					// Return the values as an object
+					return { Description };
+				}
+    }).then((result) => {
+        if (result.isConfirmed) {
+            // Send AJAX request to delete block
+						const {Description} = result.value;
+
+						//
+						//
+						$.ajax({
+								url: `/students/delete/${id}`,
+								method: "POST",
+								data: { Description },
+								success: function(response) {
+
+        $.ajax({
+            url: `/room/api/room/student/${id}`,
+            method: "DELETE",
+            success: function() {
+                // Student successfully removed from "allocations" database
+                Toastify({
+                    text: "Student removed from allocations successfully!",
+                    backgroundColor: "#00b09b",
+                    className: "success",
+                    position: "top-center",
+                }).showToast();
+                location.reload();
+            },
+            error: function(error) {
+                // Error removing student from "allocations" database
+                Toastify({
+                    text: "Error removing student from allocations: " + error.responseText,
+                    backgroundColor: "linear-gradient(to right, #ff5f6d, #ffc371)",
+                    className: "error",
+                    position: "top-center",
+                }).showToast();
+            }
+        });
+								},
+								error: function(error) {
+										// If there was an error updating the block, display an error message using Toastify
+										Toastify({
+												text: "Error removing student: " + error.responseText,
+												backgroundColor: "linear-gradient(to right, #ff5f6d, #ffc371)",
+												className: "error",
+												position:"top-center",
+										}).showToast();
+								}
+						});
+
+        }
+    });
+});
+</script>
+<script>
+  function setFocus(on) {
+            var element = document.activeElement;
+            if (on) {
+                setTimeout(function () {
+                element.parentNode.classList.add("focus");
+                });
+            } else {
+                let box = document.querySelector(".input-box");
+                box.classList.remove("focus");
+                $("input").each(function () {
+                var $input = $(this);
+                var $parent = $input.closest(".input-box");
+                if ($input.val()) $parent.addClass("focus");
+                else $parent.removeClass("focus");
+                });
+            }
+            }
+</script>
+<script>
+  const spans = document.querySelectorAll('[blockId]');
+
+  spans.forEach(span => {
+    const blockId = span.getAttribute('blockId');
+    console.log(blockId);
+    fetch(`http://localhost:5000/api/${blockId}/students/count`)
+    .then(response => response.json())
+    .then(data => {
+      span.textContent = data;
+    });
+  });
+  </script>
+  
+
+
+</body>
+
+</html>
+<!-- bx-tada-hover -->

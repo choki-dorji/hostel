@@ -1,0 +1,202 @@
+
+
+<-- <style>
+  body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #f2f2f2;
+  }
+  .form-container {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.3);
+      max-width: 500px;
+      width: 100%;
+  }
+  h2 {
+      text-align: center;
+      margin-bottom: 20px;
+  }
+  .form-select {
+      display: block;
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 20px;
+      font-size: 16px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      background-color: #f9f9f9;
+  }
+  .form-group {
+      margin-bottom: 20px;
+  }
+  .form-group-label {
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 10px;
+  }
+  .form-checkboxes {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+  }
+  .form-checkbox {
+      display: flex;
+      align-items: center;
+      font-size: 16px;
+  }
+  .form-checkbox input[type="checkbox"] {
+      margin-right: 10px;
+  }
+  input[type="submit"] {
+      display: block;
+      margin: 20px auto 0;
+      padding: 10px 20px;
+      font-size: 16px;
+      border-radius: 5px;
+      border: none;
+      background-color: #4CAF50;
+      color: #fff;
+      cursor: pointer;
+  }
+  input[type="submit"]:hover {
+      background-color: #3e8e41;
+  }
+</style>
+
+<div class="form-container">
+    <h2>Create Allocation</h2>
+    <form class="form-wrapper" onsubmit="submitNewForm(event)">
+      <select class="form-select" id="year-select" name="year-select" onchange="getTotalStudents()">
+        <option value="1">Year 1</option>
+        <option value="2">Year 2</option>
+        <option value="3">Year 3</option>
+        <option value="4">Year 4</option>
+      </select>
+      <p id="total-students"></p>
+
+
+      <div class="form-group">
+        <div class="form-group-label">select boys Hostel</div>
+        <div class="form-checkboxes">
+        <% for(var i = 0; i < block.length; i++) { %>
+          <% if(block[i].type === "boys") { %>
+              <label class="form-checkbox">
+                <input type="checkbox" id="group1-option<%= i %>" name="group1-option1" value="<%= block[i]._id %>">
+                <span class="form-checkbox-label"><%= block[i].block_name %></span>
+
+              </label>
+              <p><%= block[i].no_of_rooms %></p>
+          <% } %>
+
+        <% } %>
+
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="form-group-label">select girls Hostel</div>
+        <div class="form-checkboxes">
+            <% for(var i = 0; i < block.length; i++) { %>
+              <% if(block[i].type === "girls") { %>
+                <label class="form-checkbox">
+                  <input type="checkbox" id="group2-option<%= i %>" name="group2-option1" value="<%= block[i]._id %>">
+                  <span class="form-checkbox-label"><%= block[i].block_name %></span><br>
+
+                </label>
+                <p><%= block[i].rooms.length %></p>
+                <% } %>
+              <% } %>
+        </div>
+      </div>
+
+      <input type="submit" value="Submit">
+    </form>
+  </div>
+
+  <script>
+
+    function getTotalStudents() {
+      const yearSelect = document.getElementById("year-select").value;
+      fetch(`http://localhost:3000/students/students/${yearSelect}`)
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Failed to fetch student data');
+          }
+          return response.json();
+        })
+        .then(data => {
+          console.log(data)
+          const maleStudents = data.totalMaleStudents;
+          const femaleStudents = data.totalFemaleStudents;
+
+          const totalStudentsElement = document.getElementById('total-students');
+          totalStudentsElement.innerHTML = `male: ${maleStudents} female: ${femaleStudents}`;
+
+
+          console.log(maleStudents, femaleStudents)
+        })
+        .catch(error => {
+          console.error(error);
+        });
+    }
+  </script>
+
+
+  <script>
+     // Add a function to submit the new form
+     function submitNewForm(event) {
+  event.preventDefault();
+
+  const yearSelect = document.getElementById("year-select").value;
+  const maleBlocks = document.querySelectorAll('input[name="group1-option1"], input[name="group1-option2"], input[name="group1-option3"]');
+  const femaleBlocks = document.querySelectorAll('input[name="group2-option1"], input[name="group2-option2"], input[name="group2-option3"]');
+
+  const selectedMaleBlocks = [];
+  maleBlocks.forEach(block => {
+    if (block.checked) {
+      selectedMaleBlocks.push(block.value);
+    }
+  });
+
+  const selectedFemaleBlocks = [];
+  femaleBlocks.forEach(block => {
+    if (block.checked) {
+      selectedFemaleBlocks.push(block.value);
+    }
+  });
+  const queryParams = new URLSearchParams(window.location.search);
+  const year = queryParams.get("year");
+  console.log("////////////////////////////////////////////////", year)
+
+  const data = { years: parseInt(yearSelect), maleBlock: selectedMaleBlocks, femaleBlock: selectedFemaleBlocks };
+
+  console.log(data)
+
+  fetch(`http://localhost:5000/Allocate/api/years/${year}`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data)
+  })
+  .then(response => {
+    if (!response.ok) {
+      throw new Error('Failed to allocate rooms');
+    }
+    return response.json();
+  })
+  .then(data => {
+    console.log(data.message);
+    alert("Room Allocated successfully")
+  })
+  .catch(error => {
+    console.error(error);
+  });
+}
+
+
+  </script> -->

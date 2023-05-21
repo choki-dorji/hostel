@@ -1,0 +1,380 @@
+<%- include('../required/header.ejs') %>
+
+
+
+<style type="text/css">
+@import url("https://fonts.googleapis.com/css?family=Open+Sans:400,400i,600,700");
+
+$color: #80868b;
+$active-color: #1a73e8;
+$error-color: #f44336;
+$input-value-color: #202124;
+$border-color: 1px solid #dadce0;
+
+$border-color-active: 2px solid $active-color;
+$default-background: #fff;
+
+/* Buttons */
+$btn-default-bg-color: #fff;
+$btn-default-bgh-color: #ddd;
+$btn-default-text-color: #333;
+
+$btn-primary-bg-color: #1a73e8;
+$btn-primary-bgh-color: #287ae6;
+$btn-primary-boxshadow-color: 0 1px 1px 0 rgba(66, 133, 244, 0.45),
+  0 1px 3px 1px rgba(66, 133, 244, 0.3);
+$btn-primary-text-color: #fff;
+
+body {
+  font-family: "open sans", roboto, arial, sans-seif;
+  background: $default-background;
+}
+input {
+  background: $default-background;
+}
+#form {
+  width: 40vw;
+  margin: 0 auto;
+  margin-top: 9rem;
+  border: 1px solid #4f4f4f;
+  padding-left:  40px;
+  padding-right:  40px;
+  border-radius: 5px;
+  padding-top: 40px;
+  padding-bottom: 70px;
+}
+.pull-right:active, .pull-right:focus{
+  outline:none;
+  border:none;
+}
+.toastify-su {
+  margin-top: -1rem;
+  color: rgba(0,143,32);
+  box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.2);
+  padding:1.5rem 5rem;
+  border-radius:30px 0 30px 0;
+}
+.error{
+  margin-top: -1rem;
+	  color: rgba(215, 42, 42);
+	padding:1.5rem 5rem;
+	border-radius:30px 0 30px 0;
+}
+.input-box {
+  position: relative;
+  margin: 10px 0;
+  .input-label {
+    position: absolute;
+    color: $color;
+    font-size: 16px;
+    font-weight: 400;
+    max-width: calc(100% - (2 * 8px));
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    left: 8px;
+    top: 13px;
+    padding: 0 8px;
+    transition: 250ms;
+    user-select: none;
+    pointer-events: none;
+    svg {
+      position: relative;
+      width: 15px;
+      height: 15px;
+      top: 2px;
+      transition: 250ms;
+    }
+  }
+  .input-1 {
+    box-sizing: border-box;
+    height: 50px;
+    width: 100%;
+    border-radius: 4px;
+    padding: 13px 15px;
+   border-color:#4f4f4f;
+    font-size:16px;
+    color:#4f4f4f;
+    transition: 250ms;
+    &:focus {
+      outline: none;
+      border: 2px solid #1a73e8;
+      transition: 250ms;
+    }
+  }
+}
+.input-box.error {
+  .input-label {
+    color: $error-color;
+    top: -8px;
+    background: $default-background;
+    font-size: 11px;
+    transition: 250ms;
+  }
+  .input-1 {
+    border: 2px solid $error-color;
+  }
+}
+.input-box.focus,
+.input-box.active {
+  .input-label {
+    color: $active-color;
+    top: -8px;
+    background: $default-background;
+    font-size: 11px;
+
+    transition: 250ms;
+
+    svg {
+      position: relative;
+      width: 11px;
+      height: 11px;
+      top: 2px;
+      transition: 250ms;
+    }
+  }
+}
+.input-box.active {
+  .input-1 {
+    border: 2px solid #1a73e8;
+  }
+}
+.btn {
+  background: $btn-default-bg-color;
+  color: $btn-default-text-color;
+  cursor: pointer;
+  border: none;
+  white-space: normal;
+  letter-spacing: 0.25px;
+  font-weight: 400;
+  font-size: 14px;
+  padding: 8px 16px;
+  border-radius: 4px;
+  line-height: 20px;
+  min-width: 88px;
+  transition: 250ms;
+
+
+  &:focus {
+    outline: none;
+  }
+}
+
+.pull-right {
+  float: right;
+  opacity: 100;
+  color: #fff;
+  background-color: #ff4b13;
+  border-radius:5px;
+  border:none;
+  font-size:16px;
+height:45px;
+width:120px;
+
+}
+.pull-right:hover{
+  background-color:#ff4b13 ;
+  color:#fff;
+}
+.clear {
+  clear: both;
+}
+@media screen and (max-width: 760px) {
+  #form {
+    width: 90%;
+   margin-left: 3.5rem;
+   justify-content: center;
+  align-items: center;
+  }
+  .btn{
+    width: 100%;
+    height:  10%;
+  }
+}
+
+@media screen and (min-width: 760px) {
+  #form {
+    width: 70%;
+   margin-left: 9rem;
+  }
+}
+.btn {
+  margin-top: 16px;
+}
+select{
+  background-color: white;
+}
+.add-form{
+  shadow: 0 3px 10px black;
+  height:auto;
+  background:blue;
+  width:98.5%;
+  position:relative;
+
+  margin:7.6rem 0 0 2.3rem;
+  overflow-x:hidden;
+}
+</style>
+
+  <form id="form">
+    <div class="input-box">
+    <h5 style="text-align: center; font-weight:bold;  padding-bottom:1rem;">Create Room</h5>
+  </div>
+  <div class="input-box">
+    <label class="input-label">Room Name</label>
+    <input type="text" class="input-1" name="room_name" id="room-name" required onfocus="setFocus(true)" onblur="setFocus(false)" />
+  </div>
+   <div class="input-box">
+    <label class="input-label">Room Capacity</label>
+    <input type="number" class="input-1" id="room-capacity" name="room_capacity" required onfocus="setFocus(true)" onblur="setFocus(false)" />
+  </div>
+
+  <div class="input-box">
+    <label class="input-label">Block</label>
+    <select class="input-1" id="block-id" name="blockid" required onfocus="setFocus(true)" onblur="setFocus(false)">
+      <option value="" disabled selected></option>
+      <% for(var j = 0; j < block.length; j++)  { %>
+      <option value="<%= block[j]._id %>"><%= block[j].block_name %></option>
+      <% } %>
+
+    </select>
+  </div>
+  <div class="input-box">
+    <label class="input-label">Status</label>
+    <select class="input-1" id="status" name="status" onfocus="setFocus(true)" onblur="setFocus(false)">
+        <option value="" disabled selected></option>
+      <option value="available">Available</option>
+      <option value="unavailable">Unavailable</option>
+
+    </select>
+  </div>
+
+  <div class="input-box">
+    <label class="input-label">isDisabled</label>
+    <select class="input-1" id="isDisabled" name="isDisabled" onfocus="setFocus(true)" onblur="setFocus(false)">
+      <option value="" disabled selected></option>
+      <option value="true">True</option>
+      <option value="false">False</option>
+
+    </select>
+  </div>
+
+  <button type="submit" class="btn pull-right">Create</button>
+  <br>
+</form>
+
+</body>
+<script>
+  function setFocus(on) {
+  var element = document.activeElement;
+  if (on) {
+    setTimeout(function () {
+      element.parentNode.classList.add("focus");
+    });
+  } else {
+    let box = document.querySelector(".input-box");
+    box.classList.remove("focus");
+    $("input").each(function () {
+      var $input = $(this);
+      var $parent = $input.closest(".input-box");
+      if ($input.val()) $parent.addClass("focus");
+      else $parent.removeClass("focus");
+    });
+  }
+}
+const form = document.querySelector('#form');
+
+
+  form.addEventListener('submit', async (event) => {
+    event.preventDefault();
+
+    const roomName = document.querySelector('#room-name').value;
+    const roomCapacity = document.querySelector('#room-capacity').value;
+    const blockId = document.querySelector('#block-id').value;
+    const status = document.querySelector('#status').value;
+    const isDisabled = document.querySelector('#isDisabled').value;
+
+    console.log(roomName, roomCapacity, blockId, status, isDisabled)
+
+    try {
+      const response = await fetch('api/rooms', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          room_name: roomName,
+          room_capacity: roomCapacity,
+          blockid: blockId,
+          isDisabled: isDisabled,
+          status: status
+        })
+      });
+
+      const responsedata = await response.json()
+
+      console.log("response ", responsedata)
+
+      if (response.ok) {
+        form.reset();
+        Toastify({
+        text: 'Room created successfully!',
+        backgroundColor: 'rgba(196,293,206,1)',
+        className: "toastify-su",
+        gravity: "top",
+        position: "center",
+        offset: {
+          x: 0, // horizontal axis - can be a number or a string indicating unity. eg: '2em'
+          y: 20 // vertical axis - can be a number or a string indicating unity. eg: '2em'
+        } 
+      }).showToast();
+
+      } else if (response.status === 422) {
+        Toastify({
+        text:  `The provided room name already exists. Please enter another name!`,
+        backgroundColor: 'rgba(243, 209, 209,1)',
+        className: "error",
+        gravity: "top",
+        position: "center",
+        offset: {
+          x: 0, // horizontal axis - can be a number or a string indicating unity. eg: '2em'
+          y: 20 // vertical axis - can be a number or a string indicating unity. eg: '2em'
+        }
+      }).showToast();
+      }
+      else {
+         const errorMessage = await response.text() || 'Failed to create room';
+      Toastify({
+        text: errorMessage,
+        backgroundColor: 'rgba(243, 209, 209,1)',
+        className: "error",
+        gravity: "top",
+        position: "center",
+        offset: {
+          x: 0, // horizontal axis - can be a number or a string indicating unity. eg: '2em'
+          y: 20 // vertical axis - can be a number or a string indicating unity. eg: '2em'
+        }
+      }).showToast();
+      }
+    } catch (err) {
+      console.error(err);
+       console.error(err);
+    Toastify({
+      text: 'Failed to create room',
+      backgroundColor: 'rgba(243, 209, 209,1)',
+      className: "error",
+      gravity: "top",
+      position: "center",
+      offset: {
+        x: 0, // horizontal axis - can be a number or a string indicating unity. eg: '2em'
+        y: 20 // vertical axis - can be a number or a string indicating unity. eg: '2em'
+      }
+    }).showToast();
+    }
+  });
+
+</script>
+
+
+
+</html>

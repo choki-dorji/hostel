@@ -1,0 +1,119 @@
+/* Block div  */
+
+#block15 .search-div2 {
+  position: absolute;
+  margin-top: 11.5rem;
+}
+
+#block15 .bx-shadow {
+  box-shadow: 0px 3px 10px #cfcfcf; /* adds a box shadow */
+  background-color: #ffffff; /* sets the background color */
+  border-radius: 5px; /* rounds the corners */
+  margin-top: 7.6rem ;
+  margin-left:2.3rem;
+  margin-right:-3rem;
+  width:auto;
+  overflow-x: hidden;
+}
+
+#block15 .bx-shadow2 {
+  box-shadow: 0px 3px 10px #cfcfcf; /* adds a box shadow */
+  height: auto;
+  background-color: #ffffff; /* sets the background color */
+  border-radius: 5px; /* rounds the corners */
+  /* margin: 1.2rem  1remrem; */
+margin-left:2.3rem;
+margin-right:-2.9rem;
+  overflow-x: hidden;
+  width:auto;
+
+}
+
+#block15 .icon {
+  color: #ff4b13;
+  font-size: 26px;
+  position: absolute;
+  opacity: 90%;
+}
+
+#block15 .heading-search {
+  padding-top: 1rem;
+  font-size: 20px;
+  font-weight: 400;
+  opacity: 90%;
+  margin-left: 2rem;
+  padding-bottom: 1rem;
+}
+
+/* table########################### */
+#block15 .tab tr {
+  margin-left: 1rem;
+  color: #ffffff;
+}
+#block15 .tab {
+  width: 100%;
+}
+#block15 .tab td,
+#block15 .tab th {
+  padding: 1rem;
+  vertical-align: top;
+  border: 1px solid #d7c8c8;
+  opacity: 90%;
+}
+#block15 .tab tbody tr {
+  color: #4f4f4f;
+}
+#block15 .tab thead th {
+  vertical-align: bottom;
+  border: 2px solid #e9e0e0;
+  background: #ff4b13;
+  opacity: 90%;
+}
+#block15 .add-bu {
+  width: 100%;
+  background: #ff4b13;
+  border: none;
+  color: white;
+  border-radius: 3px;
+  font-size: 14px;
+}
+#block15 .add-bu:active,
+#block15 .add-bu:focus {
+  outline: none;
+  border: none;
+}
+@media (max-width: 767px) {
+  #block15 .bx-shadow {
+    box-shadow: 0px 3px 10px #cfcfcf; /* adds a box shadow */
+    margin: 7.4rem -4.5rem 0 2.2rem;
+  }
+
+  #block15 .bx-shadow2 {
+    margin: 1rem -4.4rem 0 2.2rem;
+    position:relative;
+  }
+  #block15 .row{
+    width:auto;
+  }
+  #block15 .bx-shadow3 {
+    margin: 0.6rem -2.5rem 0 2rem;
+  }
+  #block15 .pad {
+    padding: 3rem;
+  }
+  #block15 .heading-search {
+    font-size: 16px;
+    text-align: center;
+    margin-left: 3%;
+  }
+}
+
+/* @media (max-width: 575.7px) {
+  #block15 .bx-shadow {
+    margin: 7.4rem -2.5rem 0 2rem;
+  }
+  #block15 .bx-shadow1 {
+    height: auto;
+    margin: 0rem -2.5rem 0 2rem;
+  }
+} */

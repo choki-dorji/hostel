@@ -1,0 +1,362 @@
+<%- include('../required/header.ejs') %>
+
+<style>
+  #block15 .bx-shadow {
+    box-shadow: 0px 3px 10px #cfcfcf; /* adds a box shadow */
+    background-color: #ffffff; /* sets the background color */
+    border-radius: 5px; /* rounds the corners */
+margin:7.6rem -2.2rem 0 2.3rem;
+  position:relative;
+    overflow-x: hidden;
+  }
+.error{
+    border-radius: 5px;
+      margin-top: 15px;
+      width: 390px;
+      color: rgba(255, 0, 0, 0.711);
+}
+  @media(max-width:768px){
+    #block15 .bx-shadow{
+        margin:7.6rem -3.7rem 0 1.9rem;
+    }
+    #block15 .bx-21{
+        margin-left:-1rem;
+    }
+    #block15 .bx-22{
+        right:4.5rem;
+    }
+  }
+  .swal2-popup .swal2-styled.swal2-confirm:hover, .swal2-popup .swal2-styled.swal2-confirm:focus{
+	color:#fff;
+		background:#ff4b13;
+		outline:#ff4b13;
+	}
+	.swal2-popup .swal2-styled.swal2-cancel:hover, .swal2-popup .swal2-styled.swal2-cancel:focus{
+	background:#fff;
+    border-color:#cfcfcf;
+    outline-color:#ff4b13;
+	}
+  .swal2-popup .swal2-styled.swal2-cancel {
+      border: 1px solid #ff4b13;
+			color:#ff4b13;
+			padding-right:2rem;
+			padding-left:2rem; /* Set the border properties as per your requirement */
+			margin-bottom:2rem;
+            outline:none;
+    }
+
+		.swal2-popup .swal2-styled.swal2-confirm {
+					padding-right:2rem;
+					padding-left:2rem; /* Set the border properties as per your requirement */
+								margin-bottom:2rem;
+		    }
+            .success{
+                color:rgba(0,143,32);
+            }
+</style>
+<main>
+            <main id="block15">
+                <div class="col-lg-12 col-md-12 col-sm-12 pr-2" style="margin-left:-.8rem; margin-bottom:2.2rem;">
+                    <div class="bx-shadow pt-2 pb-3">
+                        <h5 class="heading-search font-weight-bold text-left pb-0" style="opacity:90%;">
+                            Request for Hostel Change</h5>
+                    </div>
+                </div>
+                <div class="row">
+
+                    <% if(requests.length > 0) { %>
+                <div class="col-lg-6 col-md-12 col-sm-12">
+                    <div class="gri">
+                        <% for(var i = 0; i < requests.length; i++) { %>
+                            <% if(requests[i].clicked === false) { %>
+                        <div class="bx-shadow1 pb-1">
+                            <br>
+                            <div class="col-lg-12 col-md-12 col-sm-12 search-bx bx-1 " id="myDiv">
+                                <div class="row-view pt-3">
+                                    <i class="material-icons icon position-absolute  pt-0 ml-2 "><%= requests[i].student_gender === "F" ? "female" : "male" %></i>
+                                    <h6 class="fs-1 fst-bold pt-1 pl-5 "> <b class="mt-3"><%= requests[i].student_name %></b></h6>
+                                    <p class="fw-300 ml-5 mb-0 custom-line-height nameee"
+                                        style="color:#4f4f4f; opacity:90%;">
+                                        <span class="ml-0"><%= requests[i].student_course %></span>
+                                    </p>
+                                    <p class="fw-300 ml-5 mt-1 mb-2 custom-line-height nameee"
+                                        style="color:#4f4f4f; opacity:90%;">
+                                        <span class="ml-0"><%= requests[i].student_year %></span><span class="ml-1">IV</span>
+                                    </p>
+                                </div>
+
+                            </div>
+
+                            <div class="search-bx col-lg-12 col-md-12 col-sm-12 search-det" id="myDiv">
+                                <div class="bx-21" style="opacity:90%;">
+                                    <p class="ml-3 mt-1 mb-0 font-weight-bold">From</p>
+
+                                    <p class="fw-300 ml-3  mb-0 custom-line-height" style="color:#4f4f4f;">
+                                        <span class="ml-0">Block :</span>
+                                        <% for(var j = 0; j < blocks.length; j++) { %>
+                                            <% if(requests[i].block == blocks[j]._id) { %>
+                                       <b class="" style="color:#ff4b13"><%= blocks[j].block_name %></b>
+                                        <% } %>
+                                    <% } %>
+                                    </p>
+                                    <p class="fw-300 ml-3 mb-5 mb-0 custom-line-height" style="color:#4f4f4f; ">
+                                        <span class="ml-0">Room :</span>
+                                        <% for(var k = 0; k < rooms.length; k++) { %>
+                                            <% if(requests[i].room == rooms[k]._id) { %>
+                                        <b class="" style="color:#ff4b13"><%= rooms[k].room_name %></b>
+                                        <% } %>
+                                        <% } %>
+
+                                    </p>
+
+
+                                </div>
+                                <div class="bx-22" style="opacity:90%;">
+                                    <p class="ml-3 mt-2 mb-0 font-weight-bold">To</p>
+                                    <p class="fw-300 ml-3  mb-0 custom-line-height" style="color:#4f4f4f;;">
+                                        <span class="ml-0">Block :</span>
+                                        <% for(var j = 0; j < blocks.length; j++) { %>
+                                            <% if(requests[i].targetblock == blocks[j]._id) { %>
+                                        <b class="" style="color:#ff4b13"><%= blocks[j].block_name %></b>
+                                        <% } %>
+                                        <% } %>
+                                    </p>
+                                    <p class="fw-300 ml-3 mb-0 custom-line-height" style="color:#4f4f4f; ">
+                                        <span class=" ml-0">Room :</span>
+                                        <% for(var j = 0; j < rooms.length; j++) { %>
+                                            <% if(rooms[j]._id == requests[i].targetroom) { %>
+                                        <b class="" style="color:#ff4b13"><%= rooms[j].room_name %></b>
+                                        <% } %>
+                                        <% } %>
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="search-bx col-lg-12 col-md-12 deta col-sm-12" id="myDiv">
+                                <div class="rea pl-2 pr-3 ">
+                                    <div class="mt-3">
+                                        <p class="fw-300 ml-3 mb-0 custom-line-height" style="color:#ff4b13;">
+                                            <b class="ml-0">Reason </b>
+                                        </p>
+                                        <p class="fw-300 ml-3 custom-line-height par" style="color:#4f4f4f; ">
+                                            <span class=" ml-0"><%= requests[i].reason %></span>
+                                        </p>
+
+                                    </div>
+                                    <div class="view-proof pb-3">
+                                        <!-- <i class='bx bx-image' style="font-size:24px;"></i> -->
+                                          <a class="picture" href="/uploads/<%= requests[i].image %>" style="cursor: pointer;">
+                                        <p >Attached File : </p>
+                                      <i class='bx bxs-file-blank' style="font-size: 24px; color: #ff4b13;"></i>
+                                        </a>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="search-bx col-lg-12 col-md-12 deta col-sm-12  pb-4" id="myDiv">
+                                <div class="mt-4 acdc" style="margin:0 auto;">
+                                    <button data-id="<%= requests[i]._id %>" class="pr-4 pl-4 pt-1 pb-1 del reject-btn">Reject</button>
+                                    <button data-id="<%= requests[i]._id %>" class="pr-4 pl-4 pt-1 pb-1 acc accept-btn">Accept</button>
+                                </div>
+                            </div>
+
+                        </div>
+                        <% } %>
+                        <% } %>
+
+                    </div>
+                    </div>
+
+                    <% }  else { %>
+
+                        <h5 class="justify-content-center text-center pt-5 font-weight-bold">No request</h5>
+
+                    <% } %>
+                </div>
+            </main>
+        </main>
+        <br><br><br><br><br><br><br><br>
+    </section>
+
+</body>
+
+</main>
+
+
+
+
+
+
+
+
+
+<!-- MAIN -->
+</section>
+<!-- NAVBAR -->
+
+<script>
+    function setFocus(on) {
+        var element = document.activeElement;
+        if (on) {
+            setTimeout(function () {
+            element.parentNode.classList.add("focus");
+            });
+        } else {
+            let box = document.querySelector(".input-box");
+            box.classList.remove("focus");
+            $("input").each(function () {
+            var $input = $(this);
+            var $parent = $input.closest(".input-box");
+            if ($input.val()) $parent.addClass("focus");
+            else $parent.removeClass("focus");
+            });
+        }
+        }
+</script>
+
+<script>
+    $(document).ready(function() {
+$(".accept-btn").click(function() {
+    var id = $(this).attr("data-id");
+    console.log(id);
+// Show confirmation message using SweetAlert2
+Swal.fire({
+html: `<h5 class="font-weight-bold mt-4 mb-4" style="margin-bottom: font-weight:bold; color:#ff4b13; opacity:90%; 30px">Accept</h5>
+	<form>
+	    <div class="form-group">
+		    <div class="input-box">
+		        <label class="input-label" style="color:#4f4f4f;" >Remarks</label>
+		        <textarea type="text" class="input-1 "  style="height:150px; border-color:#4f4f4f;" onfocus="setFocus(true)" id="remarks" onblur="setFocus(false)"></textarea>
+		    </div>
+		</div>
+	</form>
+        `,
+        showCancelButton: true,
+        showConfirmButton: true,
+        confirmButtonColor: "#ff4b13",
+        cancelButtonColor: "#fff",
+        confirmButtonText: "Okay",
+        preConfirm: () => {
+            const remarks = document.getElementById('remarks').value;
+            // Return the values as an object
+            return { remarks };
+        }
+}).then((result) => {
+console.log("confirm result")
+if (result.isConfirmed) {
+    // Send AJAX request to delete block
+                const { remarks } = result.value;
+                const status = "accepted"
+                fetch(`request/update/${id}`, {
+                method: 'PUT',
+                headers: {
+                'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ remarks, status })
+                })
+                .then(response => {
+                if (!response.ok) {
+                console.log("response", response)
+                throw new Error(response);
+                }
+                Toastify({
+                text: 'You have successfully accepted the request',
+                backgroundColor: 'rgba(0,143,32,.2)',
+                className: 'success',
+                position: 'top-center',
+                }).showToast();
+                window.location.reload();
+                })
+                .catch(error => {
+                console.error(error);
+                Toastify({
+                text: 'Error while accepting the request!. Please try again',
+                backgroundColor: 'rgba(255, 0, 0. .3)',
+                className: 'error',
+                position: 'top-center',
+                }).showToast();
+                });
+                                console.log("after ajax")
+                }
+                });
+                });
+                });
+</script>
+
+<script>
+    $(document).ready(function() {
+$(".reject-btn").click(function() {
+    var id = $(this).attr("data-id");
+    console.log(id);
+// Show confirmation message using SweetAlert2
+Swal.fire({
+html: `<h5 class="font-weight-bold mt-4 mb-4" style="margin-bottom: font-weight:bold; color:#ff4b13; opacity:90%; 30px">Reject</h5>
+	<form>
+	    <div class="form-group">
+		    <div class="input-box">
+		        <label class="input-label" style="color:#4f4f4f;">Remarks</label>
+		        <textarea type="text" class="input-1"  style="height: 150px;border-color:#4f4f4f;" onfocus="setFocus(true)" id="remarks" onblur="setFocus(false)"></textarea>
+		    </div>
+		</div>
+	</form>
+        `,
+        showCancelButton: true,
+        showConfirmButton: true,
+        confirmButtonColor: "#ff4b13",
+        cancelButtonColor: "#fff",
+        confirmButtonText: "Okay",
+        preConfirm: () => {
+            const remarks = document.getElementById('remarks').value;
+            // Return the values as an object
+            return { remarks };
+        }
+}).then((result) => {
+console.log("confirm result")
+if (result.isConfirmed) {
+    // Send AJAX request to delete block
+                const { remarks } = result.value;
+                const status = "rejected"
+                fetch(`request/update/${id}`, {
+                method: 'PUT',
+                headers: {
+                'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ remarks, status })
+                })
+                .then(response => {
+                if (!response.ok) {
+                console.log("response", response)
+                throw new Error(response);
+                }
+                Toastify({
+                text: 'You have Rejected the request!',
+                backgroundColor: 'rgba(0,143,32,.2)',
+                className: 'success',
+                position: 'top-center',
+                }).showToast();
+                window.location.reload();
+                })
+
+                .catch(error => {
+                console.log(error);
+                Toastify({
+                text: 'Please add remarks',
+                backgroundColor: 'rgba(255,0,0,.3)',
+                className: 'error',
+                position: 'top-center',
+                }).showToast();
+                });
+
+
+
+                }
+                });
+                });
+                });
+</script>
+
+
+
+</body>
+
+</html>

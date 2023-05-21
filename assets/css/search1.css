@@ -1,0 +1,298 @@
+/* Block div  */
+#searchstu .bx-shadow {
+  box-shadow: 0 0 20px rgba(77, 77, 77, 0.25); /* adds a box shadow */
+  height: atuo;
+  background-color: #ffffff; /* sets the background color */
+  border-radius: 5px; /* rounds the corners */
+  margin: 7.4rem -1rem 0 2.2rem;
+  overflow-x: none;
+}
+#searchstu .bx-shadow1 {
+  height: auto;
+  margin: 0rem 1rem 0 1.2rem;
+  border-radius: 5px; /* rounds the corners */
+  height: atuo;
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
+  overflow-x: none;
+}
+
+#searchstu .search-bx {
+  box-shadow: 0 0 20px rgba(77, 77, 77, 0.25);
+  height: auto;
+  background: #ffffff;
+  border-radius: 5px;
+}
+#searchstu .search-user {
+  font-size: 9vw;
+  color: #ff4b13;
+  opacity: 90%;
+  font-weight: 300;
+  margin-top: 9rem;
+}
+#searchstu .search-rooo {
+  font-size: 9vw;
+  color: #ff4b13;
+  opacity: 90%;
+  font-weight: 300;
+  margin-top: 8rem;
+  padding-bottom: 0.4rem;
+}
+#searchstu .heading-search {
+  padding-top: 1rem;
+  font-size: 20px;
+  font-weight: 400;
+  opacity: 90%;
+  margin-left: 2rem;
+  padding-bottom: 1rem;
+}
+
+@media (max-width: 991px) {
+  #searchstu .bx-shadow1 {
+    display: grid;
+    flex-direction: column;
+    margin: -2.7rem -1.5rem 0 2.3rem;
+    padding-right: 10px;
+  }
+}
+@media (max-width: 768px) {
+  #searchstu .bx-shadow {
+    box-shadow: 0 0 20px rgba(77, 77, 77, 0.25);
+    height: atuo;
+    background-color: #ffffff;
+    border-radius: 10px;
+    margin: 7.4rem -2.5rem 0 2.2rem;
+  }
+  #searchstu .search-tit {
+    font-size: 16px;
+    margin-top: -3rem;
+  }
+  #searchstu .proo {
+    padding: -5rem;
+  }
+
+  #searchstu .input-textarea {
+    width: 45vw;
+  }
+  #searchstu .bx-shadow1 {
+    display: grid;
+    flex-direction: column;
+    margin: -2.7rem -3rem 0 2.3rem;
+  }
+  /* #searchstu .search-bx {
+    margin: 0rem -2rem 0 0rem;
+  } */
+
+  #searchstu .heading-search {
+    font-size: 14px;
+    text-align: center;
+  }
+  #searchstu .r-de {
+    font-size: 2.8vw;
+  }
+  /* #searchstu .search-bx {
+    width: 58%;
+  } */
+  /* #searchstu .search-rooo {
+      padding-bottom: 0.4rem;
+    } */
+}
+
+@media (max-width: 575.7px) {
+  #searchstu .bx-shadow {
+    margin: 7.4rem -2.5rem 0 2.2rem;
+  }
+}
+/*the container must be positioned relative:*/
+#searchstu .custom-select {
+  position: relative;
+  max-width: 60%;
+  margin: 0 auto;
+}
+
+#searchstu .custom-select select {
+  display: none; /*hide original SELECT element:*/
+}
+
+/*point the arrow upwards when the select box is open (active):*/
+#searchstu .select-selected.select-arrow-active:after {
+  border-color: transparent transparent #fff transparent;
+  top: 7px;
+}
+
+/*style the items (options), including the selected item:*/
+#searchstu .select-items div {
+  color: #ff4b13;
+  padding: 6px 0;
+  opacity: 90%;
+  background: #c3c3c31e;
+  border-radius: 5px;
+  margin-top: 2px;
+  cursor: pointer;
+}
+
+/*style items (options):*/
+#searchstu .select-items {
+  position: absolute;
+  background-color: white;
+  top: 100%;
+  left: 0;
+  right: 0;
+  z-index: 99;
+}
+
+/*hide the items when the select box is closed:*/
+#searchstu .select-hide {
+  display: none;
+}
+
+#searchstu .select-items div:hover,
+#searchstu .same-as-selected {
+  color: #ffffff;
+  background: #ff4b13;
+  opacity: 90%;
+}
+
+#searchstu .sear-button {
+  text-decoration: none;
+  height: 41px;
+  width: 25vw;
+  margin: 0rem auto 0 auto;
+  position: relative;
+  border: none;
+  background: #ff4b13;
+  color: white;
+  opacity: 90%;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+#searchstu .searhh-button:active,
+.searhh-button:focus {
+  outline: none;
+  border: none;
+}
+#searchstu .sear-button:focus,
+.sear-button:active {
+  outline: none;
+  border: none;
+  box-shadow: none;
+}
+#searchstu .table-responsive {
+  overflow-x: auto;
+}
+#searchstu .searhh-button {
+  text-decoration: none;
+  height: 41px;
+  width: 25vw;
+  margin: 0 auto;
+  position: relative;
+  border: none;
+  background: #ff4b13;
+  color: white;
+  opacity: 90%;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+#searchstu .done {
+  text-decoration: none;
+}
+
+#searchstu .dis {
+  display: none;
+  transition: all 0.5s ease-in-out;
+  max-width: 60vw;
+  margin: 0 auto;
+}
+
+#searchstu .tab td {
+  width: 100%;
+  margin-left: 1rem;
+  color: #4f4f4f;
+}
+#searchstu .tab tr {
+  width: 100%;
+  margin-left: 1rem;
+  color: #ffffff;
+  text-align: center;
+}
+
+#searchstu .tab td,
+#searchstu .tab th {
+  padding: 1rem;
+  vertical-align: top;
+  border: 1px solid #d7c8c8;
+  opacity: 90%;
+}
+#searchstu .tab tbody tr {
+  color: #4f4f4f;
+}
+#searchstu .tab thead th {
+  vertical-align: center;
+  background: #ff4b13;
+  opacity: 90%;
+}
+#searchstu .two-blo {
+  display: flex;
+  flex-direction: row;
+}
+
+/* ####################search input######### */
+
+#searchstu .input-label {
+  position: absolute;
+  color: #80868b;
+  margin-left: 2rem;
+  font-size: 16px;
+  font-weight: 400;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  transition: 250ms;
+  user-select: none;
+  pointer-events: none;
+}
+#searchstu .foor {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+/* input form properties */
+#searchstu .input-textarea {
+  box-sizing: border-box;
+  height: 40px;
+  width: 25vw;
+  background: none;
+  border-radius: 4px;
+  color: #4f4f4f;
+  border: 1px solid #c7c7c7;
+  margin-top: -9rem;
+  transition: 250ms;
+  opacity: 90%;
+}
+#searchstu .input-se {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+#searchstu .input-box.focus .input-label,
+#searchstu .input-box.active .input-label {
+  color: #ff4b13;
+  /* focus input margin */
+  top: 4.9rem;
+  background: #fff;
+  font-size: 14px;
+  transition: 250ms;
+}
+
+#searchstu .input-box.focus .room-na {
+  z-index: 1;
+  position: relative;
+  width: 90px;
+  text-align: center;
+  height: 20px;
+  background: rgb(255, 255, 255);
+}

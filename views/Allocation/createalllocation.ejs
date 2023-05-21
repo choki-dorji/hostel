@@ -1,0 +1,413 @@
+<%- include("../required/header") %>
+      <style type="text/css">
+#page-loader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.7);
+  display: none;
+  z-index: 9999;
+}
+@media(max-width:993px){
+  
+  #block13 .bx-shadow{
+   margin: 7.6rem -1rem 0 2.3rem;
+  }
+}
+@media(max-width:768px)
+{
+  #block13 .bx-shadow{
+    margin: 7.6rem -2.2rem 0 2.3rem;
+  }
+}.loader {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 60px;
+  height: 60px;
+}
+
+.loader:before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  border: 6px solid #ff4b13;
+  border-top: 6px dotted #cacaca;
+  animation: loaderAnimation 1.5s linear infinite;
+}
+.loader img {
+  padding: 10px;
+}
+
+@keyframes loaderAnimation {
+  0% {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  100% {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
+
+         .form-check-input[type="checkbox"] {
+        width: 20px;
+        height: 20px;
+    }
+
+
+    @media screen and (max-width: 560px) {
+        #block13 .boxx{
+            width: 70%;
+            left:  15%;
+
+        }
+       #block13 .allo-button{
+            width: 67%;
+            margin-left: 5rem;
+        }
+    }
+     @media screen and (max-width: 500px) {
+
+       #block13 .allo-button{
+            width: 65%;
+            margin-left: 4.5rem;
+        }
+    }
+
+
+    </style>
+
+   <!-- MAIN -->
+   <div id="page-loader" style="display: none;">
+    <div class="loader">
+      <img src="/img/hostel.png" width="60px" height="54px"/>
+
+    </div>
+  </div>
+        <main>
+            <main id="block13">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                        <div class="bx-shadow ">
+                            <h5 class="allooo text-center font-weight-bold">Room Allocation</h5>
+                            <form onsubmit="submitNewForm(event)">
+                            <div class="form-group  fo text-center" >
+                                <label for="exampleSelect">Select student year
+                                    :</label>
+
+
+
+                                    <% let uniqueYears = new Set(); %>
+                                      <% const allocatedYears = allocate.map(entry => entry.year); %>
+
+                                      <% for (var i = 0; i < students.length; i++) { %>
+                                        <% let yearExists = false; %>
+                                        <% for (var j = 0; j < allocatedYears.length; j++) { %>
+                                          <% if (students[i].year === allocatedYears[j] && allocate[j].academicyear == year) { %>
+                                            <% yearExists = true; %>
+                                            <% break; %>
+                                          <% } %>
+                                        <% } %>
+                                        <% if (!yearExists) { %>
+                                          <% uniqueYears.add(students[i].year); %>
+                                        <% } %>
+                                      <% } %>
+                                      <% const sortedYears = Array.from(uniqueYears).sort((a, b) => a - b); %>
+                                <select class="form-select" id="exampleSelect" name="year-select" onchange="getTotalStudents()" required>
+                                      <option value="" disabled selected>Select year to allocate</option>
+
+
+                                      <% for (let year of sortedYears) { %>
+                                        <%= year %>
+                                        <option value="<%= year %>">Year <%= year %></option>
+                                      <% } %>
+
+                                        <!-- <option value="2">Year 2</option>
+                                        <option value="3">Year 3</option>
+                                        <option value="4">Year 4</option>
+                                        -->
+                                </select>
+                            </div>
+                            <div class="gee">
+                                <div class="col-lg-6 col-md-12 col-sm-12 gend">
+                                    <div class="gen-male" style="opacity:90%;">
+                                        <p class="gen" style="color:#4f4f4f; font-weight:light;">Male: <span id="male-students"
+                                                style="color:#ff4b13"></span></p>
+                                    </div>
+                                    <div class="boxx">
+                                         <h6 style="text-align: left; width: 90%; color:#4f4f4f; margin-left:1.2rem; margin-bottom: 1rem;">Select Male Block to allocate</h6>
+
+                                         <% for(var i = 0; i < block.length; i++) { %>
+                                          <% var sum = 0
+                                          for(var k = 0; k < room.length; k++) { %>
+                                            <%
+
+                                            if(room[k].blockid === block[i]._id)
+                                              sum += room[k].room_capacity
+                                            { %>
+                                              <% } %>
+                                                <% } %>
+                                           <% if(block[i].type === "boys" && sum > 0) { %>
+                                        <div class="form-check-inline ml-4 fll">
+                                            <input class="form-check-input checkmale"  type="checkbox" id="checkbox<%= i %>"  value="<%= block[i]._id %>" >
+                                            <label class="form-check-label pt-1" for="checkbox<%= i %>">
+                                                <span></span>
+                                                <%= block[i].block_name %>
+
+
+                                                <span class="slott">
+                                                    <p>
+                                                      <%= sum %> slots
+                                                    </p>
+                                                </span>
+
+                                            </label>
+                                        </div>
+                                        <% } %>
+                                      <% } %>
+
+                                        <br>
+
+
+                                    </div>
+
+                                </div>
+
+                                <div class="col-lg-6 col-md-12 col-sm-12 gend">
+                                    <div class="gen-female" style="opacity:90%;">
+                                        <p class="gen" style="color:#4f4f4f; font-weight:light;">Female: <span id="female-students"
+                                                style="color:#ff4b13"></span></p>
+
+                                    </div>
+
+                                    <div class="boxx boxx1">
+                                        <h6 style="text-align: left; width: 90%; color:#4f4f4f; margin-left:1.2rem; margin-bottom: 1rem;">Select Female Block to allocate</h6>
+                                        <% for(var j = 0; j < block.length; j++) { %>
+                                          <% if(block[j].status == "available") { %>
+                                          <% var sum = 0
+                                          for(var k = 0; k < room.length; k++) { %>
+                                            <%
+
+                                            if(room[k].blockid === block[j]._id)
+                                              sum += room[k].room_capacity
+                                            { %>
+                                              <% } %>
+                                                <% } %>
+                                          <% if(block[j].type === "girls" && sum > 0) { %>
+                                          <div class=" form-check-inline ml-4 fll">
+                                              <input class="form-check-input checkfemale" type="checkbox" id="checkboxf<%= j %>" value="<%= block[j]._id %>" >
+                                              <label class="form-check-label pt-1" for="checkboxf<%= j %>"  >
+                                                  <span></span>
+                                                  <%= block[j].block_name %>
+                                                  <% var sum = 0
+                                                  for(var k = 0; k < room.length; k++) { %>
+                                                    <%
+
+                                                    if(room[k].blockid === block[j]._id)
+                                                      sum += room[k].room_capacity
+                                                    { %>
+                                                      <% } %>
+                                                        <% } %>
+                                                  <span class="slott">
+                                                      <p>
+                                                        <%= sum %> slots
+                                                      </p>
+                                                  </span>
+
+
+                                              </label>
+                                          </div>
+                                        <% } %>
+                                        <% } %>
+                                        <% } %>
+
+                                        <br>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <button type="submit" id="allocate-button" class="allo-button pt-1 " style="border: none;  height:45px; outline: none;">
+                              <p class="al- ">Allocate</p>
+                          </button>
+                            </form>
+                            <br />
+                            <br />
+                            <br>
+
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </main>
+        </div>
+        <br>
+    </section>
+
+</body>
+
+</main>
+<!-- MAIN -->
+</section>
+<!-- NAVBAR -->
+
+</script>
+
+
+  <script>
+
+    function getTotalStudents() {
+      const yearSelect = document.getElementById("exampleSelect").value;
+      console.log(yearSelect)
+
+      fetch(`/students/count/${yearSelect}`)
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Failed to fetch student data');
+          }
+          return response.json();
+        })
+        .then(data => {
+          console.log(data)
+          const maleStudents = data.male;
+          const femaleStudents = data.female;
+
+          const totalStudentsElement = document.getElementById('male-students');
+          totalStudentsElement.innerHTML = `${maleStudents}`;
+
+          const totalStudentsFemale = document.getElementById('female-students');
+          totalStudentsFemale.innerHTML = `${femaleStudents}`;
+
+
+
+          console.log(maleStudents, femaleStudents)
+        })
+        .catch(error => {
+          console.error(error);
+        });
+    }
+  </script>
+
+  <script type="text/javascript">
+    const spans = document.querySelectorAll('[blockId]');
+
+ spans.forEach(span => {
+   const blockId = span.getAttribute('blockId');
+   fetch(`http://localhost:5000/api/${blockId}/students/count`)
+   .then(response => response.json())
+   .then(data => {
+     span.textContent = data + " slots";
+   });
+ });
+  </script>
+
+  <script>
+    // Add this code after the form submission code
+
+// Hide the page loader initially
+const pageLoader = document.getElementById('page-loader');
+pageLoader.style.display = 'none';
+
+  </script>
+
+    <script>
+      // submitNewForm
+      // submitNewForm
+// submitNewForm
+function submitNewForm(event) {
+    event.preventDefault();
+
+    // Display the page loader
+    const pageLoader = document.getElementById('page-loader');
+    pageLoader.style.display = 'block';
+
+    // Disable the allocate button
+    const allocateButton = document.getElementById('allocate-button');
+    allocateButton.disabled = true;
+
+    const yearSelect = document.getElementById("exampleSelect").value;
+
+    const maleBlocks = document.querySelectorAll('input[type="checkbox"].checkmale:checked');
+    const femaleBlocks = document.querySelectorAll('input[type="checkbox"].checkfemale:checked');
+
+    const selectedMaleBlocks = Array.from(maleBlocks).map(block => block.value);
+    const selectedFemaleBlocks = Array.from(femaleBlocks).map(block => block.value);
+
+    const data = {
+        years: parseInt(yearSelect),
+        maleBlock: selectedMaleBlocks,
+        femaleBlock: selectedFemaleBlocks
+    };
+
+    const queryParams = new URLSearchParams(window.location.search);
+    const year = queryParams.get("year");
+
+    fetch(`http://localhost:5000/Allocate/api/years/${year}`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    })
+        .then(response => {
+          console.log(response)
+            if (!response.ok) {
+              if(response.status === 409){
+                throw new Error("The Selected Blocm is already used for allocation")
+              }
+                // throw new Error('Failed to submit form.');
+            }
+            return response.json();
+        })
+        .then(result => {
+            console.log("result", result);
+            // Hide the page loader
+            pageLoader.style.display = 'none';
+            // Display success message
+            Toastify({
+                text: `${result.message}`,
+                duration: 3000,
+                gravity: 'top',
+                position: 'center',
+                backgroundColor: '#00b09b',
+                className: 'toastify-success',
+                stopOnFocus: true,
+                onClick: function() { Toastify.hideAll() }
+            }).showToast();
+            // Reload the page or perform other actions after successful allocation
+            window.location.reload();
+        })
+        .catch(error => {
+            console.error(error);
+            // Hide the page loader
+            pageLoader.style.display = 'none';
+            // Display error message
+            Toastify({
+                text: error.message,
+                duration: 3000,
+                gravity: 'top',
+                position: 'center',
+                backgroundColor: '#ff416c',
+                className: 'failed',
+                stopOnFocus: true,
+                onClick: function() { Toastify.hideAll() }
+            }).showToast();
+        })
+        .finally(() => {
+            // Enable the allocate button after allocation is complete (success or error)
+            allocateButton.disabled = false;
+        });
+}
+
+    </script>
+
+</body>
+
+</html>
