@@ -175,9 +175,6 @@ exports.searchRoom = async (req, res) => {
 };
 ////////////////////////////////////////////////////////////////
 
-
-
-
 //
 exports.getRoomByBlockId = async (req, res, next) => {
   const blockId = req.params.id;

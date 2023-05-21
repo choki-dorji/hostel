@@ -211,7 +211,7 @@
                                                   for(var k = 0; k < room.length; k++) { %>
                                                     <%
 
-                                                    if(room[k].blockid === block[j]._id)
+                                                    if(room[k].blockid === block[j]._id && room[k].isDisabled === false) 
                                                       sum += room[k].room_capacity
                                                     { %>
                                                       <% } %>

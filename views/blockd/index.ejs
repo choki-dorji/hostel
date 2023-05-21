@@ -337,22 +337,22 @@ $(".delete").click(function() {
 									    // Retrieve the values of the input fields
 									    const blockName = document.getElementById('block-name').value;
 									    const blockType = document.getElementById('block-type').value;
-									    const numRooms = document.getElementById('num-rooms').value;
+									   
 									    const status = document.getElementById('status').value;
 									    // Return the values as an object
-									    return { blockName, blockType, numRooms, status };
+									    return { blockName, blockType, status };
 									  }
 
 		            }).then((result) => {
 		                if (result.isConfirmed) {
-											const {blockName, blockType, numRooms, status} = result.value;
+											const {blockName, blockType, status} = result.value;
 											console.log(blockName)
 
 
 											$.ajax({
 													url: "/api/blocks/" + id,
 													method: "PUT",
-													data: { block_name: blockName, type:blockType, no_of_rooms:numRooms, status: status   },
+													data: { block_name: blockName, type:blockType, status: status   },
 													success: function(response) {
 															// If the block was successfully updated, display a success message using Toastify and reload the page
 															Toastify({
