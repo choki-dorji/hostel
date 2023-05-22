@@ -28,9 +28,12 @@ exports.getBlock = async (req, res) => {
   const token = req.cookies.tokenABC;
   const user = req.cookies.userData;
   const username = JSON.parse(user);
+<<<<<<< HEAD
   console.log("user", typeof user)
   console.log("username ", typeof username)
 
+=======
+>>>>>>> 7feda147adee5c0281236d93cbafe06284f033c2
   const notificationCount = await Request.countDocuments({ clicked: false });
   axios
     .all([

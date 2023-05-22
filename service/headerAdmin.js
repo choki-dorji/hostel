@@ -9,6 +9,6 @@ exports.dynamicToken = async (req, res) => {
   res.render("/required/header", {
     token: token,
     notificationCount: notificationCount,
-    username: userdata.name,
+    username: userdata,
   });
 };
