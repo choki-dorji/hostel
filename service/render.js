@@ -7,6 +7,7 @@ exports.add_room = async (req, res) => {
   const token = req.cookies.tokenABC;
   const user = req.cookies.userData;
   const username = JSON.parse(user);
+  console.log(username);
   const notificationCount = await Request.countDocuments({ clicked: false });
   axios
     .get("http://localhost:5000/api/blocks")
@@ -15,7 +16,7 @@ exports.add_room = async (req, res) => {
         block: blockdata.data,
         token: token,
         notificationCount: notificationCount,
-        username: username.name,
+        username: username,
       });
     })
     .catch((err) => {
@@ -25,7 +26,11 @@ exports.add_room = async (req, res) => {
 
 exports.getBlock = async (req, res) => {
   const token = req.cookies.tokenABC;
-  const username = req.cookies.userData;
+  const user = req.cookies.userData;
+  const username = JSON.parse(user);
+  console.log("user", typeof user)
+  console.log("username ", typeof username)
+
   const notificationCount = await Request.countDocuments({ clicked: false });
   axios
     .all([
@@ -34,12 +39,13 @@ exports.getBlock = async (req, res) => {
     ])
     .then(
       axios.spread(function (blocksResponse, roomsResponse) {
+        console.log("render username", username)
         res.render("blockd/index", {
           blocks: blocksResponse.data,
           rooms: roomsResponse.data,
           token: token,
           notificationCount: notificationCount,
-          username: username.name,
+          username: username,
         });
       })
     )
@@ -54,8 +60,11 @@ exports.getBlocks = async (req, res) => {
   const notificationCount = await Request.countDocuments({ clicked: false });
   const token = req.query.token;
   const err = req.query.error;
-  const username = req.cookies.userData;
-  // const username = JSON.parse(user);
+  const user = req.cookies.userData;
+  const username = JSON.parse(user);
+  console.log("user", typeof user)
+  console.log("username ", typeof username)
+  
 
   console.log(username, "fghjk");
 
@@ -157,7 +166,7 @@ exports.getAllocations = async (req, res) => {
           studentCount,
           token: token,
           notificationCount: notificationCount,
-          username: username.name,
+          username: username,
         });
       })
     )
@@ -172,7 +181,8 @@ exports.getBlockById = async (req, res) => {
   const token = req.cookies.tokenABC;
   const blockId = req.query.id;
   const currentYear = new Date().getFullYear();
-  const username = req.cookies.userData;
+  const user = req.cookies.userData;
+  const username = JSON.parse(user);
   const notificationCount = await Request.countDocuments({ clicked: false });
 
   Promise.all([
@@ -201,7 +211,8 @@ exports.getBlockById = async (req, res) => {
 
 exports.update_block = async (req, res) => {
   const token = req.cookies.tokenABC;
-  const username = req.cookies.userData;
+  const user = req.cookies.userData;
+  const username = JSON.parse(user);
   const notificationCount = await Request.countDocuments({ clicked: false });
   axios
     .get("http://localhost:5000/api/blocks", { params: { id: req.query.id } })
@@ -210,7 +221,7 @@ exports.update_block = async (req, res) => {
         block: blockdata.data,
         token: token,
         notificationCount: notificationCount,
-        username: username.name,
+        username: username,
       });
     })
     .catch((err) => {
@@ -225,7 +236,8 @@ exports.update_block = async (req, res) => {
 // get rooms
 exports.getRooms = async (req, res) => {
   const token = req.cookies.tokenABC;
-  const username = req.cookies.userData;
+  const user = req.cookies.userData;
+  const username = JSON.parse(user);
   const notificationCount = await Request.countDocuments({ clicked: false });
   // Make a get request to /api/users
   axios
@@ -236,7 +248,7 @@ exports.getRooms = async (req, res) => {
         room: response.data,
         token: token,
         notificationCount: notificationCount,
-        username: username.name,
+        username: username,
       });
     })
     .catch((err) => {
@@ -249,7 +261,9 @@ exports.getAllocationbyId = async (req, res) => {
   const year = req.query.year;
   console.log(year);
   const token = req.cookies.tokenABC;
-  const username = req.cookies.userData;
+  const user = req.cookies.userData;
+   const username = JSON.parse(user);
+
   const notificationCount = await Request.countDocuments({ clicked: false });
 
   axios
@@ -261,7 +275,7 @@ exports.getAllocationbyId = async (req, res) => {
         allocate: blockData,
         token: token,
         notificationCount: notificationCount,
-        username: username.name,
+        username: username,
       });
     })
     .catch((err) => {
@@ -283,7 +297,7 @@ exports.update_room = async (req, res) => {
         room: blockdata.data,
         token: token,
         notificationCount: notificationCount,
-        username: username.name,
+        username: username,
       });
     })
     .catch((err) => {
@@ -381,7 +395,8 @@ exports.getchart = async (req, res) => {
 // search room
 exports.search_room = async (req, res) => {
   const token = req.cookies.tokenABC;
-  const username = req.cookies.userData;
+  const user = req.cookies.userData;
+   const username = JSON.parse(user);
   const notificationCount = await Request.countDocuments({ clicked: false });
   axios
     .get("http://localhost:5000/room/api/rooms", {
@@ -404,7 +419,8 @@ exports.displaycreateallocation = async function (req, res) {
   const currentYear = new Date().getFullYear();
   const year = req.query.year;
   const token = req.cookies.tokenABC;
-  const username = req.cookies.userData;
+  const user = req.cookies.userData;
+   const username = JSON.parse(user);
   const notificationCount = await Request.countDocuments({ clicked: false });
 
   Promise.all([
@@ -427,7 +443,7 @@ exports.displaycreateallocation = async function (req, res) {
         room: roomresponse,
         students: studentResponse,
         notificationCount: notificationCount,
-        username: username.name,
+        username: username,
       });
     })
     .catch((err) => {
@@ -437,6 +453,7 @@ exports.displaycreateallocation = async function (req, res) {
 exports.search_roompage = async function (req, res) {
   const token = req.cookies.tokenABC;
   const username = req.cookies.userData;
+   const user = JSON.parse(user);
   res.render("search/searchroom", { token: token, username: username });
 };
 
@@ -466,7 +483,7 @@ exports.getWholeAllocationYear = async function (req, res) {
         token,
         token,
         notificationCount: notificationCount,
-        username: username.name,
+        username: username,
       });
     })
     .catch((err) => {
@@ -477,7 +494,8 @@ exports.getWholeAllocationYear = async function (req, res) {
 exports.disable = async (req, res) => {
   const currentYear = new Date().getFullYear();
   const token = req.cookies.tokenABC;
-  const username = req.cookies.userData;
+  const usern = req.cookies.userData;
+   const username = JSON.parse(user);
   const notificationCount = await Request.countDocuments({ clicked: false });
   Promise.all([
     axios.get(`http://localhost:5000/api/blocks`),
@@ -495,7 +513,7 @@ exports.disable = async (req, res) => {
         token: token,
         room: roomresponse,
         notificationCount: notificationCount,
-        username: username.name,
+        username: username,
       });
     })
     .catch((err) => {
@@ -506,7 +524,8 @@ exports.disable = async (req, res) => {
 exports.disableF = async (req, res) => {
   const currentYear = new Date().getFullYear();
   const token = req.cookies.tokenABC;
-  const username = req.cookies.userData;
+  const user = req.cookies.userData;
+   const username = JSON.parse(user);
   const notificationCount = await Request.countDocuments({ clicked: false });
   Promise.all([
     axios.get(`http://localhost:5000/api/blocks`),
@@ -524,7 +543,7 @@ exports.disableF = async (req, res) => {
         token: token,
         room: roomresponse,
         notificationCount: notificationCount,
-        username: username.name,
+        username: username,
       });
     })
     .catch((err) => {
@@ -537,7 +556,8 @@ exports.search_roomNav = async (req, res) => {
   const notificationCount = await Request.countDocuments({ clicked: false });
   const token = req.query.token;
   const err = req.query.error;
-  const username = req.cookies.userData;
+  const user = req.cookies.userData;
+  const username = JSON.parse(user);
   console.log("before axios");
   const urlParams = new URLSearchParams(req._parsedUrl.search);
   const id = urlParams.get("id");
@@ -577,7 +597,8 @@ exports.search_room01 = async (req, res) => {
   const notificationCount = await Request.countDocuments({ clicked: false });
   const token = req.query.token;
   const err = req.query.error;
-  const username = req.cookies.userData;
+  const user = req.cookies.userData;
+   const username = JSON.parse(user);
   console.log("before axios");
   const urlParams = new URLSearchParams(req._parsedUrl.search);
   const id = urlParams.get("id");

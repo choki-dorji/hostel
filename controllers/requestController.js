@@ -14,7 +14,8 @@ const RecentActivity = stdb.RecentActivity;
 // get request by date
 exports.getAllhostelChangeRequest = async (req, res) => {
   const token = req.cookies.tokenABC;
-  const username = req.cookies.userData;
+  const user = req.cookies.userData;
+  const username = JSON.parse(user);
   try {
     const viewMore = req.query.viewMore === "true"; // Check if view more button was clicked
     const notificationCount = await Request.countDocuments({ clicked: false });

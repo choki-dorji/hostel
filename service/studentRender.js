@@ -6,6 +6,7 @@ exports.StudentDashboard = (req, res) => {
   // calling student to get their detail
   const userdata = req.cookies.userData;
   const user = JSON.parse(userdata);
+
   const currentYear = new Date().getFullYear();
   console.log(user);
 
