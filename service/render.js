@@ -9,7 +9,7 @@ exports.add_room = async (req, res) => {
   const username = JSON.parse(user);
   const notificationCount = await Request.countDocuments({ clicked: false });
   axios
-    .get("http://localhost:5000/api/blocks")
+    .get("https://hs-systemallocate.onrender.com/api/blocks")
     .then(function (blockdata) {
       res.render("rooms/add_room", {
         block: blockdata.data,
@@ -30,8 +30,8 @@ exports.getBlock = async (req, res) => {
   const notificationCount = await Request.countDocuments({ clicked: false });
   axios
     .all([
-      axios.get("http://localhost:5000/api/blocks"),
-      axios.get("http://localhost:5000/room/api/rooms"),
+      axios.get("https://hs-systemallocate.onrender.com/api/blocks"),
+      axios.get("https://hs-systemallocate.onrender.com/room/api/rooms"),
     ])
     .then(
       axios.spread(function (blocksResponse, roomsResponse) {
@@ -66,9 +66,9 @@ exports.getBlocks = async (req, res) => {
   try {
     axios
       .all([
-        axios.get("http://localhost:5000/api/blocks"),
-        axios.get("http://localhost:5000/room/api/rooms"),
-        axios.get("http://localhost:5000/recent/recent"),
+        axios.get("https://hs-systemallocate.onrender.com/api/blocks"),
+        axios.get("https://hs-systemallocate.onrender.com/room/api/rooms"),
+        axios.get("https://hs-systemallocate.onrender.com/recent/recent"),
         axios.get("https://gcit-user-management.onrender.com/api/v1/UM/join", {
           headers: {
             Authorization: "Bearer " + token,
@@ -143,7 +143,7 @@ exports.getAllocations = async (req, res) => {
   axios
     .all([
       axios.get(`http://localhost:5000/api/allocations/${currentYear}`),
-      axios.get("http://localhost:5000/api/students"),
+      axios.get("https://hs-systemallocate.onrender.com/api/students"),
     ])
     .then(
       axios.spread((allocationsResponse, studentsResponse) => {
@@ -205,7 +205,7 @@ exports.update_block = async (req, res) => {
   const username = req.cookies.userData;
   const notificationCount = await Request.countDocuments({ clicked: false });
   axios
-    .get("http://localhost:5000/api/blocks", { params: { id: req.query.id } })
+    .get("https://hs-systemallocate.onrender.com/api/blocks", { params: { id: req.query.id } })
     .then(function (blockdata) {
       res.render("blockd/index", {
         block: blockdata.data,
@@ -230,7 +230,7 @@ exports.getRooms = async (req, res) => {
   const notificationCount = await Request.countDocuments({ clicked: false });
   // Make a get request to /api/users
   axios
-    .get("http://localhost:5000/room/api/rooms")
+    .get("https://hs-systemallocate.onrender.com/room/api/rooms")
     .then(function (response) {
       // console.log(response);
       res.render("getroom", {
@@ -276,7 +276,7 @@ exports.update_room = async (req, res) => {
   const username = req.cookies.userData;
   const notificationCount = await Request.countDocuments({ clicked: false });
   axios
-    .get("http://localhost:5000/room/api/rooms", {
+    .get("https://hs-systemallocate.onrender.com/room/api/rooms", {
       params: { id: req.query.id },
     })
     .then(function (blockdata) {
@@ -311,7 +311,7 @@ exports.getchart = async (req, res) => {
   // Make a get request to /api/users
   const username = req.cookies.userData;
   axios
-    .get("http://localhost:5000/chart")
+    .get("https://hs-systemallocate.onrender.com/chart")
     .then(function (response) {
       // Get the data passed from the server-side
       const groupedData = response.data;
@@ -385,7 +385,7 @@ exports.search_room = async (req, res) => {
   const username = req.cookies.userData;
   const notificationCount = await Request.countDocuments({ clicked: false });
   axios
-    .get("http://localhost:5000/room/api/rooms", {
+    .get("https://hs-systemallocate.onrender.com/room/api/rooms", {
       params: { id: req.query.id },
     })
     .then(function (blockdata) {
@@ -409,10 +409,10 @@ exports.displaycreateallocation = async function (req, res) {
   const notificationCount = await Request.countDocuments({ clicked: false });
 
   Promise.all([
-    axios.get(`http://localhost:5000/api/blocks`),
-    axios.get(`http://localhost:5000/allocate/all`),
-    axios.get("http://localhost:5000/room/api/rooms"),
-    axios.get(`http://localhost:5000/students/allstudents`),
+    axios.get(`https://hs-systemallocate.onrender.com/api/blocks`),
+    axios.get(`https://hs-systemallocate.onrender.com/allocate/all`),
+    axios.get("https://hs-systemallocate.onrender.com/room/api/rooms"),
+    axios.get(`https://hs-systemallocate.onrender.com/students/allstudents`),
   ])
     .then((responses) => {
       const blockData = responses[0].data;
@@ -448,11 +448,11 @@ exports.getWholeAllocationYear = async function (req, res) {
   const notificationCount = await Request.countDocuments({ clicked: false });
 
   Promise.all([
-    axios.get(`http://localhost:5000/year/allocations`),
-    axios.get(`http://localhost:5000/Allocate//api/years/${year}`),
-    axios.get(`http://localhost:5000/room/api/rooms`),
-    axios.get(`http://localhost:5000/api/blocks`),
-    axios.get(`http://localhost:5000/year/allocations`),
+    axios.get(`https://hs-systemallocate.onrender.com/year/allocations`),
+    axios.get(`https://hs-systemallocate.onrender.com/Allocate//api/years/${year}`),
+    axios.get(`https://hs-systemallocate.onrender.com/room/api/rooms`),
+    axios.get(`https://hs-systemallocate.onrender.com/api/blocks`),
+    axios.get(`https://hs-systemallocate.onrender.com/year/allocations`),
   ])
     .then((responses) => {
       const yearData = responses[0].data;
@@ -481,9 +481,9 @@ exports.disable = async (req, res) => {
   const username = req.cookies.userData;
   const notificationCount = await Request.countDocuments({ clicked: false });
   Promise.all([
-    axios.get(`http://localhost:5000/api/blocks`),
-    axios.get(`http://localhost:5000/allocate/api/years/${currentYear}`),
-    axios.get("http://localhost:5000/room/api/rooms"),
+    axios.get(`https://hs-systemallocate.onrender.com/api/blocks`),
+    axios.get(`https://hs-systemallocate.onrender.com/allocate/api/years/${currentYear}`),
+    axios.get("https://hs-systemallocate.onrender.com/room/api/rooms"),
   ])
     .then((responses) => {
       const blockData = responses[0].data;
@@ -510,9 +510,9 @@ exports.disableF = async (req, res) => {
   const username = req.cookies.userData;
   const notificationCount = await Request.countDocuments({ clicked: false });
   Promise.all([
-    axios.get(`http://localhost:5000/api/blocks`),
-    axios.get(`http://localhost:5000/allocate/api/years/${currentYear}`),
-    axios.get("http://localhost:5000/room/api/rooms"),
+    axios.get(`https://hs-systemallocate.onrender.com/api/blocks`),
+    axios.get(`https://hs-systemallocate.onrender.com/allocate/api/years/${currentYear}`),
+    axios.get("https://hs-systemallocate.onrender.com/room/api/rooms"),
   ])
     .then((responses) => {
       const blockData = responses[0].data;
@@ -587,9 +587,9 @@ exports.search_room01 = async (req, res) => {
   try {
     axios
       .all([
-        axios.get("http://localhost:5000/api/blocks"),
-        axios.get("http://localhost:5000/room/api/rooms"),
-        axios.get(`http://localhost:5000/room/api/member/${id}`),
+        axios.get("https://hs-systemallocate.onrender.com/api/blocks"),
+        axios.get("https://hs-systemallocate.onrender.com/room/api/rooms"),
+        axios.get(`https://hs-systemallocate.onrender.com/room/api/member/${id}`),
       ])
       .then(
         axios.spread(function (blocksResponse, roomsResponse, membersResponse) {
