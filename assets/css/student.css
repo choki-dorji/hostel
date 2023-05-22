@@ -123,7 +123,7 @@ nav .profile img {
   float: right;
   width: 24px;
   height: 24px;
-  margin-top: 0.1rem;
+  margin-top: 0.05rem;
   margin-right: 1.9rem;
   border-radius: 100%;
   object-fit: cover;
@@ -245,7 +245,6 @@ nav .profile .profile-link a:hover {
   background-color: #ffffff;
   border-radius: 5px; /* rounds the corners */
   margin: 1.2rem -0.6rem 0 0;
-
   height: 425px;
 }
 
@@ -314,12 +313,12 @@ nav .profile .profile-link a:hover {
   opacity: 90%; /* sets the background color */
   border-radius: 5px; /* rounds the corners */
   margin: 1.2rem 0 0 0;
-  overflow-y: hidden;
+ 
 }
 #block .roommate {
   font-size: 20px;
   opacity: 90%;
-  padding-top: 0.6rem;
+  padding-top: 3rem;
   color: #ff4b13;
 }
 .con {
@@ -327,11 +326,16 @@ nav .profile .profile-link a:hover {
   margin-left: 1px;
   margin-top: 0.6rem;
 }
-
+.table-responsive{
+  padding-top:.2rem;
+  overflow-y:auto;
+  height:300px;
+}
 .table tr {
   width: 96%;
   margin-left: 1rem;
   color: #ffffff;
+
 }
 
 .table td,
@@ -340,15 +344,19 @@ nav .profile .profile-link a:hover {
   vertical-align: top;
   border: 1px solid #d7c8c8;
   opacity: 90%;
+ 
+
 }
 .table tbody tr {
   color: #4f4f4f;
+
 }
 .table thead th {
   vertical-align: bottom;
   border: 2px solid #e9e0e0;
   background: #ff4b13;
   opacity: 90%;
+
 }
 
 .footer {
@@ -364,7 +372,7 @@ nav .profile .profile-link a:hover {
 }
 @media (max-width: 767px) {
   .my-proDetails {
-    margin: 0.85rem -0.25rem 0 -0.3rem;
+    margin: 0.85rem -0.25rem 0 -0.2rem;
     padding-bottom: 2rem;
   }
   #block .shadow-box,
@@ -372,15 +380,25 @@ nav .profile .profile-link a:hover {
     height: 65px;
   }
   #block .shadow-box {
-    margin: -0.4rem -0.25rem 0 -0.3rem;
+    margin: -0.4rem -0.25rem 0 -0.2rem;
   }
   #block .button {
     margin-top: -3.45rem;
-    right: 1.25rem;
+    right: 1.8rem;
     width: 155px;
     height: 45px;
     position: absolute;
     font-size: 14px;
+  }
+
+  #block .roomc {
+    position:absolute;
+ top:4px;
+  left:0rem;
+  }
+  #block .dee {
+    position:absolute;
+top:-.3rem;
   }
   #block .welcome {
     font-size: 16px;
@@ -390,10 +408,7 @@ nav .profile .profile-link a:hover {
     margin-top: 2rem;
     font-size: 14px;
   }
-  #block .roomc {
-    padding-top: 5px;
-    right: 10%;
-  }
+ 
   #block .bx-smile {
     margin-top: 0.6rem;
     margin-left: 10.6rem;
@@ -406,7 +421,7 @@ nav .profile .profile-link a:hover {
     top: -4rem;
   }
   .my-box1 {
-    margin: 0.9rem -0.3rem 0 -0.3rem;
+    margin: -.6rem -0.3rem 0 -0.2rem;
   }
   .footer {
     margin-top: 0.9rem;

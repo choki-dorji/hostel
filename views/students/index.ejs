@@ -125,7 +125,26 @@
       width: 390px;
       color: rgba(255, 0, 0, 0.711);
     }
-
+	.swal2-popup .swal2-styled.swal2-cancel {
+      border: 1px solid #ff4b13;
+			color:#ff4b13;
+			padding-right:2rem;
+			padding-left:2rem; /* Set the border properties as per your requirement */
+			margin-bottom:2rem;
+    }
+	.swal2-popup .swal2-styled.swal2-confirm:hover, .swal2-popup .swal2-styled.swal2-confirm:focus{
+	color:#fff;
+		background:#ff4b13;
+		outline:#ff4b13;
+	}
+	.swal2-popup .swal2-styled.swal2-cancel:hover, .swal2-popup .swal2-styled.swal2-cancel:focus{
+	background:#fff;
+	}
+		.swal2-popup .swal2-styled.swal2-confirm {
+					padding-right:2rem;
+					padding-left:2rem;
+					margin-bottom:2rem;
+		    }
 	</style>
 	<title>Home</title>
 </head>
@@ -232,10 +251,10 @@
 					</div>
 
 					<div class="col-lg-8 col-md-6 col-sm-12 ">
-						<div class="my-box1  pl-5 pr-5 proo ">
+						<div class="my-box1  pl-5 pr-5 proo " >
 							<p class="roommate mt-4 font-weight-bold"> Roommate details</p>
 							<div class="table-responsive">
-								<table class="table table-hover">
+								<table class="table">
 									<thead>
 									<tr>
 										<th scope="col">SI.No</th>
@@ -354,12 +373,12 @@ document.getElementById("logout-link").addEventListener("click", function(e) {
     // Show confirmation message using SweetAlert2
     Swal.fire({
         html: `
-				<h5 style:>Hostel Change Request</h5>
+				<h5 class="mt-4 pb-3 font-weight-bold" style="color:#ff4b13; opacity:90%;">Hostel Change Request</h5>
 								<form enctype="multipart/form-data">
 									<div class="form-group">
 										<div class="input-box active-grey">
 											<label class="input-label">Block Type</label>
-											<select class="input-1" onfocus="setFocus(true)" onblur="setFocus(false)" id="block-type" required  onchange="myFunction()" >
+											<select class="input-1" onfocus="setFocus(true)" onblur="setFocus(false)" id="block-type" required  onchange="myFunction()"style="color:#4f4f4f; border-color:#4f4f4f; font-size:16px;" >
 												<% for(var j = 0; j < block.length; j++) { %>
 													<%
 													var room = userdata.gender === 'F' ? 'girls' : 'boys';
@@ -372,20 +391,20 @@ document.getElementById("logout-link").addEventListener("click", function(e) {
 										</div>
 
 										<div class="input-box">
-											<label class="input-label">Room</label>
-												<select class="input-1" onfocus="setFocus(true)" onblur="setFocus(false)" required id="room-select">
+											<label class="input-label" >Room</label>
+												<select class="input-1" onfocus="setFocus(true)" onblur="setFocus(false)" required id="room-select" style="color:#4f4f4f; border-color:#4f4f4f; font-size:16px;">
 												</select>
 										</div>
 
 
 										<div class="input-box">
 												<label class="input-label">Reason</label>
-												<textarea type="text" class="input-1" onfocus="setFocus(true)" style="height: 150px;" id="reason" onblur="setFocus(false)" required ></textarea>
+												<textarea type="text" class="input-1" onfocus="setFocus(true)"  style="height: 100px; color:#4f4f4f; border-color:#4f4f4f; font-size:16px;" id="reason" onblur="setFocus(false)" required ></textarea>
 										</div>
 
 												<div class="input-box active-grey">
 														<label class="input-label">Attach files</label>
-														<input type="file" name="filename" multiple class="input-1" onfocus="setFocus(true)" style="height: 100px;" id="file" onblur="setFocus(false)" required />
+														<input type="file" name="filename" multiple class="input-1" onfocus="setFocus(true)" style="height: 100px; color:#4f4f4f; border-color:#4f4f4f; font-size:16px;" id="file" onblur="setFocus(false)" required />
 
 												</div>
 										</div>
@@ -394,7 +413,7 @@ document.getElementById("logout-link").addEventListener("click", function(e) {
 				showCancelButton: true,
 				showConfirmButton: true,
 				confirmButtonColor: "#ff4b13",
-				cancelButtonColor: "#000",
+				cancelButtonColor: "#fff",
 				confirmButtonText: "Create",
 				preConfirm: () => {
 					// Retrieve the values of the input fields
