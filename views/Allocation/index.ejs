@@ -1,5 +1,6 @@
 <%- include('../required/header.ejs') %>
 
+
 <style>
     tr.disabled-row {
     background-color: rgba(255, 75, 19, 0.1); /* Set the background color for disabled rows */
@@ -115,7 +116,7 @@
 #block11 .button2:active, #block11 .button2:focus {
   outline:none;
   border:none;
-  
+
 }
 #block11 .button2:hover{
 outline:none;
@@ -328,7 +329,7 @@ color:#ff4b13;
       border: 1px solid #ff4b13;
 			color:#ff4b13;
 			padding-right:2rem;
-   
+
 			padding-left:2rem; /* Set the border properties as per your requirement */
 			margin-bottom:2rem;
     }
@@ -379,7 +380,7 @@ color:#ff4b13;
               <h4 class="deshea font-weight-bold text-uppercase pb-4" id="descriptionElement">
               </h4>
             </div>
-            <div class="table-responsive">
+            <div class="table-responsive"  >
              <%- include('./table.ejs') %>
 
               <hr>
@@ -673,23 +674,134 @@ color:#ff4b13;
     </script>
 
 
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.2.2/html2canvas.min.js"></script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.68/pdfmake.min.js"></script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.68/vfs_fonts.js"></script>
+<!--
+<script>
+  document.getElementById('downloadBtn').addEventListener('click', function(event) {
+    event.preventDefault()
+  // Convert the HTML table to canvas
+  html2canvas(document.getElementById('tblCustomers')).then(function(canvas) {
+    var imgData = canvas.toDataURL('image/png');
+
+    // Calculate the width and height of the PDF document
+    var imgWidth = 210; // A4 page width in mm
+    var pageHeight = imgWidth * canvas.height / canvas.width;
+
+    // Calculate the number of pages needed
+    var numPages = Math.ceil(canvas.width / imgWidth);
+
+    // Create an array to store the page contents
+    var pageContents = [];
+
+    // Split the image into multiple pages
+    for (var i = 0; i < numPages; i++) {
+      var offsetX = i * imgWidth;
+      var pageCanvas = document.createElement('canvas');
+      pageCanvas.width = imgWidth;
+      pageCanvas.height = pageHeight;
+      var ctx = pageCanvas.getContext('2d');
+      ctx.drawImage(canvas, -offsetX, 0);
+      var pageImgData = pageCanvas.toDataURL('image/png');
+      pageContents.push({ image: pageImgData, width: imgWidth, height: pageHeight });
+    }
+
+    // Create a PDF document
+    var docDefinition = {
+      content: pageContents,
+      pageSize: {
+        width: imgWidth,
+        height: pageHeight,
+      },
+    };
+
+    // Generate and download the PDF file
+    pdfMake.createPdf(docDefinition).download('table.pdf');
+  });
+});
+
+</script> -->
+
+<!--  -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js"></script>
+
+<script>
+ // Function to download the PDF
+function downloadPDF() {
+  // Obtain the table element
+  const table = document.getElementById('tblCustomers');
+
+  // Use html2canvas to capture the table as an image
+  html2canvas(table).then(function(canvas) {
+    const imgData = canvas.toDataURL('image/png');
+
+    // Set up the PDF document with A4 dimensions
+    const pdf = new jsPDF('p', 'mm', 'a4');
+    const pageWidth = pdf.internal.pageSize.getWidth();
+    const pageHeight = pdf.internal.pageSize.getHeight();
+
+    // Calculate the desired image width and height to fit the page
+    const desiredWidth = pageWidth - 20; // Adjust the margin as needed
+    const desiredHeight = pageHeight - 20; // Adjust the margin as needed
+
+    // Add the table image to the PDF
+    pdf.addImage(imgData, 'PNG', 10, 10, desiredWidth, desiredHeight);
+
+    // Save the PDF as a file
+    pdf.save('table.pdf');
+  });
+}
+
+// Add a click event listener to the button
+const downloadBtn = document.getElementById('downloadBtn');
+downloadBtn.addEventListener('click', function(event) {
+  event.preventDefault(); // Prevent the default form submission behavior
+  downloadPDF();
+});
+
+</script>
+
+
+
+
+<!-- <script type="text/javascript">
+  document.addEventListener("DOMContentLoaded", function () {
+  var tblCustomers = document.querySelector('#tblCustomers');
+  var downloadBtn = document.querySelector('#downloadBtn');
+
+  downloadBtn.addEventListener("click", function (event) {
+    event.preventDefault();
+
+    // Introduce a small delay to allow the table to fully load
+    setTimeout(function() {
+      html2canvas(tblCustomers, {
+        scrollY: -window.scrollY, // Adjust scroll offset if needed
+        useCORS: true, // Enable cross-origin resource sharing
+        allowTaint: true // Allow tainting of the canvas (may be required for certain images)
+      })
+        .then(function (canvas) {
+          var data = canvas.toDataURL();
+          var docDefinition = {
+            content: [{
+              image: data,
+              width: 500
+            }]
+          };
+          pdfMake.createPdf(docDefinition).download("allocations.pdf");
+        })
+        .catch(function (error) {
+          console.error('Error capturing table:', error);
+        });
+    }, 100); // Adjust the delay as needed
+  });
+});
+
+</script> -->
+
 </body>
 
-<script type="text/javascript">
-  $("body").on("click", "#downloadBtn", function () {
-      html2canvas($('#tblCustomers'), {
-          onrendered: function (canvas) {
-              var data = canvas.toDataURL();
-              var docDefinition = {
-                  content: [{
-                      image: data,
-                      width: 500
-                  }]
-              };
-              pdfMake.createPdf(docDefinition).download("allocations.pdf");
-          }
-      });
-  });
-</script>
+
 
 </html>

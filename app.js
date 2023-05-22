@@ -17,7 +17,7 @@ const RecentActivity = require("./routes/recent");
 const login = require("./routes/login");
 const app = express();
 
-// set up se
+require("dotenv").config(); // Load environment variables from .env file
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -87,9 +87,7 @@ app.use((error, req, res, next) => {
 });
 
 mongoose
-  .connect(
-    "mongodb+srv://Choki:Bumthap123@cluster0.7i7nwco.mongodb.net/HostelAllocation?retryWrites=true&w=majority"
-  )
+  .connect(process.env.MONGODB_URI) // Use the MongoDB Atlas connection string from environment variables
   .then(() => {
     app.listen(5000);
     console.log("connect to database");

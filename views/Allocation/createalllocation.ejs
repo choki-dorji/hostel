@@ -1,5 +1,24 @@
 <%- include("../required/header") %>
       <style type="text/css">
+          #allocate-button:disabled {
+    background-color: #ccc;
+  }
+  .failed{
+	  color: rgba(215, 42, 42);
+	padding:1.5rem 5rem;
+	border-radius:30px 0 30px 0;
+}
+.error{
+	  color: rgba(215, 42, 42);
+	padding:1.5rem 5rem;
+	border-radius:30px 0 30px 0;
+}
+.toastify-success {
+  color: rgba(0,143,32);
+  box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.2);
+  padding:1.5rem 5rem;
+  border-radius:30px 0 30px 0;
+}
 #page-loader {
   position: fixed;
   top: 0;
@@ -234,7 +253,7 @@
                                 </div>
 
                             </div>
-                            <button type="submit" id="allocate-button" class="allo-button pt-1 " style="border: none;  height:45px; outline: none;">
+                            <button type="submit" id="allocate-button" class="allo-button pt-1 " style="border: none;  height:45px; outline: none;" disabled>
                               <p class="al- ">Allocate</p>
                           </button>
                             </form>
@@ -259,6 +278,27 @@
 <!-- NAVBAR -->
 
 </script>
+
+<script>
+  const maleCheckboxes = document.querySelectorAll('input.checkmale');
+  const femaleCheckboxes = document.querySelectorAll('input.checkfemale');
+  const allocateButton = document.getElementById('allocate-button');
+
+  function updateButtonState() {
+    const maleChecked = Array.from(maleCheckboxes).some(checkbox => checkbox.checked);
+    const femaleChecked = Array.from(femaleCheckboxes).some(checkbox => checkbox.checked);
+    allocateButton.disabled = !(maleChecked && femaleChecked);
+  }
+
+  maleCheckboxes.forEach(checkbox => {
+    checkbox.addEventListener('change', updateButtonState);
+  });
+
+  femaleCheckboxes.forEach(checkbox => {
+    checkbox.addEventListener('change', updateButtonState);
+  });
+</script>
+
 
 
   <script>
@@ -360,9 +400,15 @@ function submitNewForm(event) {
           console.log(response)
             if (!response.ok) {
               if(response.status === 409){
-                throw new Error("The Selected Blocm is already used for allocation")
+                throw new Error("The Selected Block is already used for allocation")
               }
-                // throw new Error('Failed to submit form.');
+              if(response.status === 400){
+                throw new Error("Please choose blocks to allocate rooms")
+              }
+              if(response.status === 404){
+                throw new Error("Please choose block for both male and female")
+              }
+                throw new Error('Failed to submit form.');
             }
             return response.json();
         })
@@ -376,7 +422,7 @@ function submitNewForm(event) {
                 duration: 3000,
                 gravity: 'top',
                 position: 'center',
-                backgroundColor: '#00b09b',
+                backgroundColor: 'rgba(196,293,206,1)',
                 className: 'toastify-success',
                 stopOnFocus: true,
                 onClick: function() { Toastify.hideAll() }
@@ -394,7 +440,7 @@ function submitNewForm(event) {
                 duration: 3000,
                 gravity: 'top',
                 position: 'center',
-                backgroundColor: '#ff416c',
+                backgroundColor: 'rgba(243,209,209,1)',
                 className: 'failed',
                 stopOnFocus: true,
                 onClick: function() { Toastify.hideAll() }

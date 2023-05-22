@@ -192,38 +192,38 @@ position:relative
   <!-- SIDEBAR -->
   <section id="sidebar">
 
-    <div class="horizontal-line"></div>
+    <div class="horizontal-line justify-content-center align-items-center"></div>
 <div class="side-flow">
     <ul class="side-menu">
 
       <li class="list">
         <a href="/dashboard/dash?token=<%= locals.token %>"  onclick="activateLink(this)" class="nav-link">
-          <i class='bx bx-grid-alt me-5 icon housee'></i>
+          <i class='bx bx-grid-alt me-5 icon housee bx-tada-hover'></i>
           <span class="link">Dashboard</span>
         </a>
 
       </li>
       <li class="list">
         <a href="/" onclick="activateLink(this)" class="nav-link">
-          <i class='far fa-building icon building'></i>
+          <i class='far fa-building icon building bx-tada-hover'></i>
           <span class="link">Block</span>
         </a>
       </li>
       <li class="list">
-        <a href="/room/add-room" onclick="activateLink(this)" class="nav-link">
-          <i class='bx bx-home icon housee'></i>
+        <a href="/room/add-room" onclick="activateLink(this)" class="nav-link" style=" margin-left:1px;">
+          <i class='bx bx-home icon housee bx-tada-hover'></i>
           <span class="link">Add room</span>
         </a>
       </li>
       <li class="list">
-        <a href="/year/all-allocations" onclick="activateLink(this)" class="nav-link">
-          <i class='bx bx-calendar icon housee'></i>
+        <a href="/year/all-allocations" onclick="activateLink(this)" class="nav-link" style=" margin-left:1px;">
+          <i class='bx bx-calendar icon housee bx-tada-hover'></i>
           <span class="link">Allocation</span>
         </a>
       </li>
       <li class="list">
-        <a href="/room/search" onclick="activateLink(this)" class="nav-link aa" style="padding: 11px 16px 11px 0;" >
-          <i class="material-icons icon sea">search</i>
+        <a href="/room/search" onclick="activateLink(this)" class="nav-link aa" style="padding: 11px 16px 11px 0; margin-left:1px;" >
+          <i class="material-icons icon sea bx-tada-hover">search</i>
           <span class="link">Search</span>
         </a>
       </li>
@@ -235,7 +235,7 @@ position:relative
         <% } %>
   				<a href="/request" onclick="activateLink(this)" class="nav-link aa" style="padding: 6px 16px 6px 0;">
   					<span class="icon housee">
-              <i class="bx bx-message-square-dots mess"></i>
+              <i class="bx bx-message-square-dots mess bx-tada-hover"></i>
             </span>
             <span class="link">Request</span>
 
@@ -243,7 +243,7 @@ position:relative
   			</li>
       <li class="list ab">
         <a href="" onclick="activateLink(this)" class="nav-link">
-          <i class='fas fa-wheelchair icon housee'></i>
+          <i class='fas fa-wheelchair icon housee bx-tada-hover'></i>
           <span class="link">Handicapped</span>
         </a>
         <ul class="dropdown">
@@ -284,7 +284,7 @@ position:relative
           <div class="search">
             <input type="text" class="search__input" arial-label="search" placeholder="Search ..."
               oninput="handleSearch()">
-            <button class="search__submit" arial-label="submit search"><i class="fas fa-search"></i>
+            <button class="search__submit" arial-label="submit search"><i class="fas fa-search bx-tada-hover"></i>
             </button>
           </div>
         </div>

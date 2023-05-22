@@ -221,17 +221,17 @@ select{
     <h5 style="text-align: center; font-weight:bold;  padding-bottom:1rem;">Create Room</h5>
   </div>
   <div class="input-box">
-    <label class="input-label">Room Name</label>
-    <input type="text" class="input-1" name="room_name" id="room-name" required onfocus="setFocus(true)" onblur="setFocus(false)" />
+    <label class="input-label"style="color:#4f4f4f;">Room Name</label>
+    <input type="text" class="input-1" name="room_name" id="room-name" required onfocus="setFocus(true)" onblur="setFocus(false)"  style="border-color:#4f4f4f;font-size:16px;"/>
   </div>
    <div class="input-box">
-    <label class="input-label">Room Capacity</label>
-    <input type="number" class="input-1" id="room-capacity" name="room_capacity" required onfocus="setFocus(true)" onblur="setFocus(false)" />
+    <label class="input-label"style="color:#4f4f4f;">Room Capacity</label>
+    <input type="number" class="input-1" id="room-capacity" name="room_capacity" required onfocus="setFocus(true)" onblur="setFocus(false)"  style="border-color:#4f4f4f;font-size:16px;"/>
   </div>
 
   <div class="input-box">
-    <label class="input-label">Block</label>
-    <select class="input-1" id="block-id" name="blockid" required onfocus="setFocus(true)" onblur="setFocus(false)">
+    <label class="input-label"style="color:#4f4f4f;">Block</label>
+    <select class="input-1" id="block-id" name="blockid" required onfocus="setFocus(true)" onblur="setFocus(false)"  style="border-color:#4f4f4f;font-size:16px;">
       <option value="" disabled selected></option>
       <% for(var j = 0; j < block.length; j++)  { %>
       <option value="<%= block[j]._id %>"><%= block[j].block_name %></option>
@@ -240,8 +240,8 @@ select{
     </select>
   </div>
   <div class="input-box">
-    <label class="input-label">Status</label>
-    <select class="input-1" id="status" name="status" onfocus="setFocus(true)" onblur="setFocus(false)">
+    <label class="input-label"style="color:#4f4f4f;">Status</label>
+    <select class="input-1" id="status" name="status" onfocus="setFocus(true)" onblur="setFocus(false)"  style="border-color:#4f4f4f;font-size:16px;">
         <option value="" disabled selected></option>
       <option value="available">Available</option>
       <option value="unavailable">Unavailable</option>
@@ -250,8 +250,8 @@ select{
   </div>
 
   <div class="input-box">
-    <label class="input-label">isDisabled</label>
-    <select class="input-1" id="isDisabled" name="isDisabled" onfocus="setFocus(true)" onblur="setFocus(false)">
+    <label class="input-label" style="color:#4f4f4f;">isDisabled</label>
+    <select class="input-1" id="isDisabled" name="isDisabled" onfocus="setFocus(true)" onblur="setFocus(false)" style="border-color:#4f4f4f;font-size:16px;"  >
       <option value="" disabled selected></option>
       <option value="true">True</option>
       <option value="false">False</option>
@@ -331,7 +331,7 @@ const form = document.querySelector('#form');
 
       } else if (response.status === 422) {
         Toastify({
-        text:  `The provided room name already exists. Please enter another name!`,
+        text:  `The provided room name already exists. Please enter another name.`,
         backgroundColor: 'rgba(243, 209, 209,1)',
         className: "error",
         gravity: "top",
@@ -343,7 +343,7 @@ const form = document.querySelector('#form');
       }).showToast();
       }
       else {
-         const errorMessage = await response.text() || 'Failed to create room';
+         const errorMessage = await response.text() || 'Failed to create room. Please try again!';
       Toastify({
         text: errorMessage,
         backgroundColor: 'rgba(243, 209, 209,1)',
@@ -360,7 +360,7 @@ const form = document.querySelector('#form');
       console.error(err);
        console.error(err);
     Toastify({
-      text: 'Failed to create room',
+      text: 'Failed to create room. Please try again!',
       backgroundColor: 'rgba(243, 209, 209,1)',
       className: "error",
       gravity: "top",

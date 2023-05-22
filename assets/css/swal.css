@@ -17,13 +17,13 @@ body {
     margin-top: 50px;
   }
   .input-box.active-grey .input-1 {
-    border: 1px solid #dadce0;
+    border: 1px solid #ffffff;
   }
   .input-box.active-grey .input-label {
-    color: #80868b;
+    color: #4f4f4f;
     top: -8px;
     background: #fff;
-    font-size: 11px;
+    font-size: 12px;
     transition: 250ms;
   }
   .input-box {
@@ -32,7 +32,7 @@ body {
   }
   .input-box .input-label {
     position: absolute;
-    color: #80868b;
+    color: #4f4f4f;
     font-size: 16px;
     font-weight: 400;
     max-width: calc(100% - (2 * 8px));
@@ -58,14 +58,14 @@ body {
     height: 50px;
     width: 100%;
     border-radius: 4px;
-    color: #202124;
-    border: 1px solid #dadce0;
+    color: #414141;
+    border: 1px solid #ffffff;
     padding: 13px 15px;
     transition: 250ms;
   }
   .input-box .input-1:focus {
     outline: none;
-    border: 2px solid #1a73e8;
+    border: 1px solid #1a73e8;
     transition: 250ms;
   }
   /*.input-box.error .input-label {
@@ -80,10 +80,10 @@ body {
   }*/
   .input-box.focus .input-label,
   .input-box.active .input-label {
-    color: #1a73e8;
+    color: #4f4f4f;
     top: -8px;
     background: #fff;
-    font-size: 11px;
+    font-size: 12px;
     transition: 250ms;
   }
   .input-box.focus .input-label svg,
@@ -95,9 +95,8 @@ body {
     transition: 250ms;
   }
   .input-box.active .input-1 {
-    border: 2px solid #1a73e8;
+    border: 1px solid #4f4f4f;
   }
-
 
 
   .input-edit {
@@ -106,8 +105,8 @@ body {
   }
   .input-edit .input-label {
     position: absolute;
-    color: #80868b;
-    font-size: 14px;
+    color: #4f4f4f;
+    font-size: 12px;
     font-weight: 400;
     max-width: calc(100% - (2 * 8px));
     overflow: hidden;
@@ -133,47 +132,20 @@ body {
     height: 50px;
     width: 100%;
     border-radius: 4px;
-    color: #202124;
+    color: #4f4f4f;
     border: 1px solid #dadce0;
     padding: 13px 15px;
     transition: 250ms;
   }
   .input-edit .input-1:focus {
     outline: none;
-    border: 2px solid #1a73e8;
+    border: 1px solid #1a73e8;
     transition: 250ms;
   }
-  /*.input-box.error .input-label {
-    color: #f44336;
-    top: -8px;
-    background: #fff;
-    font-size: 11px;
-    transition: 250ms;
-  }*/
-  /*.input-box.error .input-1 {
-    border: 2px solid #f44336;
-  }*/
-  /* .input-edit.focus .input-label,
-  .input-box.active .input-label {
-    color: #1a73e8;
-    top: -8px;
-    background: #fff;
-    font-size: 11px;
-    transition: 250ms;
-  }
-  .input-edit.focus .input-label svg,
-  .input-box.active .input-label svg {
-    position: relative;
-    width: 11px;
-    height: 11px;
-    top: 2px;
-    transition: 250ms;
-  }
-  .input-edit.active .input-1 {
-    border: 2px solid #1a73e8;
-  } */
 
-
+.choose-file{
+  height: 55px; padding-top:1rem; font-size:16px; border-color:#000000;
+}
   .btn {
     background: #fff;
     color: #333;
@@ -182,7 +154,7 @@ body {
     white-space: normal;
     letter-spacing: 0.25px;
     font-weight: 400;
-    font-size: 14px;
+    font-size: 16px;
     padding: 8px 16px;
     border-radius: 4px;
     line-height: 20px;
@@ -197,12 +169,12 @@ body {
     outline: none;
   }
   .btn-primary {
-    background: #1a73e8;
+    background: #ff4a131e;
     color: #fff;
     transition: 250ms;
   }
   .btn-primary:hover {
-    background: #1a73e8;
+    background: #ff4a131e;
       transition: 250ms;
     }
 

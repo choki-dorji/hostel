@@ -195,7 +195,7 @@
     }
     #block15 .bx-shadow1 {
       margin: 0.6rem -2.6rem 0 2rem;
-      border-radius: 10px; /* rounds the corners */
+      border-radius: 5px; /* rounds the corners */
   
       display: flex;
       flex-direction: row;
@@ -205,7 +205,7 @@
   
     #block15 .bx-shadow2 {
       margin: 0.5rem -1.2rem 0 2rem;
-      border-radius: 10px; /* rounds the corners */
+      border-radius: 5px; /* rounds the corners */
       height: atuo;
       display: flex;
       flex-direction: row;

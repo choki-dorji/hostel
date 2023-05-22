@@ -164,7 +164,7 @@ async function handleSearch1(event) {
 
 
     if (response.ok) {
-      const student = data;
+      const student = data[0];
         searchResults.innerHTML = `
                               <div class="dis " id="searchtable">
                                     <div class=" proo pl-4 pr-4 ">

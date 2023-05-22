@@ -8,10 +8,26 @@ const AcadYear = stdb.AcadYear;
 const student = require("./apiconnection_lakshay/getStudents");
 
 const allocateRoomByYearAndBlock = async (req, res, next) => {
-  currentYear = req.params.year
+  currentYear = req.params.year;
   const { years, maleBlock, femaleBlock } = req.body;
-  const bid = [...maleBlock, ...femaleBlock];;
+  const bid = [...maleBlock, ...femaleBlock];
 
+  if (req.body.maleBlock.length === 0 && req.body.femaleBlock.length === 0) {
+    const error = new HttpError(`Please choose blocks to allocate`, 400);
+    console.log(error.message);
+    return res.status(error.code).json({ message: error.message });
+  }
+
+  if (req.body.femaleBlock.length === 0) {
+    const error = new HttpError(`Please choose male block to allocate`, 404);
+    console.log(error.message);
+    return res.status(error.code).json({ message: error.message });
+  }
+  if (req.body.femaleBlock === 0) {
+    const error = new HttpError(`Please choose female block to allocate`, 404);
+    console.log(error.message);
+    return res.status(error.code).json({ message: error.message });
+  }
 
   const currentDate = new Date();
   const year = currentDate.getFullYear();
@@ -37,13 +53,12 @@ const allocateRoomByYearAndBlock = async (req, res, next) => {
       academicyear: currentYear,
     });
 
-
     if (existingAllocation) {
       const error = new HttpError(
         `Rooms have already allocated for year ${years} in this block `,
         409
       );
-      console.log(error.message)
+      console.log(error.message);
       return res.status(error.code || 500).json({ message: error.message });
     }
     if (existingAllocation1) {
@@ -51,31 +66,30 @@ const allocateRoomByYearAndBlock = async (req, res, next) => {
         `Rooms have already allocated for year ${years} `,
         409
       );
-      console.log(error.message)
+      console.log(error.message);
       return res.status(error.code || 500).json({ message: error.message });
     }
-     if (existingAllocation2) {
+    if (existingAllocation2) {
       const error = new HttpError(
         `selected block is already used for the allocation`,
         409
       );
-      console.log(error.message)
+      console.log(error.message);
       return res.status(error.code || 500).json({ message: error.message });
     }
   }
   let veriifyYear;
   try {
     veriifyYear = await AcadYear.findOne({ Year: currentYear });
-    console.log("success current year", veriifyYear)
-
+    console.log("success current year", veriifyYear);
   } catch (e) {
     const error = new HttpError(`Invalid Operation`, 409);
     return res.status(error.code || 500).json({ message: error.message });
   }
 
-    if (!veriifyYear) {
-    throw new Error('Invalid year entered');
-    }
+  if (!veriifyYear) {
+    throw new Error("Invalid year entered");
+  }
 
   const allocatedRoomIds = (await Allocate.find({ year: currentYear })).map(
     (allocation) => allocation.roomid
@@ -90,7 +104,6 @@ const allocateRoomByYearAndBlock = async (req, res, next) => {
       );
     }
   }
-
 
   try {
     //*********************getting student Data****************************** */
@@ -165,14 +178,13 @@ const allocateRoomByYearAndBlock = async (req, res, next) => {
 
       let totalCapacity = 0;
 
-
       for (const room of rooms) {
         const populatedRoom = await Room.findById(room._id);
         totalCapacity += populatedRoom.availability;
       }
       console.log("total capacity ", totalCapacity);
-      console.log("male ", maleLength)
-      console.log("female", femaleLength)
+      console.log("male ", maleLength);
+      console.log("female", femaleLength);
 
       if (totalCapacity > maleLength || totalCapacity > femaleLength) {
         for (const student of [...maleStudents, ...femaleStudents]) {
@@ -253,7 +265,7 @@ const allocateRoomByYearAndBlock = async (req, res, next) => {
           console.log("room is not found");
         }
       } else {
-        console.log("couldnot allocate rooms, select more blocks")
+        console.log("couldnot allocate rooms, select more blocks");
         return res
           .status(404)
           .json({ message: "couldnot allocate rooms, select more blocks" });

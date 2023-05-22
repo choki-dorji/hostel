@@ -8,11 +8,11 @@
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
   <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+  
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.0/dist/sweetalert2.min.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.css">
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.0/dist/sweetalert2.min.js"></script>
-
 
 
 
@@ -38,6 +38,47 @@
 	<link rel="stylesheet" href="/css/swal.css">
 
 	<style>
+	nav .profile .profile-link {
+	  box-shadow: 0px 3px 10px #cfcfcf;
+	  position: absolute;
+	  top: calc(100% + 10px);
+	  right: 1.1rem;
+	  background: var(--light);
+	  border-radius: 5px;
+	  width: 230px;
+	  opacity: 0;
+	  pointer-events: none;
+	  transition: left 0.5s ease;
+
+	}
+	nav .dropdown-divider {
+	  width: 90%;
+	}
+	nav .dropdown-header {
+	  margin-left: -1rem;
+	}
+	nav .profile .profile-link.show {
+	  opacity: 1;
+	  pointer-events: visible;
+	  top: 100%;
+	}
+	nav .profile .profile-link a {
+	  padding: 10px 16px;
+	  display: flex;
+	  grid-gap: 10px;
+	  font-size: 14px;
+	  border-radius: 10px 0 10px 0;
+	  color: #4f4f4f;
+	  align-items: left;
+	  margin-left:-1rem;
+	  /* transition: all 0.3s ease; */
+	  opacity: 90%;
+	}
+	nav .profile .profile-link a:hover {
+	  background: #ff4a131e;
+	  color: #ff4b13;
+	}
+
 		button:focus {
   outline: none;
 }
@@ -100,7 +141,7 @@
 		<nav>
 			<div>
 				<div>
-					<a href="/student/index.ejs" class="brand" style="position:absolute;"><img src="/img/hostel.png" alt=""
+					<a href="#" class="brand" style="position:absolute;"><img src="/img/hostel.png" alt=""
 							style="width:48px; margin-left:.8rem; margin-top:33px;"></a>
 
 				</div>
@@ -108,12 +149,24 @@
 
 			<div class="profile">
 				<div class="pro">
-					<img src="/img/pro2.jpeg">
+					<!-- <img src="https://drive.google.com/uc?id=<%= userdata.photo %>" class="img1 mt-2"> -->
+					<img src="https://drive.google.com/uc?id=1KifybWk3-v7-n8TfNzMtPKffscGCbf44">
+
 					<i class='bx bx-cog iconn'></i>
 				</div>
 				<ul class="profile-link">
-					<li><a href="Profile.html"><i class='bx bxs-user-circle icon'></i> Profile</a></li>
-					<li><a href="Login/index.ejs"><i class='bx bxs-log-out-circle'></i> Logout</a></li>
+					<div class="p-3">
+
+						<h6 class="dropdown-header font-weight-bold text-left" style="color:#ff4b13; opacity:90%;">Hi,
+            Dechen
+            </h6>
+						<div class="dropdown-divider d-flex align-items-center justify-content-center"></div>
+						<div class="pl-4">
+							<a href="#" id="logout-link" class="dropdown-item"><i class="fas fa-sign-out-alt fa-lg fa-fw mr-2"
+									style=" color: #FF4B13;"></i>Log Out</a>
+						</div>
+
+					</div>
 				</ul>
 			</div>
 		</nav>
@@ -150,7 +203,8 @@
 					<div class="col-lg-4 col-md-6 col-sm-12">
 						<div class="my-proDetails row pt-5">
 							<div class="col-md-12 img1a">
-								<img src="/img/pro2.jpeg" class="img1 mt-2">
+								<!-- <img src="https://drive.google.com/uc?id=<%= userdata.photo %>" class="img1 mt-2"> -->
+								<img src="https://drive.google.com/uc?id=1KifybWk3-v7-n8TfNzMtPKffscGCbf44" class="img1 mt-2">
 							</div>
 							<div class="col-md-12 text-center">
 								<b class="dee position-relative">
@@ -221,24 +275,76 @@
 
 
 	<script>
-		function setFocus(on) {
-            var element = document.activeElement;
-            if (on) {
-                setTimeout(function () {
-                element.parentNode.classList.add("focus");
-                });
-            } else {
-                let box = document.querySelector(".input-box");
-                box.classList.remove("focus");
-                $("input").each(function () {
-                var $input = $(this);
-                var $parent = $input.closest(".input-box");
-                if ($input.val()) $parent.addClass("focus");
-                else $parent.removeClass("focus");
-                });
-            }
-            }
+	  function setFocus(on) {
+	    var element = document.activeElement;
+	    if (on) {
+	      setTimeout(function () {
+	        element.parentNode.classList.add("focus");
+	      });
+	    } else {
+	      let box = document.querySelector(".input-box");
+	      box.classList.remove("focus");
+	      $("input").each(function () {
+	        var $input = $(this);
+	        var $parent = $input.closest(".input-box");
+	        if ($input.val()) $parent.addClass("focus");
+	        else $parent.removeClass("focus");
+	      });
+	    }
+	  }
+
+	  document.onreadystatechange = function () {
+	    var loaderContainer = document.getElementById("loader-container");
+	    var loaderPercentage = document.getElementById("loader-percentage");
+
+	    if (document.readyState === "complete") {
+	      loaderContainer.style.display = "none";
+	    } else {
+	      loaderContainer.style.display = "flex";
+	    }
+	  };
+
+	  window.addEventListener("load", function () {
+	    var loaderPercentage = document.getElementById("loader-percentage");
+	    var currentPercentage = 0;
+	    var interval = setInterval(function () {
+	      currentPercentage++;
+	      loaderPercentage.innerText = currentPercentage + "%";
+	      if (currentPercentage === 100) {
+	        clearInterval(interval);
+	      }
+	    }, 50);
+	  });
 	</script>
+	<script>
+		document.addEventListener("DOMContentLoaded", function() {
+// Add event listener to the logout link
+document.getElementById("logout-link").addEventListener("click", function(e) {
+	e.preventDefault(); // Prevent the default link behavior
+
+	// Send fetch request to log out or redirect to the logout route
+	fetch("/logout", {
+		method: "GET",
+		credentials: "same-origin"
+	})
+		.then(response => {
+			if (response.ok) {
+				// Handle success response, such as redirecting to the login page
+				window.location.href = "/login";
+			} else {
+				// Handle error, display error message, or take appropriate action
+				throw new Error("Error logging out");
+			}
+		})
+		.catch(error => {
+			// Handle error, display error message, or take appropriate action
+			console.error("Error logging out:", error);
+		});
+});
+});
+
+	</script>
+
 	<script>
 		$(document).ready(function() {
 
@@ -264,13 +370,13 @@
 												<% } %>
 											</select>
 										</div>
-									
+
 										<div class="input-box">
 											<label class="input-label">Room</label>
 												<select class="input-1" onfocus="setFocus(true)" onblur="setFocus(false)" required id="room-select">
 												</select>
 										</div>
-										
+
 
 										<div class="input-box">
 												<label class="input-label">Reason</label>
@@ -398,35 +504,35 @@
 		});
 
 	</script>
-	
+
 <script>
 	document.addEventListener("DOMContentLoaded", function () {
 	var loaderPercentage = document.getElementById("loader-percentage");
-  
+
 	// Update the loading percentage
 	function updateLoaderPercentage(percentage) {
 	  loaderPercentage.textContent = percentage + "%";
 	}
-  
+
 	// Hide the loader when the page finishes loading
 	window.addEventListener("load", function () {
 	  document.getElementById("loader-container").style.display = "none";
 	});
-  
+
 	// Track page load progress
 	var totalPageResources = 0;
 	var loadedResources = 0;
-  
+
 	function incrementLoadedResources() {
 	  loadedResources++;
 	  var percentage = Math.floor((loadedResources / totalPageResources) * 100);
 	  updateLoaderPercentage(percentage);
 	}
-  
+
 	// Count the number of page resources (e.g., images, scripts, stylesheets)
 	var pageResources = document.querySelectorAll("img, script, link[rel='stylesheet']");
 	totalPageResources = pageResources.length;
-  
+
 	// Increment the loaded resources counter when a resource finishes loading
 	pageResources.forEach(function (resource) {
 	  if (resource.complete) {
@@ -437,8 +543,8 @@
 	  }
 	});
   });
-  
-  
+
+
   </script>
 
 </body>

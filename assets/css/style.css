@@ -146,9 +146,9 @@ li {
 }
 #sidebar .side-menu {
   margin: 22px 0;
-  padding: 0 31px;
+  padding: 0 27px;
   transition: all 0.3s ease;
- overflow-x:auto;
+ overflow-x:hidden;
  overflow-y:hidden;
 }
 #sidebar .side-flow{
@@ -161,13 +161,15 @@ li {
   color: #4f4f4f;
   letter-spacing: 0.05em;
   font-weight: 100;
-  padding: 12px 16px 12px 0;
+  padding: 12px 12px 12px 0px;
   transition: all 0.3s ease;
   border-radius: 15px 0 15px 0;
   margin: 4px 0;
   font-weight: 200;
   white-space: nowrap;
 }
+
+
 /* CSS code to hide the dropdown content by default */
 #sidebar .dropdown {
   display: none;
@@ -212,6 +214,7 @@ li {
   width: calc(100% - 85px); /* sidebar responsive (side distance on content */
   left: 1.9rem;
 }
+
 /* NAVBAR */
 .box_menu {
   margin-left: 10.4rem;
