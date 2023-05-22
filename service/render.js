@@ -25,8 +25,8 @@ exports.add_room = async (req, res) => {
 
 exports.getBlock = async (req, res) => {
   const token = req.cookies.tokenABC;
-  const user = req.cookies.userData;
-  const username = JSON.parse(user);
+  const username = req.cookies.userData;
+//   const username = JSON.parse(user);
   const notificationCount = await Request.countDocuments({ clicked: false });
   axios
     .all([
