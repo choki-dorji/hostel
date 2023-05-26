@@ -69,6 +69,7 @@ const Request = new mongoose.Schema({
   student_gender: { type: String, required: true },
   student_course: { type: String, required: true },
   student_year: { type: String, required: true },
+
   room: { type: mongoose.Schema.Types.ObjectId, ref: "Room", required: true },
   block: { type: mongoose.Schema.Types.ObjectId, ref: "Block", required: true },
   targetroom: {
@@ -86,6 +87,8 @@ const Request = new mongoose.Schema({
   clicked: { type: Boolean, required: false },
   reason: { type: String, required: true },
   reqyear: { type: String, required: true },
+  status: { type: String, required: false },
+  remarks: { type: String, required: false },
 });
 
 const RecentActivity = new Schema({

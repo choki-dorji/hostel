@@ -157,3 +157,33 @@ color:#ff4b13;
   text-decoration:none;
   color:#ff4b13;
 }
+.bx-sha{
+top:-4rem;
+position:absolute;
+background:#fff;
+}
+
+#block14 .table tr {
+  margin-left: 1rem;
+  color: #ffffff;
+}
+#block14 .table {
+  width: 100%;
+
+}
+#block14 .table td,
+#block14 .table th {
+  padding: 1rem;
+  vertical-align: top;
+  border: 1px solid #d7c8c8;
+  opacity: 90%;
+}
+#block14 .table tbody tr {
+  color: #4f4f4f;
+}
+#block14 .table thead th {
+  vertical-align: bottom;
+  border: 2px solid #e9e0e0;
+  background: #ff4b13;
+  opacity: 90%;
+}

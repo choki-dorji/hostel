@@ -241,14 +241,14 @@ position:relative
 
   				</a>
   			</li>
-      <li class="list ab">
+      <li class="list ab choki">
         <a href="" onclick="activateLink(this)" class="nav-link">
           <i class='fas fa-wheelchair icon housee bx-tada-hover'></i>
           <span class="link">Handicapped</span>
         </a>
         <ul class="dropdown">
-          <li><a href="/Allocate/disable" onclick="activateLink(this)" class="male">Male</a></li>
-          <li><a href="/Allocate/disablefemale" onclick="activateLink(this)" class="female">Female</a></li>
+          <li class="list"><a href="/Allocate/disable" onclick="activateLink(this)" class="male">Male</a></li>
+          <li class="list"><a href="/Allocate/disablefemale" onclick="activateLink(this)" class="female">Female</a></li>
         </ul>
       </li>
 
@@ -293,10 +293,6 @@ position:relative
         <div class="search-results">
         </div>
       </div>
-      <!-- <div class="darkmo">
-        <input type="checkbox" id="toggle">
-        <label for="toggle" class="butt"></label>
-      </div> -->
       <div class="profile">
 
 				<div class="pro">
@@ -612,23 +608,48 @@ position:relative
     </script>
     <script>
       // Get the current page or route
-      var currentPage = window.location.pathname;
+var currentPage = window.location.pathname;
 
-      // Remove the active class from all nav-links
-      var navLinks = document.querySelectorAll('.nav-link');
-      navLinks.forEach(function (link) {
-        link.classList.remove('block-back');
-      });
+// Remove the active class from all nav-links
+var navLinks = document.querySelectorAll('.nav-link');
+navLinks.forEach(function (link) {
+  link.classList.remove('block-back');
+});
 
-      // Find the corresponding nav-link based on the current page and add the active class
-      var activeLink = document.querySelector('.nav-link[href="' + currentPage + '"]');
-      if (!activeLink) {
-        // If the current page is the root path, select the "Dashboard" link
-        activeLink = document.querySelector('.nav-link[href="/dashboard/dash"]');
-      }
-      if (activeLink) {
-        activeLink.classList.add('block-back');
-      }
+// Find the corresponding nav-link based on the current page and add the active class
+var activeLink = document.querySelector('.nav-link[href="' + currentPage + '"]');
+if (!activeLink) {
+  
+    // Check if the current page URL contains the disabled male or female routes
+  var isDisabledMale = currentPage.includes('/Allocate/disable');
+  var isDisabledFemale = currentPage.includes('/Allocate/disablefemale');
+
+  console.log('diable', isDisabledMale, isDisabledFemale);
+  // Check if the current page URL contains a query string
+  var queryStringIndex = currentPage.indexOf('?');
+  if (queryStringIndex !== -1) {
+    // Remove the query string from the current page URL
+    var pageWithoutQueryString = currentPage.substring(0, queryStringIndex);
+
+  
+
+    // Find the parent link based on the modified URL and add the active class
+    activeLink = document.querySelector('.nav-link[href="' + pageWithoutQueryString + '"]');
+  } else if(window.location.pathname == "/dashboard/dash") {
+    activeLink = document.querySelector('.nav-link[href="/dashboard/dash?token=<%= locals.token %>"]');
+  } else if (isDisabledMale || isDisabledFemale) {
+    console.log('happy')
+    // Find the "Handicapped" link and add the active class
+    activeLink = document.querySelector('.choki .nav-link');
+    
+  }
+
+}
+
+if (activeLink) {
+  activeLink.classList.add('block-back');
+}
+
     </script>
     <script type="text/javascript">
       // Step 1: Add event listener to search input
@@ -687,7 +708,7 @@ position:relative
             }));
             const students = studentdata.map(student => ({
               id: student.sid,
-              name: student.name,
+              name: student.name + " (" + "year " + student.year + ")",
               type: 'student'
             }));
 

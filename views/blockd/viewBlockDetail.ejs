@@ -92,14 +92,19 @@
                                      </tr>
                                  </thead>
                                  <tbody>
-                                   <% for(var i = 0; i < rooms.length; i++) { %>
+                                   <%   let k = 1
+                                   for(var i = 0; i < rooms.length; i++) { %>
                                      <% if (rooms[i].blockid === block._id) { %>
                                        <% var studentsInRoom = allocate.filter(a => a.roomid === rooms[i]._id); %>
-                                       <% console.log("fghjkl", studentsInRoom) %>
-                                       <% if (studentsInRoom.length > 0) { %>
+                                       <% console.log("fghjkl", studentsInRoom)
+                                     
+                                       %>
+                                       <% if (studentsInRoom.length > 0) { 
+                                        
+                                        %>
                                       
                                          <tr <% if (rooms[i].isDisabled) { %>class="disabled-row"<% } %>>
-                                           <td><%= i %></td>
+                                           <td><%= k %></td>
                                            <td><%= rooms[i].room_name %></td>
                                            <td><%= rooms[i].room_capacity %></td>
                                            <td class="mw-100">
@@ -149,7 +154,7 @@
 
                                        <% } else { %>
                                        <tr>
-                                         <td><%= i %></td>
+                                         <td><%= k %></td>
                                          <td><%= rooms[i].room_name %></td>
                                          <td class="mw-100">
                                            <%= rooms[i].room_capacity %>
@@ -170,10 +175,13 @@
                                            <i class="bx bx-trash room-ico"></i>
                                          </td>
                                        </tr>
-                                        <% }%>
+                                        <% } 
+                                        
+                                        %>
 
-
-                                     <% }%>
+                                        <% k = k + 1 %>
+                                     <% } %>
+                                     
                                      <% } %>
 
                                  </tbody>
@@ -230,8 +238,8 @@ $(".addroom").click(function() {
                         <div class="input-box active-grey mt-4">
                             <label class="input-label">IsHandicaped</label>
                             <select class="input-1" onfocus="setFocus(true)" onblur="setFocus(false)" id="ishandicapped" style="border-color:#4f4f4f;font-size:16px; color:#4f4f4f;">
-                                <option value="true">True</option>
                                 <option value="false">False</option>
+                                <option value="true">True</option>
                             </select>
                         </div>
                     </div>
@@ -522,7 +530,7 @@ $(".addroom").click(function() {
   spans.forEach(span => {
     const blockId = span.getAttribute('blockId');
     console.log(blockId);
-    fetch(`https://hs-systemallocate.onrender.com/api/${blockId}/students/count`)
+    fetch(`/api/${blockId}/students/count`)
     .then(response => response.json())
     .then(data => {
       span.textContent = data;

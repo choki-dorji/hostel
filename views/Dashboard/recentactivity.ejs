@@ -75,31 +75,30 @@
             </thead>
             <tbody>
               <% if(recentactivity.length > 0) { %>
-
-              <% if(recentactivity.length > 5) { %>
-                <% for(var i=0; i < 5; i++) { %>
+                <% var reversedActivity = recentactivity.slice().reverse(); %>
+                <% var limit = Math.min(reversedActivity.length, 5); %>
+                <% for(var i = limit - 1; i >= 0; i--) { %>
                   <tr>
                     <th scope="row">
-                      <%=i + 1 %>
+                      <%= limit - i %>
                     </th>
                     <td>
-                      <%= recentactivity[i].student %>
+                      <%= reversedActivity[i].student %>
                     </td>
                     <td>
-                      <%= recentactivity[i].date %>
+                      <%= reversedActivity[i].date %>
                     </td>
                     <td>
-                      <%= recentactivity[i].room %>
+                      <%= reversedActivity[i].room %>
                     </td>
                     <td>
-                      <%= recentactivity[i].Description %>
+                      <%= reversedActivity[i].Description %>
                     </td>
                   </tr>
-                  <% } %>
-                  <% } %>
-
-                    <% }  %>
-
+                <% } %>
+              <% } %>
+              
+              
             </tbody>
             
           </table>

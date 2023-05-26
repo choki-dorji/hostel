@@ -2,6 +2,7 @@ const axios = require("axios");
 const userSession = require("../global");
 const request = require("../models/models");
 const Request = request.Request;
+const API = "http://localhost:5000/";
 
 exports.add_room = async (req, res) => {
   const token = req.cookies.tokenABC;
@@ -10,7 +11,7 @@ exports.add_room = async (req, res) => {
   console.log(username);
   const notificationCount = await Request.countDocuments({ clicked: false });
   axios
-    .get("http://localhost:5000/api/blocks")
+    .get(API + "api/blocks")
     .then(function (blockdata) {
       res.render("rooms/add_room", {
         block: blockdata.data,
@@ -33,10 +34,7 @@ exports.getBlock = async (req, res) => {
 
   const notificationCount = await Request.countDocuments({ clicked: false });
   axios
-    .all([
-      axios.get("http://localhost:5000/api/blocks"),
-      axios.get("http://localhost:5000/room/api/rooms"),
-    ])
+    .all([axios.get(API + "api/blocks"), axios.get(API + "room/api/rooms")])
     .then(
       axios.spread(function (blocksResponse, roomsResponse) {
         console.log("render username", username);
@@ -58,7 +56,7 @@ exports.getBlock = async (req, res) => {
 exports.getBlocks = async (req, res) => {
   console.log("inside getBlocks");
   const notificationCount = await Request.countDocuments({ clicked: false });
-  const token = req.query.token;
+  const token = req.cookies.tokenABC;
   const err = req.query.error;
   const user = req.cookies.userData;
   const username = JSON.parse(user);
@@ -73,9 +71,9 @@ exports.getBlocks = async (req, res) => {
   try {
     axios
       .all([
-        axios.get("http://localhost:5000/api/blocks"),
-        axios.get("http://localhost:5000/room/api/rooms"),
-        axios.get("http://localhost:5000/recent/recent"),
+        axios.get(API + "api/blocks"),
+        axios.get(API + "room/api/rooms"),
+        axios.get(API + "recent/recent"),
         axios.get("https://gcit-user-management.onrender.com/api/v1/UM/join", {
           headers: {
             Authorization: "Bearer " + token,
@@ -117,6 +115,7 @@ exports.getBlocks = async (req, res) => {
               }, {});
             }
             console.log("grouped data", groupedData);
+            console.log("host", req.hostname);
             res.render("Dashboard/index", {
               blocks: blocksResponse.data,
               rooms: roomsResponse.data,
@@ -150,7 +149,7 @@ exports.getAllocations = async (req, res) => {
   axios
     .all([
       axios.get(`http://localhost:5000/api/allocations/${currentYear}`),
-      axios.get("http://localhost:5000/api/students"),
+      axios.get(API + "api/students"),
     ])
     .then(
       axios.spread((allocationsResponse, studentsResponse) => {
@@ -214,7 +213,7 @@ exports.update_block = async (req, res) => {
   const username = JSON.parse(user);
   const notificationCount = await Request.countDocuments({ clicked: false });
   axios
-    .get("http://localhost:5000/api/blocks", { params: { id: req.query.id } })
+    .get(API + "api/blocks", { params: { id: req.query.id } })
     .then(function (blockdata) {
       res.render("blockd/index", {
         block: blockdata.data,
@@ -240,7 +239,7 @@ exports.getRooms = async (req, res) => {
   const notificationCount = await Request.countDocuments({ clicked: false });
   // Make a get request to /api/users
   axios
-    .get("http://localhost:5000/room/api/rooms")
+    .get(API + "room/api/rooms")
     .then(function (response) {
       // console.log(response);
       res.render("getroom", {
@@ -288,7 +287,7 @@ exports.update_room = async (req, res) => {
   const username = req.cookies.userData;
   const notificationCount = await Request.countDocuments({ clicked: false });
   axios
-    .get("http://localhost:5000/room/api/rooms", {
+    .get(API + "room/api/rooms", {
       params: { id: req.query.id },
     })
     .then(function (blockdata) {
@@ -323,7 +322,7 @@ exports.getchart = async (req, res) => {
   // Make a get request to /api/users
   const username = req.cookies.userData;
   axios
-    .get("http://localhost:5000/chart")
+    .get(API + "chart")
     .then(function (response) {
       // Get the data passed from the server-side
       const groupedData = response.data;
@@ -397,19 +396,29 @@ exports.search_room = async (req, res) => {
   const user = req.cookies.userData;
   const username = JSON.parse(user);
   const notificationCount = await Request.countDocuments({ clicked: false });
+
   axios
-    .get("http://localhost:5000/room/api/rooms", {
-      params: { id: req.query.id },
-    })
-    .then(function (blockdata) {
-      res.render("search/searchroom", {
-        room: blockdata.data,
-        token: token,
-        username: username,
-        notificationCount: notificationCount,
-      });
-    })
+    .all([
+      axios.get(API + "room/api/rooms", {
+        params: { id: req.query.id },
+      }),
+      axios.get(`${API}allocate/all`),
+    ])
+    .then(
+      axios.spread(function (blocksResponse, roomsResponse) {
+        // console.log(req.path);
+        // console.log("member ", allocationsResponse.data);
+        res.render("search/searchroom", {
+          room: blocksResponse.data,
+          all: roomsResponse.data,
+          username: username,
+          notificationCount: notificationCount,
+          token: token,
+        });
+      })
+    )
     .catch((err) => {
+      console.log(err);
       res.send(err);
     });
 };
@@ -425,7 +434,7 @@ exports.displaycreateallocation = async function (req, res) {
   Promise.all([
     axios.get(`http://localhost:5000/api/blocks`),
     axios.get(`http://localhost:5000/allocate/all`),
-    axios.get("http://localhost:5000/room/api/rooms"),
+    axios.get(API + "room/api/rooms"),
     axios.get(`http://localhost:5000/students/allstudents`),
   ])
     .then((responses) => {
@@ -498,14 +507,19 @@ exports.disable = async (req, res) => {
   const username = JSON.parse(user);
   const notificationCount = await Request.countDocuments({ clicked: false });
   Promise.all([
-    axios.get(`http://localhost:5000/api/blocks`),
-    axios.get(`http://localhost:5000/allocate/api/years/${currentYear}`),
-    axios.get("http://localhost:5000/room/api/rooms"),
+    axios.get(`${API}api/blocks`),
+    axios.get(`${API}allocate/api/years/${currentYear}`),
+    axios.get(API + "room/api/rooms"),
+    axios.get(API + "Allocate/getMaleDisable"),
+    axios.get(API + "Allocate/getFemaleDisable"),
   ])
     .then((responses) => {
       const blockData = responses[0].data;
       const allocation = responses[1].data;
       const roomresponse = responses[2].data;
+      const maleDisable = responses[3].data;
+      const femaleDisable = responses[4].data;
+      // console.log("maleee ", maleDisable.Male);
       console.log("allocations", allocation);
       res.render("disability/index", {
         block: blockData,
@@ -514,6 +528,7 @@ exports.disable = async (req, res) => {
         room: roomresponse,
         notificationCount: notificationCount,
         username: username,
+        disableMale: maleDisable.Male,
       });
     })
     .catch((err) => {
@@ -528,15 +543,17 @@ exports.disableF = async (req, res) => {
   const username = JSON.parse(user);
   const notificationCount = await Request.countDocuments({ clicked: false });
   Promise.all([
-    axios.get(`http://localhost:5000/api/blocks`),
-    axios.get(`http://localhost:5000/allocate/api/years/${currentYear}`),
-    axios.get("http://localhost:5000/room/api/rooms"),
+    axios.get(`${API}api/blocks`),
+    axios.get(`${API}allocate/api/years/${currentYear}`),
+    axios.get(API + "room/api/rooms"),
+    axios.get(API + "Allocate/getFemaleDisable"),
   ])
     .then((responses) => {
       const blockData = responses[0].data;
       const allocation = responses[1].data;
       const roomresponse = responses[2].data;
-      console.log("allocations", allocation);
+      const femaleDisable = responses[3].data;
+      // console.log("allocations", allocation);
       res.render("disability/indexfemale", {
         block: blockData,
         allocate: allocation,
@@ -544,6 +561,7 @@ exports.disableF = async (req, res) => {
         room: roomresponse,
         notificationCount: notificationCount,
         username: username,
+        disableFemale: femaleDisable.Female,
       });
     })
     .catch((err) => {
@@ -554,7 +572,7 @@ exports.disableF = async (req, res) => {
 exports.search_roomNav = async (req, res) => {
   console.log("inside getBlocks");
   const notificationCount = await Request.countDocuments({ clicked: false });
-  const token = req.query.token;
+  const token = req.cookies.tokenABC;
   const err = req.query.error;
   const user = req.cookies.userData;
   const username = JSON.parse(user);
@@ -566,9 +584,9 @@ exports.search_roomNav = async (req, res) => {
   try {
     axios
       .all([
-        axios.get("http://localhost:5000/api/blocks"),
-        axios.get("http://localhost:5000/room/api/rooms"),
-        axios.get("http://localhost:5000/recent/recent"),
+        axios.get(API + "api/blocks"),
+        axios.get(API + "room/api/rooms"),
+        axios.get(API + "recent/recent"),
       ])
       .then(
         axios.spread(function (blocksResponse, roomsResponse, studentResponse) {
@@ -595,7 +613,7 @@ exports.search_roomNav = async (req, res) => {
 
 exports.search_room01 = async (req, res) => {
   const notificationCount = await Request.countDocuments({ clicked: false });
-  const token = req.query.token;
+  const token = req.cookies.tokenABC;
   const err = req.query.error;
   const user = req.cookies.userData;
   const username = JSON.parse(user);
@@ -607,9 +625,9 @@ exports.search_room01 = async (req, res) => {
   try {
     axios
       .all([
-        axios.get("http://localhost:5000/api/blocks"),
-        axios.get("http://localhost:5000/room/api/rooms"),
-        axios.get(`http://localhost:5000/room/api/member/${id}`),
+        axios.get(API + "api/blocks"),
+        axios.get(API + "room/api/rooms"),
+        axios.get(`${API}room/api/member/${id}`),
       ])
       .then(
         axios.spread(function (blocksResponse, roomsResponse, membersResponse) {
@@ -636,3 +654,38 @@ exports.search_room01 = async (req, res) => {
 };
 
 ////////////////////////////////////////////////////////////////////
+// exports.getHistory = async (req, res) => {
+//   const notificationCount = await Request.countDocuments({ clicked: false });
+//   const token = req.cookies.tokenABC;
+//   const err = req.query.error;
+//   const user = req.cookies.userData;
+//   const username = JSON.parse(user);
+//   console.log("before axios");
+
+//   Promise.all([
+//     axios.get(`${API}api/blocks`),
+//     axios.get(`${API}request/api/request`),
+//     axios.get(API + "room/api/rooms"),
+//   ])
+//     .then((responses) => {
+//       const blockData = responses[0].data;
+//       const request = responses[1].data;
+//       const roomresponse = responses[2].data;
+//       res.render("Request/requestHistory", {
+//         block: blockData,
+//         request: request,
+//         token: token,
+//         room: roomresponse,
+//         notificationCount: notificationCount,
+//         username: username,
+//         disableFemale: femaleDisable.Female,
+//       });
+//     })
+//     .catch((err) => {
+//       res.send(err);
+//     });
+// };
+
+exports.detailsrequest = function (req, res) {
+  res.render("Request/DetailsRequest")
+}

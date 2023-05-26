@@ -37,6 +37,33 @@
 	padding:1.5rem 5rem;
 	border-radius:30px 0 30px 0;
 }
+
+.tab tr {
+  margin-left: 1rem;
+  color: #ffffff;
+}
+.tab {
+  width: 100%;
+
+}
+ .tab td,
+ .tab th {
+  padding: 1rem;
+  vertical-align: top;
+  border: 1px solid #d7c8c8;
+  opacity: 90%;
+}
+.tab tbody tr {
+  color: #4f4f4f;
+}
+.tab thead th {
+  vertical-align: bottom;
+  border: 2px solid #e9e0e0;
+  background: #ff4b13;
+  opacity: 90%;
+}
+
+
 </style>
 
 <main>
@@ -44,8 +71,8 @@
                 <div class="row">
                     <div class="col-lg-12 col-md-12 col-sm-12">
                         <div class="bx-shadow ">
-                            <p class="heading-search font-weight-bold text-left pl-2 pb-0">Allocate
-                                Students <span> with </span><span>Special Ability </span></p>
+                            <p class="heading-search font-weight-bold text-left pl-2 pb-0">Lets pritotize handicapped students
+                              </p>
                         </div>
                     </div>
 
@@ -54,13 +81,14 @@
                             <div class="pad p-5 pl-5 pr-5">
                                 <div class="room-avai">
                                     <i class="material-icons icon">male</i>
-                                    <h5 class="font-weight-regular ml-5 " style="color:#4f4f4f; opacity:90%;">
+                                    <h5 class="font-weight-regular ml-5 ">
                                         Available
                                         room
-                                    </h5>
+                                    </h5><button class="disable-alo d-flex justify-content-center" id="view-list">View list</button>
                                 </div>
+                              
                                 <div class="table-responsive " style="overflow-x:auto; ">
-                                    <table class="tab p-2 mt-2 text-center" style="margin:0 auto;">
+                                    <table class="tab p-2 mt-3 text-center" style="margin:0 auto;">
                                         <thead>
                                             <tr>
                                                 <th scope="col">Room</th>
@@ -134,6 +162,65 @@
 <script src="script.js"></script>
 
 
+<!-- popup -->
+<script>
+  $("#view-list").click(function() {
+    // Show confirmation message using SweetAlert2
+    Swal.fire({
+      width: 900,
+        html: `
+				<h5 class="mt-4 pb-3 font-weight-bold" style="color:#ff4b13; opacity:90%;">Male Students</h5>
+              <div class="table-responsive "  style="overflow-x:auto; ">
+                                    <table class="tab p-2 mt-3 text-center" style="margin:0 auto;">
+                                        <thead>
+                                            <tr>
+                                            
+                                                <th scope="col">Name</th>
+                                                <th scope="col">Course</th>
+                                                <th scope="col">SID</th>
+                                                <th scope="col">Year</th>
+                                              
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                          <% for (var i = 0; i < disableMale.length; i ++) { %>
+
+                                            <tr>
+                                                <td><%= disableMale[i].name %></td>
+                                                <td><%= disableMale[i].specialization %></td>
+                                                <td><%= disableMale[i].sid %></td>
+                                             
+                                                <td><%= disableMale[i].year %></td>
+                                            </tr>
+                                                                                     
+                                        <% } %>
+
+                                        </tbody>
+
+                                    </table>
+                                    <br>
+
+                                </div>
+				`,
+				showCancelButton: false,
+				showConfirmButton: false,
+   
+       
+
+				
+				preConfirm: () => {
+					// Retrieve the values of the input fields
+					const blockName = document.getElementById('block-name').value;
+					const blockType = document.getElementById('block-type').value;
+					const status = document.getElementById('status').value;
+					// Return the values as an object
+					return { blockName, blockType, status };
+				}
+    })
+  })
+
+</script>
+
 
 <script>
     const myButton = document.querySelectorAll('#myButton');
@@ -145,20 +232,27 @@
             Swal.fire({
                 html: `
 				<h5 class="font-weight-bold mt-4 mb-3" style="margin-bottom: font-weight:bold; color:#ff4b13; opacity:90%; 30px">Add student</h5>
-								<form>
-										<div class="form-group">
-												<div class="input-box">
-														<label class="input-label" >SID</label>
-														<input type="text" class="input-1" onfocus="setFocus(true)" id="acadyear" onblur="setFocus(false)" style="color:#4f4f4f; border-color:#4f4f4f; font-size:16px;"/>
-												</div>
-										</div>
-								</form>
+        <div class="input-box active-grey  mt-4">
+		                                    <label class="input-label">Name</label>
+		                                    <select class="input-1" onfocus="setFocus(true)" onblur="setFocus(false)" id="status" style="border-color:#4f4f4f;font-size:16px; color:#4f4f4f;"  >
+                                          <option value="" disabled selected>Select student</option>
+                                         
+                                          <% for (var i = 0; i < disableMale.length; i ++) { %>
+                                            
+                                              
+                                          <option value = "<%= disableMale[i].sid %>"><%= disableMale[i].name %></option>
+                                         
+                                        
+                                          <% } %>
+		                                     
+		                                    </select>
+		                                </div>
 				`,
                 confirmButtonText: 'Allocate',
                 confirmButtonColor: '#FF4B13',
                 preConfirm: () => {
                   // Retrieve the values of the input fields
-                  const sid = document.getElementById('acadyear').value;
+                  const sid = document.getElementById('status').value;
 
                   // Return the values as an object
                   return { sid };

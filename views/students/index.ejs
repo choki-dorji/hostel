@@ -210,10 +210,16 @@
 
 							<div class="text-center"><i
 									class='bx bx-git-pull-request position-absolute mt-4 request'></i></div>
+						
+								<% for (var j = 0; j < allocate.length; j++) { %>
+									<% if (allocate[j].sid == userdata.sid) { %>	
 							<button class="button add" data-id=<%= userdata.sid %>>
 								<p class="ml-4 pl-4 mt-2 font-weight-bold roomc">
 									Room change</p>
 							</button>
+							<% } %>
+							<% } %>
+				
 							<div class="text-center"><i
 									class='bx bx-git-pull-request position-absolute mt-4 request'></i></div>
 
@@ -276,7 +282,17 @@
 									</tr>
 									<% } %>
 									</tbody>
-			  <% } %>
+			  <% } else { %>
+				<tr>
+					<th scope="row"></th>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
+				
+				</tbody>
+			<% } %>
 								</table>
 							</div>
 						</div>
@@ -403,7 +419,7 @@ document.getElementById("logout-link").addEventListener("click", function(e) {
 										</div>
 
 												<div class="input-box active-grey">
-														<label class="input-label">Attach files</label>
+														<label class="input-label">Supporting Documents</label>
 														<input type="file" name="filename" multiple class="input-1" onfocus="setFocus(true)" style="height: 100px; color:#4f4f4f; border-color:#4f4f4f; font-size:16px;" id="file" onblur="setFocus(false)" required />
 
 												</div>
@@ -434,54 +450,51 @@ document.getElementById("logout-link").addEventListener("click", function(e) {
 				}
     }).then((result) => {
 		console.log("confirm result")
+
         if (result.isConfirmed) {
             // Send AJAX request to delete block
 
 						const formData = result.value;
+						fetch(`/students/changeroom/${id}`, {
+						method: 'POST',
+						body: formData
+						})
+						.then(response => {
+							if (!response.ok) {
+								console.log("response", response)
+							throw new Error(response);
+							}
+							Toastify({
+							text: 'Successfully send the request!',
+							backgroundColor: '#96c93d',
+							className: 'success',
+							position: 'top-center',
+							}).showToast();
+							window.location.reload();
+						})
+						.catch(error => {
+							console.error(error);
+							Toastify({
+							text: 'It seems you already have request for current semester' || error,
+							backgroundColor: 'rgba(255,0,0,0.3)',
+							className: 'error',
+							position: 'top-center',
+							}).showToast();
+						});
 
+												console.log("after ajax")
 
-
-
-						fetch(`http://localhost:5000/students/changeroom/${id}`, {
-  method: 'POST',
-  body: formData
-})
-  .then(response => {
-    if (!response.ok) {
-		console.log("response", response)
-      throw new Error(response);
-    }
-    Toastify({
-      text: 'Successfully send the request!',
-      backgroundColor: '#96c93d',
-      className: 'success',
-      position: 'top-center',
-    }).showToast();
-    window.location.reload();
-  })
-  .catch(error => {
-    console.error(error[0]);
-    Toastify({
-      text: 'It seems you already have request for current semester' || error,
-      backgroundColor: 'rgba(255,0,0,0.3)',
-      className: 'error',
-      position: 'top-center',
-    }).showToast();
-  });
-
-						console.log("after ajax")
-
-        }
-    });
-});
-});
+								}
+							});
+						});
+						});
 
 			function myFunction() {
 			const x = document.getElementById("block-type").value;
 			console.log(x);
       // Send AJAX request to fetch rooms for a block
       $.ajax({
-        url: `http://localhost:5000/room/api/room/block/${x}`,
+        url: `/room/api/room/block/${x}`,
         method: "GET",
         success: function(response) {
 			console.log(response);

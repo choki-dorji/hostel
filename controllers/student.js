@@ -19,7 +19,8 @@ exports.getRoommates = async (req, res) => {
       academicyear: currentYear,
     }).populate("roomid");
     if (!allocation) {
-      return res.status(404).json({ message: "Allocation not found" });
+      // return res.status(404).json({ message: "Allocation not found" });
+      return res.send("");
     }
     const roomId = allocation.roomid;
     const roommates = await Allocate.find({
@@ -30,10 +31,10 @@ exports.getRoommates = async (req, res) => {
       .filter((mate) => mate.sid !== userId)
       .map((mate) => mate);
     // res.json({ mates: mateNames });
-    // console.log(mateNames);
+    // //console.log(mateNames);
     res.send(mateNames);
   } catch (err) {
-    console.error(err);
+    //console.error(err);
     res.status(500).json({ message: "Server error" });
   }
 };
@@ -50,9 +51,10 @@ const upload = multer({ storage: storage });
 // request Hostelchange/////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 exports.hostelChangeRequest = async (req, res) => {
+  const currentYear = new Date().getFullYear();
   upload.single("filename")(req, res, async function (err) {
     if (err) {
-      console.error(err);
+      console.error("file upload", err);
       return res.status(500).json({ message: "File upload failed" });
     }
 
@@ -61,7 +63,7 @@ exports.hostelChangeRequest = async (req, res) => {
 
     try {
       const fileName = req.file ? req.file.filename : null;
-      console.log("file ", fileName);
+      //console.log("file ", fileName);
 
       let block;
 
@@ -83,12 +85,17 @@ exports.hostelChangeRequest = async (req, res) => {
       }
 
       // Check if the logged-in student's current room is in the specified block
-      const currentRoom = await Allocate.findOne({ sid: studentId });
+      const currentRoom = await Allocate.findOne({
+        sid: studentId,
+        academicyear: currentYear,
+      });
+
       if (!currentRoom) {
         return res.status(404).json({
           message: "Current room not found for the logged-in student",
         });
       }
+      console.log(currentRoom);
       const student_name = currentRoom.student_name;
       const student_email = currentRoom.student_email;
       const student_course = currentRoom.course;
@@ -113,6 +120,7 @@ exports.hostelChangeRequest = async (req, res) => {
         reqyear: thisyear,
       });
       if (existingRequest) {
+        console.log("Request");
         return res.status(500).json({
           message: "You already have a pending request to change rooms",
         });
@@ -155,12 +163,14 @@ exports.hostelChangeRequest = async (req, res) => {
       // Return a success message
       return res.json({ message: "Request submitted successfully" });
     } catch (err) {
-      console.error(err);
+      console.error("error ;", err);
       res.status(500).json({ message: "Server error" });
     }
   });
 };
-// //////////////
+
+///////////////////////
+// /////////////////////////////////////////////////////////////////////////////////////
 exports.editstudents = async (req, res) => {
   const studentId = req.params.id;
 
@@ -177,7 +187,7 @@ exports.editstudents = async (req, res) => {
       message: "Student was deleted successfully!",
     });
   } catch (err) {
-    console.error(err);
+    //console.error(err);
     res.status(500).send({
       message: "Could not delete student " + studentId,
     });
@@ -192,18 +202,18 @@ exports.searchStudentsBySID = async (req, res) => {
   // const token = JSON.parse(token1);
   const studentSID = req.query.studentSID;
 
-  // console.log("token", token);
-  console.log(studentSID);
+  // //console.log("token", token);
+  //console.log(studentSID);
 
   if (!studentSID) {
     const error = new HttpError("Missing query parameter: studentSID", 400);
     return res.status(error.code || 500).json({ message: error.message });
   }
-  console.log("sedfghjkl;");
+  //console.log("sedfghjkl;");
   const studentdata = api_students.GetAllStudents();
-  // console.log("students ", studentdata);
-  console.log(typeof JSON.stringify(studentdata));
-  console.log(typeof studentSID);
+  // //console.log("students ", studentdata);
+  //console.log(typeof JSON.stringify(studentdata));
+  //console.log(typeof studentSID);
   const students = studentdata.filter(
     (student) => JSON.stringify(student.sid) == studentSID
   );
@@ -234,7 +244,7 @@ exports.searchStudentsBySID = async (req, res) => {
   //   );
 
   //   const students = response.data;
-  //   console.log(students);
+  //   //console.log(students);
   //   if (students.length === 0) {
   //     const error = new HttpError(
   //       `No students found with the SID '${studentSID}'`,
@@ -245,7 +255,7 @@ exports.searchStudentsBySID = async (req, res) => {
 
   //   res.send(students);
   // } catch (err) {
-  //   console.log(err);
+  //   //console.log(err);
   //   const error = new HttpError(
   //     "Something went wrong, could not search for students",
   //     500
@@ -282,5 +292,31 @@ exports.createRemovedStudent = async (req, res) => {
     });
   } catch (error) {
     res.status(500).json({ error: "Failed to create removed student" });
+  }
+};
+
+////////////////////////////////////////////////
+//////////////////////////////
+exports.getRoomsFromStudent = async (req, res) => {
+  const student = req.params.students;
+  try {
+    // Step 3: Retrieve student's data based on the provided student ID
+    // Step 4: Retrieve allocation record(s) associated with the student
+    const allocationRecords = await Allocate.find({ sid: student });
+    // Step 5: Retrieve room ID(s) allocated to the student
+
+    let roomData = [];
+    for (var j = 0; j < allocationRecords.length; j++) {
+      roomData.push({
+        roomdata: allocationRecords[j].room_name,
+        allocationRecords: allocationRecords[j].academicyear,
+      });
+    }
+
+    res.json({ room: roomData });
+  } catch (error) {
+    // Handle any errors that occurred during the process
+    console.error(error);
+    res.status(500).json({ error: "Internal server error" });
   }
 };

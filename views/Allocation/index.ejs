@@ -368,10 +368,10 @@ color:#ff4b13;
           <h6 class="pre">Previous allocation</h6>
 
           <a class="" href="" style="cursor:pointer;">
-            <div id="downloadBtn" class="pdf text-left" >
+            <button id="downloadBtn" onclick="exportPdf()" class="pdf text-left" style="outline: none;" >
                     <p  class="download mt-2 ml-3">Download</p>
                     <i class="fa fa-file-pdf-o pdff" aria-hidden="true" style="padding-top: 8px;"></i>
-            </div>
+            </button>
           </a>
           <br>
 
@@ -380,7 +380,8 @@ color:#ff4b13;
               <h4 class="deshea font-weight-bold text-uppercase pb-4" id="descriptionElement">
               </h4>
             </div>
-            <div class="table-responsive"  >
+
+            <div class="table-responsive">
              <%- include('./table.ejs') %>
 
               <hr>
@@ -443,7 +444,7 @@ color:#ff4b13;
   if (result.isConfirmed) {
     const { year, description } = result.value;
     console.log(`${description}`)
-    fetch("http://localhost:5000/year/api/years", {
+    fetch("/year/api/years", {
   method: "POST",
   headers: {
     "Content-Type": "application/json",
@@ -542,7 +543,7 @@ color:#ff4b13;
               <td>${allocation.year}</td>
               <td>${allocation.student_name}</td>
               <td>${allocation.course}</td>
-              <td>${allocation.academicyear}</td>
+              <td>${allocation.sid}</td>
             </tr>
           `;
 
@@ -556,7 +557,7 @@ color:#ff4b13;
               <th>Year</th>
               <th>Name</th>
               <th>Course</th>
-              <th>Academic Year</th>
+              <th>Student SID</th>
             </tr>
           </thead>
           <tbody>${tableHTML}</tbody>
@@ -578,7 +579,7 @@ color:#ff4b13;
               <td>${allocation.year}</td>
               <td>${allocation.student_name}</td>
               <td>${allocation.course}</td>
-              <td>${allocation.academicyear}</td>
+              <td>${allocation.sid}</td>
             </tr>
           `;
 
@@ -592,7 +593,7 @@ color:#ff4b13;
               <th>Year</th>
               <th>Name</th>
               <th>Course</th>
-              <th>Academic Year</th>
+              <th>Student SID</th>
             </tr>
           </thead>
           <tbody>${tableHTML}</tbody>
@@ -678,127 +679,42 @@ color:#ff4b13;
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.2.2/html2canvas.min.js"></script>
  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.68/pdfmake.min.js"></script>
  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.68/vfs_fonts.js"></script>
-<!--
-<script>
-  document.getElementById('downloadBtn').addEventListener('click', function(event) {
-    event.preventDefault()
-  // Convert the HTML table to canvas
-  html2canvas(document.getElementById('tblCustomers')).then(function(canvas) {
-    var imgData = canvas.toDataURL('image/png');
-
-    // Calculate the width and height of the PDF document
-    var imgWidth = 210; // A4 page width in mm
-    var pageHeight = imgWidth * canvas.height / canvas.width;
-
-    // Calculate the number of pages needed
-    var numPages = Math.ceil(canvas.width / imgWidth);
-
-    // Create an array to store the page contents
-    var pageContents = [];
-
-    // Split the image into multiple pages
-    for (var i = 0; i < numPages; i++) {
-      var offsetX = i * imgWidth;
-      var pageCanvas = document.createElement('canvas');
-      pageCanvas.width = imgWidth;
-      pageCanvas.height = pageHeight;
-      var ctx = pageCanvas.getContext('2d');
-      ctx.drawImage(canvas, -offsetX, 0);
-      var pageImgData = pageCanvas.toDataURL('image/png');
-      pageContents.push({ image: pageImgData, width: imgWidth, height: pageHeight });
-    }
-
-    // Create a PDF document
-    var docDefinition = {
-      content: pageContents,
-      pageSize: {
-        width: imgWidth,
-        height: pageHeight,
-      },
-    };
-
-    // Generate and download the PDF file
-    pdfMake.createPdf(docDefinition).download('table.pdf');
-  });
-});
-
-</script> -->
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.6/jspdf.plugin.autotable.min.js"></script>
 
 <!--  -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js"></script>
+
 
 <script>
- // Function to download the PDF
-function downloadPDF() {
-  // Obtain the table element
-  const table = document.getElementById('tblCustomers');
+ function exportPdf(){
+            var selectedYear = document.getElementById("yearSelect").value;
+            var pdf = new jsPDF();
+            pdf.text(20,20,"Allocation Details for year " + selectedYear);
+            pdf.autoTable({html:'#allocationTable',
+                startY: 25,
+                theme:'grid',
+                columnStyles:{
+                    0:{cellWidth:8},
+                    1:{cellWidth:18},
+                    2:{cellWidth:18},
+                    3:{cellWidth:18},
+                    4:{cellWidth:45},
+                    5:{cellWidth:35},
+                    6:{cellWidth:35},
+                },
+                bodyStyles: {lineColor: [1, 1, 1]},
+                styles: {
+                  lineColor: [0, 0, 0], // Set the line color to black
+                  lineWidth: 0.1, // Adjust the line width as needed
+                  fillColor: false, // Make the cells colorless
+                  textColor: [0, 0, 0] // Set the text color to black
+    }
+            });
+            // window.open(URL.createObjectURL(pdf.output("blob")))
+            window.open(pdf.output("bloburl"), "_blank");
 
-  // Use html2canvas to capture the table as an image
-  html2canvas(table).then(function(canvas) {
-    const imgData = canvas.toDataURL('image/png');
-
-    // Set up the PDF document with A4 dimensions
-    const pdf = new jsPDF('p', 'mm', 'a4');
-    const pageWidth = pdf.internal.pageSize.getWidth();
-    const pageHeight = pdf.internal.pageSize.getHeight();
-
-    // Calculate the desired image width and height to fit the page
-    const desiredWidth = pageWidth - 20; // Adjust the margin as needed
-    const desiredHeight = pageHeight - 20; // Adjust the margin as needed
-
-    // Add the table image to the PDF
-    pdf.addImage(imgData, 'PNG', 10, 10, desiredWidth, desiredHeight);
-
-    // Save the PDF as a file
-    pdf.save('table.pdf');
-  });
-}
-
-// Add a click event listener to the button
-const downloadBtn = document.getElementById('downloadBtn');
-downloadBtn.addEventListener('click', function(event) {
-  event.preventDefault(); // Prevent the default form submission behavior
-  downloadPDF();
-});
-
+         }
 </script>
-
-
-
-
-<!-- <script type="text/javascript">
-  document.addEventListener("DOMContentLoaded", function () {
-  var tblCustomers = document.querySelector('#tblCustomers');
-  var downloadBtn = document.querySelector('#downloadBtn');
-
-  downloadBtn.addEventListener("click", function (event) {
-    event.preventDefault();
-
-    // Introduce a small delay to allow the table to fully load
-    setTimeout(function() {
-      html2canvas(tblCustomers, {
-        scrollY: -window.scrollY, // Adjust scroll offset if needed
-        useCORS: true, // Enable cross-origin resource sharing
-        allowTaint: true // Allow tainting of the canvas (may be required for certain images)
-      })
-        .then(function (canvas) {
-          var data = canvas.toDataURL();
-          var docDefinition = {
-            content: [{
-              image: data,
-              width: 500
-            }]
-          };
-          pdfMake.createPdf(docDefinition).download("allocations.pdf");
-        })
-        .catch(function (error) {
-          console.error('Error capturing table:', error);
-        });
-    }, 100); // Adjust the delay as needed
-  });
-});
-
-</script> -->
 
 </body>
 

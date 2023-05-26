@@ -28,14 +28,34 @@ margin-right:-2.9rem;
   width:auto;
 
 }
-
+#block15 .disable-alo{
+  color:#fff;
+  opacity:100%; 
+  width:120px;
+  position:absolute;
+  background:#ff4b13;
+  margin-top:-2rem;
+  right:1.7rem;
+  opacity:90%;
+  padding:6px;
+  border:none;
+  border-radius:5px;
+}
+#block15 .disable-alo:active, #block15 .disable-alo:focus{
+outline:none;
+border:none;
+}
 #block15 .icon {
   color: #ff4b13;
   font-size: 26px;
   position: absolute;
   opacity: 90%;
 }
-
+#block15 .room-avai h5{
+  color:#ff4b13;; 
+  font-weight:bold;
+opacity:90%;
+}
 #block15 .heading-search {
   padding-top: 1rem;
   font-size: 20px;
@@ -52,6 +72,7 @@ margin-right:-2.9rem;
 }
 #block15 .tab {
   width: 100%;
+
 }
 #block15 .tab td,
 #block15 .tab th {
@@ -70,7 +91,7 @@ margin-right:-2.9rem;
   opacity: 90%;
 }
 #block15 .add-bu {
-  width: 100%;
+  width: 98%;
   background: #ff4b13;
   border: none;
   color: white;
@@ -95,8 +116,16 @@ margin-right:-2.9rem;
   #block15 .row{
     width:auto;
   }
+  #block15 .disable-alo{
+    right:3rem;
+    width:100px;
+    margin-top:-3rem;
+  }
   #block15 .bx-shadow3 {
     margin: 0.6rem -2.5rem 0 2rem;
+  }
+  #block15 .room-avai h5{
+ width:120px;
   }
   #block15 .pad {
     padding: 3rem;

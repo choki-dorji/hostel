@@ -1,6 +1,6 @@
-<%- include('../required/header.ejs') %>
+ <%- include('../required/header.ejs') %>
 
-<style>
+<!--<style>
   #block15 .bx-shadow {
     box-shadow: 0px 3px 10px #cfcfcf; /* adds a box shadow */
     background-color: #ffffff; /* sets the background color */
@@ -24,6 +24,9 @@ margin:7.6rem -2.2rem 0 2.3rem;
     }
     #block15 .bx-22{
         right:4.5rem;
+    }
+    .heading-search{
+        padding-left:1rem;
     }
   }
   .swal2-popup .swal2-styled.swal2-confirm:hover, .swal2-popup .swal2-styled.swal2-confirm:focus{
@@ -53,13 +56,22 @@ margin:7.6rem -2.2rem 0 2.3rem;
             .success{
                 color:rgba(0,143,32);
             }
+       #block15  .view-l{
+                background:#ff4b13;
+                color:#fff;
+                opacity:100%;
+                width:100px;
+                right:1.3rem;
+                top:3.8rem;
+            }
 </style>
 <main>
             <main id="block15">
                 <div class="col-lg-12 col-md-12 col-sm-12 pr-2" style="margin-left:-.8rem; margin-bottom:2.2rem;">
                     <div class="bx-shadow pt-2 pb-3">
                         <h5 class="heading-search font-weight-bold text-left pb-0" style="opacity:90%;">
-                            Request for Hostel Change</h5>
+                            Hostel change requests</h5>
+                            <button onclick="location.href='/request/allrequest'" class="btn position-absolute view-l">History</button>
                     </div>
                 </div>
                 <div class="row">
@@ -144,7 +156,7 @@ margin:7.6rem -2.2rem 0 2.3rem;
 
                                     </div>
                                     <div class="view-proof pb-3">
-                                        <!-- <i class='bx bx-image' style="font-size:24px;"></i> -->
+                                        
                                           <a class="picture" href="/uploads/<%= requests[i].image %>" style="cursor: pointer;">
                                         <p >Attached File : </p>
                                       <i class='bx bxs-file-blank' style="font-size: 24px; color: #ff4b13;"></i>
@@ -190,9 +202,9 @@ margin:7.6rem -2.2rem 0 2.3rem;
 
 
 
-<!-- MAIN -->
+
 </section>
-<!-- NAVBAR -->
+
 
 <script>
     function setFocus(on) {
@@ -356,6 +368,283 @@ if (result.isConfirmed) {
 </script>
 
 
+
+</body>
+
+</html> -->
+
+<style>
+    #block6 .bx-shadow {
+  box-shadow: 0px 3px 10px #cfcfcf; /* adds a box shadow */
+
+  background-color: #ffffff; /* sets the background color */
+  border-radius: 5px; /* rounds the corners */
+  margin: 7.5rem -2.9rem 0 2.3rem;
+  overflow-x: hidden;
+}
+#block6 .bx-shadow1 {
+  box-shadow: 0px 3px 10px #cfcfcf; /* adds a box shadow */
+  height: auto;
+  background-color: #ffffff; /* sets the background color */
+  border-radius: 5px; /* rounds the corners */
+  margin: 1.1rem -2.9rem 0rem 2.3rem;
+cursor:pointer;
+  overflow-x: hidden;
+}
+#block6 .row {
+  /* adjusts the width or overall content div (important) */
+  padding-right: 2rem;
+}
+#block6 .bx-shadow1:hover{
+  background:#8888881e;
+}
+#block6 .search-bx {
+  height: auto;
+  border-radius: 10px;
+  color: #ff4b13;
+  opacity: 90%;
+  display: flex;
+}
+
+#block6 .search-det {
+  display: flex;
+  flex-direction: row;
+  margin-left: 2rem;
+}
+
+#block6 .grid-container .ob-des{
+  width:auto;
+/* transform:translateY(25%); */
+margin:auto 0;
+
+font-weight:300;
+text-align:center;
+}
+#block6 .bx-shadow1 img{
+position:absolute;
+margin-top:1rem;
+margin-left:2rem;
+border-radius:50%;
+border:1px solid #4f4f4f;
+width:35px;
+height:35px;
+}
+#block6 .grid-container {
+  padding-left:8rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); /* Three columns, auto fit with minimum width of 200px */
+  width:auto; 
+  color:#4f4f4f;
+ 
+ /* Gap between grid items */
+}
+@media(max-width:600px){
+ 
+  #block6 .grid-container{
+      margin-left:-3rem;
+    }
+    #block6 .grid2{
+
+margin-left:-4rem;
+margin-top:-1rem;
+font-size:14px;
+}
+#block6 .grid3{
+margin-left:60%;
+margin-top:-3.9rem;
+font-size:14px;
+}
+#block6 .grid-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Three columns, auto fit with minimum width of 200px */
+  width:auto; 
+
+ /* Gap between grid items */
+}
+#block6 .bx-shadow1 img{
+  margin-top:1.2rem;
+left: 3.2rem;
+  width:25px;
+  height:25px;
+}
+}
+
+
+#block6 .grid-container .display-row{
+  display:flex;
+  flex-direction:row;
+  
+
+}
+#block6 .grid-item {
+
+  padding: 20px;
+
+}
+.bx-22 {
+  position: absolute;
+  right: 6rem;
+}
+
+#block6 .par {
+  max-width: 100%;
+}
+#block6 .rea {
+  width: 85%;
+  border-radius: 5px;
+  font-size: 14px;
+  border: 2px solid #c8c8c8;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  font-family: open sans;
+}
+#block6 .view-proof {
+  display: flex;
+  justify-content: flex-end;
+}
+#block6 .proof-img {
+  color: white;
+  background: #ff4a13;
+  font-size: 12px;
+  border-radius: 4px;
+  border: none;
+}
+#block6 .acc {
+  color: white;
+  background: #ff4b13;
+  font-size: 14px;
+  border-radius: 5px;
+  border: none;
+}
+#block6 .acc:focus,
+#block6 .acc:active {
+  outline: none;
+  border: none;
+}
+#block6 .del:focus,
+#block6 .del:active {
+  border: 1px solid #ff4b13;
+  opacity: 90%;
+}
+
+#block6 .acdc {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+}
+#block6 .del {
+  color: #ff4b13;
+  background: none;
+  font-size: 14px;
+  border-radius: 5px;
+  border: 1px solid #ff4b13;
+}
+#block6 .proof-img:active,
+#block6 .proof-img:focus {
+  outline: none;
+  border: none;
+}
+#block6 .deta {
+  top: -1.5rem;
+}
+
+@media (max-width: 768px) {
+  #block6 .bx-shadow {
+    margin: 7.3rem -4.6rem 0 1.8rem;
+    height: 70px;
+  }
+  #block6 .heading-search {
+    font-size: 16px;
+  }
+  #block6 .bx-shadow1 {
+    margin: 0.9rem -4.6rem 0rem 1.8rem;
+  }
+}
+
+</style>
+       <!-- MAIN -->
+        <main>
+            <main id="block6">
+                <div class="row">
+
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                        <div class="bx-shadow pt-4 pb-3">
+                            <h5 class="heading-search font-weight-bold text-left pl-4 pb-0" style="opacity:90%;">Hostel change Request</h5>
+                            <button onclick="location.href='/request/allrequest'" 
+                            class="btn position-absolute" 
+                            style="background:#ff4b13; color:#fff;  opacity:100%; width:100px;">
+                            History</button>
+                        </div>
+                    </div>
+                    <% if(requests.length > 0) { %>
+                    <div class="gri  col-lg-12 col-md-12s col-sm-12">
+                      <% for(var i = 0; i < requests.length; i++) { %>
+                        <% if(requests[i].clicked === false) { %>
+                        <div class="bx-shadow1" onclick="navigateToPage('/request/details')">
+                            <img src="/img/hostel.png" width="35px" height="35px" alt="">
+                            <div class="grid-container">
+                                <div class="grid-item grid-1 ">
+                                    <div class="display-row">
+                                        <p class="ob-des"><%= requests[i].student_name %></p>
+                                    </div>
+                                </div>
+
+                                <div class="grid-item grid2">
+                                    <div class="display-row">
+                                      <% for(var k = 0; k < rooms.length; k++) { %>
+                                        <p class="ob-des">
+                                          <% if(requests[i].room == rooms[k]._id) { %>
+                                            Requested room from <%= rooms[k].room_name  %> t
+                                          <% } %>
+                                        
+                                          <%  if(rooms[k]._id == requests[i].targetroom) { %>
+                                            o <%= rooms[k].room_name %>
+                                          <% } %>
+                                        </p>
+                                          <% } %>
+                                    </div>
+                                </div>
+                                <div class="grid-item grid3 ">
+                                    <div class="display-row">
+
+                                      <p class="ob-des"><%= requests[i].Requested.toDateString() + " " + requests[i].Requested.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', second: 'numeric', hour12: true }) %></p>
+
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <% } %>
+                        <% } %>
+                    </div>
+
+                    <% } else { %>
+                      <h6>No Request Found</h6>
+                    <% } %>
+
+                </div>
+            </main>
+        </main>
+        <br><br><br><br><br><br><br><br>
+    </section>
+
+</body>
+
+</main>
+<!-- MAIN -->
+</section>
+<!-- NAVBAR -->
+
+<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+<script src="script.js"></script>
+<script>
+    function navigateToPage(url) {
+      window.location.href = url;
+    }
+  </script>
+
+</script>
 
 </body>
 

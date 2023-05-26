@@ -69,9 +69,8 @@
 
                                                     </tr>
                                                     <tr>
-                                                        <th>Room</th>
+                                                        <th>Present Room</th>
                                                         <% let displayedRoom = false; %>
-
                                                         <% if (allocate) { %>
                                                         <% for (let j = 0; j < allocate.length; j++) { %>
                                                             <% for (let i = 0; i < rooms.length; i++) { %>
@@ -89,6 +88,11 @@
                                                         <% } %>
 
                                                     </tr>
+                                                    <tr id="roomRow">
+                                                        <th>Allocated Rooms</th>
+                                                        <td id="roomName" scope="row">Loading...</td>
+                                                    </tr>
+                                                    
                                                 </thead>
 
                                             </table>
@@ -110,6 +114,46 @@
     </section>
 
 </body>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+   $(document).ready(function() {
+    var sid = "<%= students[0].sid %>"; // Assuming you have access to the student's sid
+    console.log(sid);
+    // Make the AJAX request to the API
+    $.ajax({
+        url: `http://localhost:5000/students/getroom/${sid}`,
+        method: "GET",
+        success: function(response) {
+            console.log(response);
+            var roomData = response.room;
+            var roomRow = document.getElementById("roomRow");
+            var roomNameCell = roomRow.querySelector("#roomName");
+
+            // Clear existing content
+            roomNameCell.innerHTML = "";
+
+            // Create the content string
+            var content = "";
+
+            for (var i = 0; i < roomData.length; i++) {
+                content += roomData[i].roomdata + " (" + roomData[i].allocationRecords + ")";
+                if (i < roomData.length - 1) {
+                    content += "<br>"; // Add line break between items
+                }
+            }
+
+            // Set the content in the table cell
+            roomNameCell.innerHTML = content;
+        },
+        error: function(error) {
+            console.log(error);
+            // Handle the error case if necessary
+        }
+    });
+});
+
+</script>
+
 
 </main>
 <!-- MAIN -->

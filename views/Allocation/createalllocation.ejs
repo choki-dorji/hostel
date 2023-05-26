@@ -41,7 +41,8 @@
     margin: 7.6rem -2.2rem 0 2.3rem;
   }
 }.loader {
-  position: absolute;
+  /* position: absolute; */
+  position: relative;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -103,6 +104,14 @@
 .input-1{
   color:#4f4f4f; border-color:#4f4f4f; font-size:16px;
 }
+#loader-percentage {
+  position: absolute;
+  top: 70%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 14px;
+  color: #4f4f4f;
+}
 
     </style>
 
@@ -110,7 +119,7 @@
    <div id="page-loader" style="display: none;">
     <div class="loader">
       <img src="/img/hostel.png" width="60px" height="54px"/>
-
+      <span id="loader-percentage"></span>
     </div>
   </div>
         <main>
@@ -181,6 +190,7 @@
                                             <input class="form-check-input checkmale"  type="checkbox" id="checkbox<%= i %>"  value="<%= block[i]._id %>" >
                                             <label class="form-check-label pt-1" for="checkbox<%= i %>">
                                                 <span></span>
+                                                Block 
                                                 <%= block[i].block_name %>
 
 
@@ -227,6 +237,7 @@
                                               <input class="form-check-input checkfemale" type="checkbox" id="checkboxf<%= j %>" value="<%= block[j]._id %>" >
                                               <label class="form-check-label pt-1" for="checkboxf<%= j %>"  >
                                                   <span></span>
+                                                  Block
                                                   <%= block[j].block_name %>
                                                   <% var sum = 0
                                                   for(var k = 0; k < room.length; k++) { %>
@@ -278,6 +289,13 @@
 <!-- MAIN -->
 </section>
 <!-- NAVBAR -->
+
+</script>
+<script>
+  function updateLoaderPercentage(percentage) {
+  const loaderPercentage = document.getElementById('loader-percentage');
+  loaderPercentage.textContent = percentage + '%';
+}
 
 </script>
 

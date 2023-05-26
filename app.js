@@ -79,12 +79,44 @@ app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 // });
 
 app.use((error, req, res, next) => {
-  if (!res.headerSent) {
-    return next(error);
+  if (error.code === "ENOTFOUND") {
+    // Handle network error
+    res.status(500).json({ message: "Network error. Please try again later." });
+  } else {
+    // Handle other errors
+    if (!res.headerSent) {
+      res.status(error.code || 500);
+      res.json({ message: error.message || "An error occurred!" });
+    }
   }
-  res.status(error.code || 500);
-  res.json({ message: error.message || "An error occurred! " });
 });
+
+// let server;
+
+// function connectWithRetry() {
+//   mongoose
+//     .connect(process.env.MONGODB_URI)
+//     .then(() => {
+//       console.log("Connected to the database");
+//     })
+//     .catch((error) => {
+//       console.log("Failed to connect to the database:", error.message);
+//       console.log("Retrying connection in 5 seconds...");
+//       setTimeout(connectWithRetry, 5000);
+//     });
+// }
+
+// connectWithRetry();
+
+// mongoose.connection.on("disconnected", () => {
+//   console.log("Lost MongoDB connection...");
+//   console.log("Reconnecting...");
+//   connectWithRetry();
+// });
+
+// mongoose.connection.on("error", (error) => {
+//   console.log("MongoDB connection error:", error.message);
+// });
 
 mongoose
   .connect(process.env.MONGODB_URI) // Use the MongoDB Atlas connection string from environment variables

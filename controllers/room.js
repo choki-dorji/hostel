@@ -229,7 +229,7 @@ exports.getMembersIRoom = async (req, res) => {
     const currentYear = new Date().getFullYear(); // Get the current year
 
     // Find allocations for the current year
-    const allocations = await Allocate.find({ academicyear: currentYear });
+    const allocations = await Allocate.find({});
 
     console.log(allocations);
 

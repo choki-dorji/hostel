@@ -10,6 +10,7 @@ const Allocate = stdb.Allocation;
 const RecentActivity = stdb.RecentActivity;
 
 // get request
+const API = "http://localhost:5000/";
 
 // get request by date
 exports.getAllhostelChangeRequest = async (req, res) => {
@@ -28,8 +29,8 @@ exports.getAllhostelChangeRequest = async (req, res) => {
     }
 
     Promise.all([
-      axios.get(`http://localhost:5000/api/blocks`),
-      axios.get(`http://localhost:5000/room/api/rooms`),
+      axios.get(`${API}api/blocks`),
+      axios.get(`${API}room/api/rooms`),
     ])
       .then((responses) => {
         const block = responses[0].data;
@@ -77,7 +78,11 @@ exports.UpdateRequest = async (req, res) => {
 
   // date and timeout
   const now = new Date();
-  const currentDateTime = now.toLocaleString();
+  const year = now.getFullYear();
+  const month = now.getMonth() + 1;
+  const date = now.getDate();
+  const time = now.getTime();
+  const currentDateTime = now.toLocaleDateString();
 
   let request;
   try {
@@ -113,9 +118,14 @@ exports.UpdateRequest = async (req, res) => {
     console.log("newRoom", newRoom);
 
     // Update allocation table
+    let allocation;
     try {
-      const allocation = await Allocate.findOneAndUpdate(
-        { sid: request.student, year: request.student_year },
+      allocation = await Allocate.findOneAndUpdate(
+        {
+          sid: request.student,
+          year: request.student_year,
+          academicyear: new Date().getFullYear(),
+        },
         {
           $set: {
             roomid: newRoom,
@@ -128,7 +138,7 @@ exports.UpdateRequest = async (req, res) => {
       );
       console.log(`Allocation updated: ${allocation}`);
     } catch (err) {
-      console.error(err);
+      console.error("allocation error /", err);
       const error = new HttpError(
         "Something went wrong, could not update allocation",
         500
@@ -137,10 +147,10 @@ exports.UpdateRequest = async (req, res) => {
     }
 
     // Update request table
-    request.Remarks = remarks || request.Remarks;
+    request.remarks = remarks || request.remarks;
     request.status = "accepted";
     request.clicked = true;
-    request.reason = request.Remarks;
+    request.reason = request.remarks;
     request.reqyear = request.reqyear;
 
     // in recent table
@@ -153,6 +163,7 @@ exports.UpdateRequest = async (req, res) => {
     try {
       await request.save();
       await recent.save();
+      await allocation.save();
       console.log(`Request updated: ${request}`);
 
       const mailOptions = {
@@ -186,9 +197,6 @@ exports.UpdateRequest = async (req, res) => {
         { $inc: { availability: -1 } },
         { new: true }
       );
-      // console.log(
-      //   `Availability updated for room ${room.room_name}: ${room.availability}`
-      // );
     } catch (err) {
       console.error(err);
       const error = new HttpError(
@@ -204,10 +212,12 @@ exports.UpdateRequest = async (req, res) => {
     const currRoom = await Room.findOne({ _id: newRoom });
     const currBlock = await Block.findOne({ _id: request.targetblock });
     // Update request table
-    request.Remarks = remarks || request.Remarks;
+    request.remarks = remarks || request.remarks;
     request.status = "Rejected";
     request.clicked = true;
-    request.reason = request.Remarks;
+    request.reason = request.reason;
+    request.reqyear = request.reqyear;
+
     //reject
     const recent = new RecentActivity({
       student: request.student,
@@ -249,4 +259,48 @@ exports.UpdateRequest = async (req, res) => {
 
   // res.json({ message: "Request updated successfully" });
   res.send("Request Granted Successfully");
+};
+
+//////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////
+exports.getAllRequest = async (req, res) => {
+  const notificationCount = await Request.countDocuments({ clicked: false });
+  const token = req.cookies.tokenABC;
+  const user = req.cookies.userData;
+  const username = JSON.parse(user);
+  let request;
+  let room;
+  let blocks;
+  console.log("token in request ", token);
+  // /////////////////
+  try {
+    room = await Room.find({});
+  } catch (err) {
+    const error = new HttpError("Fetching Requests failed", 500);
+    return res.status(error.code || 500).json({ message: error.message });
+  }
+  /////////////////////////////
+  try {
+    blocks = await Block.find({});
+  } catch (err) {
+    const error = new HttpError("Fetching Requests failed", 500);
+    return res.status(error.code || 500).json({ message: error.message });
+  }
+  /////////////////////////
+  try {
+    request = await Request.find({});
+  } catch (err) {
+    const error = new HttpError("Fetching Requests failed", 500);
+    return res.status(error.code || 500).json({ message: error.message });
+  }
+  // res.json({ Block: blocks.map((block) => block.toObject({ getters: true })) });
+  res.render("Request/requestHistory", {
+    block: blocks,
+    request: request,
+    token: token,
+    room: room,
+    notificationCount: notificationCount,
+    username: username,
+  });
 };
