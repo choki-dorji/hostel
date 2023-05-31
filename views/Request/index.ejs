@@ -548,6 +548,14 @@ left: 3.2rem;
 #block6 .deta {
   top: -1.5rem;
 }
+#block6  .view-l{
+                background:#ff4b13;
+                color:#fff;
+                opacity:100%;
+                width:100px;
+                right:1.3rem;
+                top:11.3rem;
+}
 
 @media (max-width: 768px) {
   #block6 .bx-shadow {
@@ -560,7 +568,16 @@ left: 3.2rem;
   #block6 .bx-shadow1 {
     margin: 0.9rem -4.6rem 0rem 1.8rem;
   }
+  #block6  .view-l{
+                background:#ff4b13;
+                color:#fff;
+                opacity:100%;
+                width:100px;
+                right:-2.6rem;
+                top:11.1rem;
 }
+}
+
 
 </style>
        <!-- MAIN -->
@@ -572,8 +589,7 @@ left: 3.2rem;
                         <div class="bx-shadow pt-4 pb-3">
                             <h5 class="heading-search font-weight-bold text-left pl-4 pb-0" style="opacity:90%;">Hostel change Request</h5>
                             <button onclick="location.href='/request/allrequest'" 
-                            class="btn position-absolute" 
-                            style="background:#ff4b13; color:#fff;  opacity:100%; width:100px;">
+                            class="btn position-absolute view-l" >
                             History</button>
                         </div>
                     </div>
@@ -581,7 +597,7 @@ left: 3.2rem;
                     <div class="gri  col-lg-12 col-md-12s col-sm-12">
                       <% for(var i = 0; i < requests.length; i++) { %>
                         <% if(requests[i].clicked === false) { %>
-                        <div class="bx-shadow1" onclick="navigateToPage('/request/details')">
+                        <div class="bx-shadow1" onclick="navigateToPage('/request/details?sid=<%= requests[i].student %>')">
                             <img src="/img/hostel.png" width="35px" height="35px" alt="">
                             <div class="grid-container">
                                 <div class="grid-item grid-1 ">
@@ -592,17 +608,21 @@ left: 3.2rem;
 
                                 <div class="grid-item grid2">
                                     <div class="display-row">
-                                      <% for(var k = 0; k < rooms.length; k++) { %>
+                                   
                                         <p class="ob-des">
+                                          <% for(var k = 0; k < rooms.length; k++) { %>
                                           <% if(requests[i].room == rooms[k]._id) { %>
-                                            Requested room from <%= rooms[k].room_name  %> t
+                                            Requested room from <%= rooms[k].room_name  %> 
                                           <% } %>
-                                        
+                                      <% } %>
+                                      to 
+                                      <% for(var k = 0; k < rooms.length; k++) { %>
                                           <%  if(rooms[k]._id == requests[i].targetroom) { %>
-                                            o <%= rooms[k].room_name %>
+                                             <%= rooms[k].room_name %>
                                           <% } %>
+                                        <% } %>
                                         </p>
-                                          <% } %>
+                                          
                                     </div>
                                 </div>
                                 <div class="grid-item grid3 ">
@@ -636,8 +656,7 @@ left: 3.2rem;
 </section>
 <!-- NAVBAR -->
 
-<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
-<script src="script.js"></script>
+
 <script>
     function navigateToPage(url) {
       window.location.href = url;

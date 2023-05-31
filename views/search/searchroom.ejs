@@ -184,18 +184,11 @@ async function handleSearch1(event) {
 
   const searchForm = document.getElementById("search-form1");
   const searchResults = document.getElementById("search-results1");
-
-    const studentName = searchForm.elements.student.value;
-
-    console.log(studentName)
-    console.log("fdghjkl")
-
-    const response = await fetch(`/students/search?studentSID=${studentName}`);
+  const host = "<%= host %>"
+  console.log(host)
+  const studentName = searchForm.elements.student.value;
+   const response = await fetch(`/students/search?studentSID=${studentName}`);
     const data = await response.json();
-
-    console.log(data)
-
-
     if (response.ok) {
       const student = data[0];
         searchResults.innerHTML = `

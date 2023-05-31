@@ -3529,3 +3529,27 @@ exports.studentsbyName = (req, res) => {
   let students = STUDENTS.filter((student) => student.name === stdname);
   res.json(students);
 };
+
+// //////////
+exports.countStudentsByYearDisable = (years) => {
+  let maleCount = 0;
+  let femaleCount = 0;
+
+  const students = STUDENTS;
+
+  // Iterate over each student
+  students.forEach((student) => {
+    // Check if the student's year matches the specified year
+    if (student.year === years) {
+      // Increment the corresponding count based on the student's gender
+      if (student.gender === "M" && !student.disability) {
+        maleCount++;
+      } else if (student.gender === "F" && !student.disability) {
+        femaleCount++;
+      }
+    }
+  });
+
+  // Return an object with the male and female counts
+  return { male: maleCount, female: femaleCount };
+};

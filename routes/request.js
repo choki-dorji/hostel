@@ -9,7 +9,8 @@ route.put("/update/:id", requestget.UpdateRequest);
 // route.get("/allrequest", renderpage.getHistory);
 
 route.get("/allrequest", requestget.getAllRequest);
-route.get("/details", renderpage.detailsrequest)
+route.get("/details", renderpage.detailsrequest);
 
+route.get("/getreqbySid/:sid", requestget.getRequestBySid);
 
 exports.route = route;

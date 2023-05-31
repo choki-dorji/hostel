@@ -67,7 +67,7 @@ exports.createRoom = async (req, res) => {
     await sess.commitTransaction();
     res.status(201).json({ message: "room created successfully" });
   } catch (err) {
-    console.log(err);
+    console.log("ERROR ", err);
     const error = new HttpError("Creating room failed, please try again", 500);
     return res.status(error.code || 500).json({ message: error.message });
   }

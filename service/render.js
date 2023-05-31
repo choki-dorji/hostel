@@ -395,6 +395,7 @@ exports.search_room = async (req, res) => {
   const token = req.cookies.tokenABC;
   const user = req.cookies.userData;
   const username = JSON.parse(user);
+  const host = req.hostname;
   const notificationCount = await Request.countDocuments({ clicked: false });
 
   axios
@@ -414,6 +415,7 @@ exports.search_room = async (req, res) => {
           username: username,
           notificationCount: notificationCount,
           token: token,
+          host: host,
         });
       })
     )
@@ -686,6 +688,49 @@ exports.search_room01 = async (req, res) => {
 //     });
 // };
 
-exports.detailsrequest = function (req, res) {
-  res.render("Request/DetailsRequest")
-}
+exports.detailsrequest = async function (req, res) {
+  const notificationCount = await Request.countDocuments({ clicked: false });
+  const token = req.cookies.tokenABC;
+  const err = req.query.error;
+  const urlParams = new URLSearchParams(req._parsedUrl.search);
+  const user = req.cookies.userData;
+  const username = JSON.parse(user);
+  console.log("before axios");
+  const sid = urlParams.get("sid");
+  console.log("sid", sid);
+
+  try {
+    axios
+      .all([
+        axios.get(API + "api/blocks"),
+        axios.get(API + "room/api/rooms"),
+        axios.get(`${API}request/getreqbySid/${sid}`),
+      ])
+      .then(
+        axios.spread(function (blocksResponse, roomsResponse, membersResponse) {
+          console.log(req.path);
+          console.log(membersResponse.data[0]);
+          res.render("Request/DetailsRequest", {
+            block: blocksResponse.data,
+            rooms: roomsResponse.data,
+            username: username,
+            notificationCount: notificationCount,
+            token: token,
+            request: membersResponse.data[0],
+          });
+        })
+      )
+      .catch((err) => {
+        console.log(err);
+        res.send(err);
+      });
+  } catch (e) {
+    console.log(e);
+  }
+
+  // res.render("", {
+  //   notificationCount: notificationCount,
+  //   token: token,
+  //   username: username,
+  // });
+};

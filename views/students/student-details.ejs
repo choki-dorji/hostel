@@ -90,7 +90,7 @@
                                                     </tr>
                                                     <tr id="roomRow">
                                                         <th>Allocated Rooms</th>
-                                                        <td id="roomName" scope="row">Loading...</td>
+                                                        <td id="roomName" scope="row"></td>
                                                     </tr>
                                                     
                                                 </thead>
@@ -118,13 +118,14 @@
 <script>
    $(document).ready(function() {
     var sid = "<%= students[0].sid %>"; // Assuming you have access to the student's sid
+    const host = "<%= host %>"; 
     console.log(sid);
     // Make the AJAX request to the API
     $.ajax({
         url: `http://localhost:5000/students/getroom/${sid}`,
         method: "GET",
         success: function(response) {
-            console.log(response);
+            console.log("response", response);
             var roomData = response.room;
             var roomRow = document.getElementById("roomRow");
             var roomNameCell = roomRow.querySelector("#roomName");
@@ -146,7 +147,7 @@
             roomNameCell.innerHTML = content;
         },
         error: function(error) {
-            console.log(error);
+            console.log("errer", error);
             // Handle the error case if necessary
         }
     });

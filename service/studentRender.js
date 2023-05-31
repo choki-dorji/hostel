@@ -8,8 +8,10 @@ exports.StudentDashboard = (req, res) => {
   const userdata = req.cookies.userData;
   const user = JSON.parse(userdata);
 
+  // console.log(user);
+
   const currentYear = new Date().getFullYear();
-  console.log(user);
+  console.log(user.sid);
 
   axios
     .all([
@@ -17,15 +19,23 @@ exports.StudentDashboard = (req, res) => {
       axios.get(`${API}students/get-roommate/${user.sid}`),
       axios.get(API + "room/api/rooms"),
       axios.get(`${API}allocate/api/years/${currentYear}`),
+      axios.get(`${API}request/getreqbySid/${user.sid}`),
     ])
     .then(
-      axios.spread(function (blocksResponse, roomsResponse, room, allocate) {
+      axios.spread(function (
+        blocksResponse,
+        roomsResponse,
+        room,
+        allocate,
+        request
+      ) {
         res.render("students/index", {
           userdata: user,
           block: blocksResponse.data,
           roommate: roomsResponse.data,
           room: room.data,
           allocate: allocate.data,
+          request: request.data,
         });
       })
     )
@@ -46,6 +56,7 @@ exports.search_student = async (req, res) => {
   const urlParams = new URLSearchParams(req._parsedUrl.search);
   const id = urlParams.get("id");
   console.log("id", id);
+  const host = req.hostname;
   const currentYear = new Date().getFullYear();
 
   try {
@@ -66,6 +77,7 @@ exports.search_student = async (req, res) => {
           all
         ) {
           // console.log(req.path);
+
           console.log("member ", allocationsResponse.data);
           res.render("students/student-details", {
             blocks: blocksResponse.data,
@@ -77,6 +89,7 @@ exports.search_student = async (req, res) => {
             students: membersResponse.data,
             allocate: allocationsResponse.data,
             all: all.data,
+            host: host,
           });
         })
       )

@@ -1,12 +1,505 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    details
+<%- include('../required/header') %>
+<style>
+   
+        #block6 .bx-shadow {
+  box-shadow: 0px 3px 10px #cfcfcf; /* adds a box shadow */
+
+  background-color: #ffffff; /* sets the background color */
+  border-radius: 5px; /* rounds the corners */
+  margin: 7.5rem -2.9rem 0 2.3rem;
+  overflow-x: hidden;
+}
+#block6 .bx-shadow1 {
+  box-shadow: 0px 3px 10px #cfcfcf; /* adds a box shadow */
+  height: auto;
+  background-color: #ffffff; /* sets the background color */
+  border-radius: 5px; /* rounds the corners */
+  margin: 1.1rem -2.9rem 0rem 2.3rem;
+  overflow-x: hidden;
+}
+#block6 .row {
+  /* adjusts the width or overall content div (important) */
+  padding-right: 2rem;
+}
+
+#block6 .search-bx {
+  height: auto;
+  border-radius: 10px;
+  color: #ff4b13;
+  opacity: 90%;
+  display: flex;
+
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    grid-gap: 0px;
+
+}
+
+#block6 .search-det {
+  display: flex;
+  flex-direction: row;
+  margin-left: 2rem;
+}
+
+/* .bx-22 {
+  position: absolute;
+  right: 10%;;
+} */
+
+.bx-1{
+  width:90%;
+  margin: 0 auto;
+}
+/* .bx-25 {
+margin-left:10vw;
+} */
+
+#block6 .par {
+  max-width: 100%;
+}
+#block6 .rea {
+  width: 88%;
+  border-radius: 5px;
+  font-size: 14px;
+  border: 1px solid rgba(130, 130, 130, 0.615);
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  font-family: open sans;
+}
+#block6 .view-proof {
+  display: flex;
+  justify-content: flex-end;
+}
+#block6 .proof-img {
+  color: white;
+  background: #ff4a13;
+  font-size: 12px;
+  border-radius: 4px;
+  border: none;
+}
+#block6 .acc {
+  color: white;
+  background: #ff4b13;
+  font-size: 16px;
+  border-radius: 5px;
+  border: none;
+  height:40px;
+}
+#block6 .acc:focus,
+#block6 .acc:active {
+  outline: none;
+  border: none;
+}
+#block6 .del:focus,
+#block6 .del:active {
+  border: 1px solid #ff4b13;
+  opacity: 90%;
+}
+
+#block6 .acdc {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+}
+#block6 .del {
+  color: #ff4b13;
+  background: none;
+  font-size: 16px;
+  border-radius: 5px;
+  border: 1px solid #ff4b13;
+}
+#block6 .proof-img:active,
+#block6 .proof-img:focus {
+  outline: none;
+  border: none;
+}
+#block6 .deta {
+  top: 0rem;
+}
+
+@media (max-width: 768px) {
+  #block6 .bx-shadow {
+    margin: 7.3rem -4.6rem 0 1.8rem;
+    height: 70px;
+  }
+  #block6 .heading-search {
+    font-size: 16px;
+  }
+  #block6 .bx-shadow1 {
+    margin: 0.9rem -4.6rem 0rem 1.8rem;
+  }
+  /* .acdc{
+margin-top:-6.5rem;
+  } */
+  
+  
+   #block6 .bx-1 {
+  
+  width:400px;
+  }
+/* .row-view{
+    left:5rem;
+  } */
+  #block6 .bx-1 {
+   display:flex;
+   margin-left:2rem;
+margin-top:-2rem;
+}
+.bx-25{
+  position:absolute;
+  top:6rem;
+  left:4rem;
+}
+.bx-22{
+  top:6rem;
+  left:15rem;
+}
+.rea{
+width:93%;
+
+}
+.deta{
+ margin-top:7rem;
+}
+}
+ @media (max-width: 600px) {
+
+  #block6 .bx-1 {
+   
+    display:flex;
+    gap:0%;
+    margin-left:1rem;
+}
+
+.bx-22{
+ 
+  left:12rem;
+}
+
+}
+
+.swal2-popup .swal2-styled.swal2-confirm:hover, .swal2-popup .swal2-styled.swal2-confirm:focus{
+	color:#fff;
+		background:#ff4b13;
+		outline:#ff4b13;
+	}
+	.swal2-popup .swal2-styled.swal2-cancel:hover, .swal2-popup .swal2-styled.swal2-cancel:focus{
+	background:#fff;
+    border-color:#cfcfcf;
+    outline-color:#ff4b13;
+	}
+  .swal2-popup .swal2-styled.swal2-cancel {
+      border: 1px solid #ff4b13;
+			color:#ff4b13;
+			padding-right:2rem;
+			padding-left:2rem; /* Set the border properties as per your requirement */
+			margin-bottom:2rem;
+            outline:none;
+    }
+
+		.swal2-popup .swal2-styled.swal2-confirm {
+					padding-right:2rem;
+					padding-left:2rem; /* Set the border properties as per your requirement */
+								margin-bottom:2rem;
+		    }
+            .success{
+                color:rgba(0,143,32);
+            }
+    </style>
+
+
+<main>
+    <main id="block6">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <div class="bx-shadow pt-4 pb-3">
+                    <h5 class="heading-search font-weight-bold text-left pl-4 pb-0" style="opacity:90%;">Hostel Change Request of user</h5>
+                </div>
+            </div>
+            <% if(request.clicked == false) { %>
+            <div class="gri  col-lg-12 col-md-12s col-sm-12">
+                <div class="bx-shadow1 ">
+                    <br>
+
+                    <div class="col-lg-12 col-md-12 col-sm-6 search-bx bx-1 mt-4 " id="myDiv">
+                        <div class="row-view pt-3">
+                            <i class="material-icons icon position-absolute  pt-0 ml-2 ">male</i>
+                            <!-- <img src="/img/hostel.png" height="30" width="30" /> -->
+                            <h6 class="fs-1 fst-bold pt-1 pl-5 "> <b class="mt-3"><%= request.student_name %></b></h6>
+                            <p class="fw-300 ml-5 mb-0 custom-line-height nameee"
+                                style="color:#4f4f4f; opacity:90%;">
+                                <span class="ml-0"><%= request.student_course %></span>
+                            </p>
+                            <p class="fw-300 ml-5 mt-1 mb-2 custom-line-height nameee"
+                                style="color:#4f4f4f; opacity:90%;">
+                                <span class="ml-0">Year</span><span class="ml-1"><%= request.student_year %></span>
+                            </p>
+                        </div>
+                        <div class="bx-25 " style="opacity:90%;">
+                            <p class="mt-3 mb-0 font-weight-bold">From</p>
+                            <p class="fw-300   mb-0 custom-line-height" style="color:#4f4f4f;">
+                                <span class="ml-0">Block</span>
+                                <% for (var i = 0; i < block.length; i++) { %>
+                                    <% if (block[i]._id == request.block) { %>
+                                <b class="ml-4" style="color:#ff4b13"><%= block[i].block_name %></b>
+                                <% }  %>
+                                   
+                                <% } %>
+                            </p>
+                            <p class="fw-300  mb-5 mb-0 custom-line-height" style="color:#4f4f4f; ">
+                                <% for (var i = 0; i < rooms.length; i++) { %>
+                                    <% if (rooms[i]._id == request.room) { %>
+                                <span class="ml-0">Room</span><b class="ml-4" style="color:#ff4b13"><%= rooms[i].room_name %></b>
+                                <% } %>
+                                <% } %>
+                            </p>
+                        </div>
+                        <div class="bx-22" style="opacity:90%;">
+                            <p class="ml-3 mt-3 mb-0 font-weight-bold">To</p>
+                            <p class="fw-300 ml-3  mb-0 custom-line-height" style="color:#4f4f4f;;">
+                               
+                                <% for (var i = 0; i < block.length; i++) { %>
+                                    <% if (block[i]._id == request.targetblock) { %>                                       
+                                <span class="ml-0">Block</span><b class="ml-4" style="color:#ff4b13"><%= block[i].block_name %></b>
+                               <% } %>
+                               <% } %>
+                           
+                            </p>
+                            <p class="fw-300 ml-3 mb-0 custom-line-height" style="color:#4f4f4f; ">
+                                <% for (var i = 0; i < rooms.length; i++) { %>
+                                    <% if (rooms[i]._id == request.targetroom) { %>
+                                <span class=" ml-0">Room</span><b class="ml-4" style="color:#ff4b13"><%= rooms[i].room_name %></b>
+                                <% } %>
+                                <% } %>
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="search-bx col-lg-12 col-md-12 deta col-sm-12" id="myDiv">
+                        <div class="rea pl-2 pr-3 ">
+                            <div class="mt-3">
+                                <p class="fw-300 ml-3 mb-0 custom-line-height" style="color:#ff4b13;">
+                                    <b class="ml-0">Reason </b>
+                                </p>
+                                <p class="fw-300 ml-3 custom-line-height par" style="color:#4f4f4f; ">
+                                    <span class=" ml-0"><%= request.reason %></span>
+                                </p>
+
+                            </div>
+                            <div class="view-proof pb-3">
+                                        
+                                <a class="picture" href="/uploads/<%= request.image %>" style="cursor: pointer;">
+                              <p >Attached File : </p>
+                            <i class='bx bxs-file-blank' style="font-size: 24px; color: #ff4b13;"></i>
+                              </a>
+                          </div>
+
+                        </div>
+
+                    </div>
+                    <div class="search-bx col-lg-12 col-md-12 detal col-sm-12  pb-5" id="myDiv">
+                        <div class="mt-4 acdc" style="margin:0 auto;">
+                            <button data-id="<%= request._id %>" class="pr-4 pl-4 pt- pb-1 del reject-btn">Reject</button>
+                            <button data-id="<%= request._id %>" class="pr-4 pl-4 pt-1 pb-1 acc accept-btn">Accept</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <% } else { %>
+                no request found
+            <% } %>
+                
+    
+           
+            
+
+
+           
+
+
+        </div>
+    </main>
+</main>
+<br><br><br><br><br><br><br><br>
+</section>
+
 </body>
+
+</main>
+<!-- MAIN -->
+</section>
+
+<script>
+    function setFocus(on) {
+        var element = document.activeElement;
+        if (on) {
+            setTimeout(function () {
+            element.parentNode.classList.add("focus");
+            });
+        } else {
+            let box = document.querySelector(".input-box");
+            box.classList.remove("focus");
+            $("input").each(function () {
+            var $input = $(this);
+            var $parent = $input.closest(".input-box");
+            if ($input.val()) $parent.addClass("focus");
+            else $parent.removeClass("focus");
+            });
+        }
+        }
+</script>
+
+<script>
+    $(document).ready(function() {
+$(".accept-btn").click(function() {
+    var id = $(this).attr("data-id");
+    console.log(id);
+// Show confirmation message using SweetAlert2
+Swal.fire({
+html: `<h5 class="font-weight-bold mt-4 mb-4" style="margin-bottom: font-weight:bold; color:#ff4b13; opacity:90%; 30px">Accept</h5>
+	<form>
+	    <div class="form-group">
+		    <div class="input-box">
+		        <label class="input-label" style="color:#4f4f4f;" >Remarks</label>
+		        <textarea type="text" class="input-1 "  style="height:150px; border-color:#4f4f4f;" onfocus="setFocus(true)" id="remarks" onblur="setFocus(false)"></textarea>
+		    </div>
+		</div>
+	</form>
+        `,
+        showCancelButton: true,
+        showConfirmButton: true,
+        confirmButtonColor: "#ff4b13",
+        cancelButtonColor: "#fff",
+        confirmButtonText: "Okay",
+        preConfirm: () => {
+            const remarks = document.getElementById('remarks').value;
+            // Return the values as an object
+            return { remarks };
+        }
+}).then((result) => {
+console.log("confirm result")
+if (result.isConfirmed) {
+    // Send AJAX request to delete block
+                const { remarks } = result.value;
+                const status = "accepted"
+                fetch(`update/${id}`, {
+                method: 'PUT',
+                headers: {
+                'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ remarks, status })
+                })
+                .then(response => {
+                if (!response.ok) {
+                console.log("response", response)
+                throw new Error(response);
+                }
+                Toastify({
+                text: 'You have successfully accepted the request',
+                backgroundColor: 'rgba(0,143,32,.2)',
+                className: 'success',
+                position: 'top-center',
+                }).showToast();
+                setTimeout(() => {
+                    window.location.href = '/request'; // Replace with the actual URL of your request page
+                    }, 2000);
+
+             
+                })
+                .catch(error => {
+                console.error(error);
+                Toastify({
+                text: 'Error while accepting the request!. Please try again',
+                backgroundColor: 'rgba(255, 0, 0. .3)',
+                className: 'error',
+                position: 'top-center',
+                }).showToast();
+                });
+                location.href = "/request"
+            }
+                });
+                });
+                });
+</script>
+
+<script>
+    $(document).ready(function() {
+$(".reject-btn").click(function() {
+    var id = $(this).attr("data-id");
+    console.log(id);
+// Show confirmation message using SweetAlert2
+Swal.fire({
+html: `<h5 class="font-weight-bold mt-4 mb-4" style="margin-bottom: font-weight:bold; color:#ff4b13; opacity:90%; 30px">Reject</h5>
+	<form>
+	    <div class="form-group">
+		    <div class="input-box">
+		        <label class="input-label" style="color:#4f4f4f;">Remarks</label>
+		        <textarea type="text" class="input-1"  style="height: 150px;border-color:#4f4f4f;" onfocus="setFocus(true)" id="remarks" onblur="setFocus(false)"></textarea>
+		    </div>
+		</div>
+	</form>
+        `,
+        showCancelButton: true,
+        showConfirmButton: true,
+        confirmButtonColor: "#ff4b13",
+        cancelButtonColor: "#fff",
+        confirmButtonText: "Okay",
+        preConfirm: () => {
+            const remarks = document.getElementById('remarks').value;
+            // Return the values as an object
+            return { remarks };
+        }
+}).then((result) => {
+console.log("confirm result")
+if (result.isConfirmed) {
+    // Send AJAX request to delete block
+                const { remarks } = result.value;
+                const status = "rejected"
+                fetch(`update/${id}`, {
+                method: 'PUT',
+                headers: {
+                'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ remarks, status })
+                })
+                .then(response => {
+                if (!response.ok) {
+                console.log("response", response)
+                throw new Error(response);
+                }
+                Toastify({
+                text: 'You have Rejected the request!',
+                backgroundColor: 'rgba(0,143,32,.2)',
+                className: 'success',
+                position: 'top-center',
+                }).showToast();
+                setTimeout(() => {
+                    window.location.href = '/request'; // Replace with the actual URL of your request page
+                    }, 2000);
+
+                })
+
+                .catch(error => {
+                console.log(error);
+                Toastify({
+                text: 'Please add remarks',
+                backgroundColor: 'rgba(255,0,0,.3)',
+                className: 'error',
+                position: 'top-center',
+                }).showToast();
+                });
+               
+                }
+                });
+                });
+                });
+</script>
+
+</script>
+
+</body>
+
 </html>

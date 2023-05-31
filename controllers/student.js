@@ -267,7 +267,7 @@ exports.searchStudentsBySID = async (req, res) => {
 exports.countStudentsByYear = (req, res) => {
   const years = req.params.years;
 
-  const students = api_students.countStudentsByYear(years);
+  const students = api_students.countStudentsByYearDisable(years);
 
   res.send(students);
 };

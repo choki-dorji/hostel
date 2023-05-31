@@ -304,3 +304,33 @@ exports.getAllRequest = async (req, res) => {
     username: username,
   });
 };
+
+////////////////////////grt request by sid
+
+exports.getRequestBySid = async (req, res, next) => {
+  const sid = req.params.sid;
+
+  let blocks;
+  try {
+    blocks = await Request.find({ student: sid });
+  } catch (err) {
+    const error = new HttpError(
+      "something went wrong, could not find a request",
+      500
+    );
+    return res.status(error.code || 500).json({ message: error.message });
+  }
+
+  if (!blocks) {
+    const error = new HttpError(
+      "Could not find an request for the student",
+      404
+    );
+    return res.status(error.code || 500).json({ message: error.message });
+  }
+
+  // res.json({
+  //   block: blocks.toObject({ getters: true }),
+  // });
+  res.send(blocks);
+};

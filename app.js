@@ -91,33 +91,34 @@ app.use((error, req, res, next) => {
   }
 });
 
-// let server;
+let server;
 
-// function connectWithRetry() {
-//   mongoose
-//     .connect(process.env.MONGODB_URI)
-//     .then(() => {
-//       console.log("Connected to the database");
-//     })
-//     .catch((error) => {
-//       console.log("Failed to connect to the database:", error.message);
-//       console.log("Retrying connection in 5 seconds...");
-//       setTimeout(connectWithRetry, 5000);
-//     });
-// }
+function connectWithRetry() {
+  mongoose
+    .connect(process.env.MONGODB_URI)
+    .then(() => {
+      console.log("Connected to the database");
+    })
+    .catch((error) => {
+      console.log("Failed to connect to the database:", error.message);
+      console.log("Retrying connection in 5 seconds...");
+      setTimeout(connectWithRetry, 5000);
+    });
+}
 
-// connectWithRetry();
+connectWithRetry();
 
-// mongoose.connection.on("disconnected", () => {
-//   console.log("Lost MongoDB connection...");
-//   console.log("Reconnecting...");
-//   connectWithRetry();
-// });
+mongoose.connection.on("disconnected", () => {
+  console.log("Lost MongoDB connection...");
+  console.log("Reconnecting...");
+  connectWithRetry();
+});
 
-// mongoose.connection.on("error", (error) => {
-//   console.log("MongoDB connection error:", error.message);
-// });
-
+mongoose.connection.on("error", (error) => {
+  console.log("MongoDB connection error:", error.message);
+});
+// mongodb://localhost:27017/HostelAllocation
+// mongodb+srv://Choki:Bumthap123@cluster0.7i7nwco.mongodb.net/HostelAllocation?retryWrites=true&w=majority
 mongoose
   .connect(process.env.MONGODB_URI) // Use the MongoDB Atlas connection string from environment variables
   .then(() => {

@@ -12,7 +12,7 @@ route.get("/", service.StudentDashboard);
 
 route.get("/get-roommate/:uid", student.getRoommates);
 
-route.get("/getroom/:students", student.getRoomsFromStudent)
+route.get("/getroom/:students", student.getRoomsFromStudent);
 
 route.post("/changeroom/:uid", student.hostelChangeRequest);
 
@@ -27,7 +27,6 @@ route.get("/allstudents", students.TotalAllStudents);
 route.get("/student/:id", students.studentsbyName);
 
 route.get("/students/display", service.search_student);
-
 
 // API
 

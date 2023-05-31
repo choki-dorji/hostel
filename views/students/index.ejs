@@ -127,7 +127,7 @@
     }
 	.swal2-popup .swal2-styled.swal2-cancel {
       border: 1px solid #ff4b13;
-			color:#ff4b13;
+			color:#fff;
 			padding-right:2rem;
 			padding-left:2rem; /* Set the border properties as per your requirement */
 			margin-bottom:2rem;
@@ -145,6 +145,35 @@
 					padding-left:2rem;
 					margin-bottom:2rem;
 		    }
+			.disabled {
+			opacity: 0.6; /* Decrease opacity to indicate it is disabled */
+			pointer-events: none; /* Disable pointer events to prevent interaction */
+			/* Add any other desired styles to visually indicate the button is disabled */
+			}
+			.remark-class {
+			color: 4f4f4f;
+			background: #ffffff;
+			z-index: 1;
+			margin-left: 1.4rem;
+			margin-top: -.5rem;
+			font-size: 14px;
+			position: absolute;
+			color: #4f4f4f;
+			width: 80px;
+			text-align: center;
+
+		}
+
+		.reason-bx {
+			border-radius: 5px;
+			padding: 1rem;
+			border-color: #4f4f4f;
+			text-align: left;
+			font-size: 14px;
+			opacity: 90%;
+			border: 1px solid #4f4f4f;
+		}
+
 	</style>
 	<title>Home</title>
 </head>
@@ -195,35 +224,28 @@
 		<main>
 			<main id="block">
 				<div class="row con">
-					<div class="col-lg-9 col-md-8 col-sm-12">
+					<div class="col-lg-12 col-md-12 col-sm-12">
 						<div class="shadow-box">
 							<% const firstName = userdata.name.split(' ')[0]; %>
 							<p class="welcome ml-4 pb-1 pt-4 wek"> Welcome <%= firstName %>!
 							</p>
 							<p class="nice-day ml-4 pb-1 position-absolute">Have a nice day
 							</p>
+							<% var isSidAllocated = false; %>
+									<% for (var j = 0; j < allocate.length; j++) { %>
+									<% if (allocate[j].sid == userdata.sid) { %>
+										<% isSidAllocated = true; %>
+										<% break; %>
+									<% } %>
+									<% } %>
 
+									
+
+							<button class="buttonnn add <%= isSidAllocated ? '' : 'disabled' %>" <%= isSidAllocated ? '' : 'disabled' %> data-id="<%= userdata.sid %>"><%= isSidAllocated ? 'Room change' : 'Room change' %></button>
 						</div>
 					</div>
 
-					<div class="col-lg-3 col-md-4 col-sm-12 box-welcome">
-
-							<div class="text-center"><i
-									class='bx bx-git-pull-request position-absolute mt-4 request'></i></div>
-						
-								<% for (var j = 0; j < allocate.length; j++) { %>
-									<% if (allocate[j].sid == userdata.sid) { %>	
-							<button class="button add" data-id=<%= userdata.sid %>>
-								<p class="ml-4 pl-4 mt-2 font-weight-bold roomc">
-									Room change</p>
-							</button>
-							<% } %>
-							<% } %>
-				
-							<div class="text-center"><i
-									class='bx bx-git-pull-request position-absolute mt-4 request'></i></div>
-
-					</div>
+					
 
 					<div class="col-lg-4 col-md-6 col-sm-12">
 						<div class="my-proDetails row pt-5">
@@ -246,9 +268,10 @@
 									<% for (var i = 0; i < room.length; i++) { %>
 										<% for (var j = 0; j < allocate.length; j++) { %>
 											<% if (room[i]._id === allocate[j].roomid && allocate[j].sid == userdata.sid) { %>
-											<button disabled class="butt1"><span><%= room[i].room_name%></span></button>
-											<button disabled class="butt2"><span><%= allocate[j].block_name %></span></button>
+											<button disabled class="butt1"><span>Room <%= room[i].room_name%></span></button>
+											<button disabled class="butt2"><span>Block <%= allocate[j].block_name %></span></button>
 											<% } %>
+										
 											<% } %>
 									<% } %>
 								</div>
@@ -271,6 +294,7 @@
 									</tr>
 									</thead>
 			  <% if(roommate) { %>
+				<% if(roommate.length > 0) { %>
 									<tbody>
 				<% for(var j = 0; j < roommate.length; j++) { %>
 									<tr>
@@ -282,18 +306,101 @@
 									</tr>
 									<% } %>
 									</tbody>
+				<% } else { %>
+					<tr>
+						<th scope="row" colspan="5" style="text-align: center;" >No Room Mate </th>
+					
+					</tr>
+					
+					</tbody>
+				<% } %>
 			  <% } else { %>
 				<tr>
-					<th scope="row"></th>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
+					<th scope="row" colspan="5" style="text-align: center;" >No Allocation for current year</th>
+				
 				</tr>
 				
 				</tbody>
 			<% } %>
 								</table>
+							</div>
+						</div>
+					</div>
+
+
+					<div class="col-lg-12 pt-4 col-md-12 col-sm-12">
+						<div class="shadow-box1">
+							<div class="pl-5 pr-5 pb-5 pt-1">
+								<p class="roommate font-weight-bold">Your room change request</p>
+								<% if (request.length > 0) { %>
+								<% for(var i =0; i < request.length; i++) { %>
+								<div class="table-responsive  d-flex">
+									<table class="tabe text-center align-items-center  justify-content-center">
+										<thead>
+											<tr>
+												<th scope="col">Date</th>
+												<th scope="col">From</th>
+												<th scope="col">To</th>
+												<th scope="col"  style="width: 600px;">Attachment</th>
+												<th scope="col">Reason</th>
+												<th scope="col">Status</th>
+												<th scope="col">Remarks</th>
+											</tr>
+										</thead>
+
+										<tbody>
+
+											<tr style="height: 50px">
+												<td>
+													<%= request[i].Requested %>
+												</td>
+												<td>
+													<% for(var j=0; j < room.length; j++) { %>
+													
+														<% if(room[j]._id == request[i].room) { %>
+															<%= room[j].room_name %>
+														<% }%>
+													<% } %>
+												</td>
+												<td>
+													<% for(var j=0; j < room.length; j++) { %>
+														<% if(room[j]._id == request[i].targetroom) { %>
+															<%= room[j].room_name %>
+														<% }%>
+													<% } %>
+												</td>
+												<td><a class="picture" href="/uploads/<%= request[i].image %>" style="cursor: pointer; display: inline-block;"><p style="display: inline;">Attached File :</p><i class='bx bxs-file-blank' style="font-size: 24px; color: #ff4b13; display: inline;"></i></a></td>
+
+												<td class="fixed-width text-left">
+													<p><%= request[i].reason %></p>
+												</td>
+												<td>
+													<div class="acc-status ml-1 d-flex" style="background:
+													<% if (request[i].status === 'pending') { %>#ffb300<% } %>
+													<% if (request[i].status === 'Rejected') { %>#ff0000<% } %>
+													<% if (request[i].status === 'accepted') { %>#00bb22<% } %>;
+												  ">
+														<!-- ff0000  red
+														00bb22 green-->
+													</div>
+													<p class="ml-4 stat-text"><%= request[i].status %></p>
+													<!-- <button
+														class="buttonn justify-content-center align-items-center">Pending</button> -->
+												</td>
+												<td>
+													<p class="mt-2" id="view">View</p>
+												</td>
+											</tr>
+
+										</tbody>
+
+									</table>
+								</div>
+								<% } %>
+								<% } else { %>
+									<p>No Request</p>
+								<% } %>
+
 							</div>
 						</div>
 					</div>
@@ -393,15 +500,15 @@ document.getElementById("logout-link").addEventListener("click", function(e) {
 								<form enctype="multipart/form-data">
 									<div class="form-group">
 										<div class="input-box active-grey">
-											<label class="input-label">Block Type</label>
+											<label class="input-label">Block Name</label>
 											<select class="input-1" onfocus="setFocus(true)" onblur="setFocus(false)" id="block-type" required  onchange="myFunction()"style="color:#4f4f4f; border-color:#4f4f4f; font-size:16px;" >
+												<option value="" disabled selected>Select Block</option>
 												<% for(var j = 0; j < block.length; j++) { %>
 													<%
 													var room = userdata.gender === 'F' ? 'girls' : 'boys';
 													if(block[j].type === room && block[j].status === "available") { %>
-															<option value="<%= block[j]._id %>"><%= block[j].block_name %></option>
+															<option value="<%= block[j]._id %>">block <%= block[j].block_name %></option>
 													<% } %>
-
 												<% } %>
 											</select>
 										</div>
@@ -578,6 +685,81 @@ document.getElementById("logout-link").addEventListener("click", function(e) {
 
 
   </script>
+  <script>
+	$(document).ready(function () {
+		$("#view").click(function () {
+			console.log("clicked")
+			// Show confirmation message using SweetAlert2
+			Swal.fire({
+				html: `
+					<h5 class="mt-4 pb-3 font-weight-bold" style="color:#ff4b13; opacity:90%; ">
+						<% for(var i=0; i < request.length; i++) { %>
+							Status: <%= request[i].status %>
+						<% } %>
+					</h5>
+									<form>	<p class="text-center remark-class">Remarks</p>
+											<div class="reason-bx" style="height: 100px">
+												<% for(var i=0; i < request.length; i++) { %>
+													<p><%= request[i].remarks %></p>
+												<% } %>
+											</div>
+									</form>
+					`,
+				showCancelButton: true,
+				showConfirmButton: false,
+				cancelButtonColor: "#ff4b13",
+				cancelButtonText: "Okay",
+				
+			}).then((result) => {
+				if (result.isConfirmed) {
+					// Send AJAX request to delete block
+					const { blockName, blockType, status } = result.value;
+					console.log(blockName)
+					//
+					//
+					$.ajax({
+						url: "/api/blocks",
+						method: "POST",
+						data: { block_name: blockName, type: blockType, status: status },
+						success: function (response) {
+							// If the block was successfully updated, display a success message using Toastify and reload the page
+							Toastify({
+								text: 'Block created successfully',
+								duration: 3000, // Display for 3 seconds
+								gravity: 'top', // Display at the top of the screen
+								position: 'center', // Display in the center of the screen
+								backgroundColor: 'rgba(196,293,206,1)', // Set the background color to white
+								className: 'toastify-success', // Add a custom CSS class for styling
+								stopOnFocus: true, // Stop the countdown when the user focuses on the screen
+								onClick: function () { Toastify.hideAll() } // Hide all toasts when clicked
+							}).showToast();
+
+							// Navigate to a different page after the success message is displayed
+							location.reload();
+						},
+						error: function (error) {
+							// If there was an error updating the block, display an error message using Toastify
+
+							Toastify({
+								text: 'Please enter required details!',
+								duration: 3000, // Display for 3 seconds
+								gravity: 'top', // Display at the top of the screen
+								position: 'center',
+								className: "failed", // Display in the center of the screen
+								backgroundColor: 'rgba(243,209,209,1)', // Set a gradient background color
+								stopOnFocus: true, // Stop the countdown when the user focuses on the screen
+								onClick: function () { Toastify.hideAll() } // Hide all toasts when clicked
+							}).showToast();
+
+						}
+					});
+
+				}
+			});
+		});
+	})
+
+</script>
 
 </body>
 

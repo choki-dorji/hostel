@@ -182,6 +182,20 @@ nav .profile .profile-link a:hover {
   color: #4f4f4f;
   font-weight: bold;
 }
+
+.buttonnn{
+  position:absolute;
+  background:#ff4b13;
+  border-radius:5px;
+  border:none;
+  outline: none;
+  vertical-align:center;
+  top:.9rem;
+  right:2rem;
+  color:#fff;
+  font-size:16px;
+  padding:.6rem 2rem;
+}
 /* Block div  */
 .shadow-box {
   box-shadow: 0px 3px 10px #cfcfcf; /* adds a box shadow */
@@ -189,7 +203,7 @@ nav .profile .profile-link a:hover {
   background-color: #ffffff; /* sets the background color */
   border-radius: 5px; /* rounds the corners */
   opacity: 90%;
-  margin: 0px -0.7rem 0 0rem;
+  margin: 0px 0rem 0 0rem;
 }
 #block {
   width: 100%;
@@ -312,7 +326,7 @@ nav .profile .profile-link a:hover {
   background-color: #ffffff;
   opacity: 90%; /* sets the background color */
   border-radius: 5px; /* rounds the corners */
-  margin: 1.2rem 0 0 0;
+  margin: -.3rem 0 0 0;
  
 }
 #block .roommate {
@@ -390,7 +404,9 @@ nav .profile .profile-link a:hover {
     position: absolute;
     font-size: 14px;
   }
-
+#block .buttonnn{
+  margin-top:-.7rem;
+}
   #block .roomc {
     position:absolute;
  top:4px;
@@ -426,4 +442,70 @@ top:-.3rem;
   .footer {
     margin-top: 0.9rem;
   }
+}
+.tabe{
+  width:100%;
+margin:0 auto;
+
+}
+
+.tabe tr {
+  width: 96%;
+  margin-left: 1rem;
+  color: #ffffff;
+}
+
+.tabe td,
+.tabe th {
+padding:.8rem 2rem;
+  vertical-align: center;
+  border: 1px solid #d7c8c8;
+  opacity: 90%;
+}
+.tabe tbody tr {
+  color: #4f4f4f;
+}
+.tabe thead th {
+  vertical-align: bottom;
+  border: 2px solid #e9e0e0;
+  background: #ff4b13;
+  opacity: 90%;
+}
+.buttonn{
+  height:40px;
+  padding-left:1rem;
+  padding-right:1rem;
+  color:white;
+  background:#ffb300;
+  border:none;
+  outline:none;
+  cursor:pointer;
+  border-radius:5px;
+margin:0 auto;
+/* ff0000 */
+}
+.acc-status{
+  margin-top:5px;
+  width:15px;
+  height:15px;
+ background:#00bb22;
+ border-radius:50%;
+ border:none;
+ margin-top:1.2rem;
+}
+.stat-text{
+  margin-top:-1.3rem;
+}
+.fixed-width {
+  width: 500px; 
+  min-width:300px;
+  word-wrap: break-word;
+}
+.shadow-box1 {
+  box-shadow: 0px 3px 10px #cfcfcf; /* adds a box shadow */
+  height: auto;
+  background-color: #ffffff; /* sets the background color */
+  border-radius: 5px; /* rounds the corners */
+  opacity: 90%;
+  margin: 0px -0rem 0 0rem;
 }
