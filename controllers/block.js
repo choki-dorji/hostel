@@ -4,7 +4,7 @@ const { validationResult } = require("express-validator");
 const HttpError = require("../models/httperror");
 const database = require("../models/models");
 const Block = database.Block;
-const Room = database.Room
+const Room = database.Room;
 const Allocate = database.Allocation;
 
 // create
@@ -50,7 +50,7 @@ exports.createBlock = async (req, res, next) => {
 
   try {
     await createdBlock.save();
-    res.redirect("/");
+    res.redirect("/Allblocks");
   } catch (err) {
     console.log(err);
     const error = new HttpError("creating Block failed, please try again", 500);
@@ -111,18 +111,21 @@ exports.delete = async (req, res) => {
     const deletedBlock = await Block.findByIdAndDelete(id);
 
     if (!deletedBlock) {
-      return res.status(404).send({ message: `Cannot delete block with ID ${id}. Maybe the ID is wrong` });
+      return res.status(404).send({
+        message: `Cannot delete block with ID ${id}. Maybe the ID is wrong`,
+      });
     }
 
     // Delete the rooms associated with the block
     await Room.deleteMany({ blockid: id });
 
-    res.send({ message: "Block and associated rooms were deleted successfully!" });
+    res.send({
+      message: "Block and associated rooms were deleted successfully!",
+    });
   } catch (err) {
     res.status(500).send({ message: `Could not delete block with ID ${id}` });
   }
 };
-
 
 // get block by particulat id
 
@@ -173,19 +176,21 @@ exports.update = async (req, res) => {
       }
     })
     .catch((err) => {
-      console.log(err)
+      console.log(err);
       res.status(500).send({ message: "Error updating block information" });
     });
 };
 
-
 // /////total students in block
 exports.countStudentsInBlock = async (req, res) => {
   const blockId = req.params.blockId;
-  const currentYear = new Date().getFullYear()
+  const currentYear = new Date().getFullYear();
 
   try {
-    const count = await Allocate.countDocuments({ blockid: blockId, academicyear: currentYear});
+    const count = await Allocate.countDocuments({
+      blockid: blockId,
+      academicyear: currentYear,
+    });
 
     res.status(200).send(count.toString());
   } catch (err) {

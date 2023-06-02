@@ -15,6 +15,7 @@ const logout = require("./routes/logout");
 const chart = require("./routes/chart");
 const RecentActivity = require("./routes/recent");
 const login = require("./routes/login");
+const landing = require("./routes/langing");
 const app = express();
 
 require("dotenv").config(); // Load environment variables from .env file
@@ -41,6 +42,8 @@ app.use(cookieParser());
 // };
 
 app.use("/", blockRoute.route);
+
+app.use("/landing", landing.route);
 
 app.use("/room", RoomRoutes.route);
 

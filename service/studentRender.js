@@ -1,8 +1,12 @@
 const axios = require("axios");
 const request = require("../models/models");
 const Request = request.Request;
+require("dotenv").config();
 
-const API = "http://localhost:5000/";
+// const API = "http://localhost:5000/";
+const API = process.env.HOST;
+console.log("API: " + API);
+
 exports.StudentDashboard = (req, res) => {
   // calling student to get their detail
   const userdata = req.cookies.userData;

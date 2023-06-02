@@ -6,7 +6,7 @@ const blockController = require("../controllers/block");
 const chart = require("../controllers/chart");
 
 // for thr ejs
-route.get("/", service.getBlock);
+route.get("/Allblocks", service.getBlock);
 route.get("/dashboard", service.getBlocks);
 route.get("/view-block", service.getBlockById);
 // route.get("/add-block", service.add_block);

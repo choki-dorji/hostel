@@ -127,7 +127,7 @@
     }
 	.swal2-popup .swal2-styled.swal2-cancel {
       border: 1px solid #ff4b13;
-			color:#fff;
+			color:#ff4b13;
 			padding-right:2rem;
 			padding-left:2rem; /* Set the border properties as per your requirement */
 			margin-bottom:2rem;
@@ -333,7 +333,7 @@
 							<div class="pl-5 pr-5 pb-5 pt-1">
 								<p class="roommate font-weight-bold">Your room change request</p>
 								<% if (request.length > 0) { %>
-								<% for(var i =0; i < request.length; i++) { %>
+								
 								<div class="table-responsive  d-flex">
 									<table class="tabe text-center align-items-center  justify-content-center">
 										<thead>
@@ -344,12 +344,14 @@
 												<th scope="col"  style="width: 600px;">Attachment</th>
 												<th scope="col">Reason</th>
 												<th scope="col">Status</th>
+											
 												<th scope="col">Remarks</th>
+												
 											</tr>
 										</thead>
 
 										<tbody>
-
+											<% for(var i =0; i < request.length; i++) { %>
 											<tr style="height: 50px">
 												<td>
 													<%= request[i].Requested %>
@@ -388,7 +390,9 @@
 														class="buttonn justify-content-center align-items-center">Pending</button> -->
 												</td>
 												<td>
-													<p class="mt-2" id="view">View</p>
+													
+														<p class="mt-2" id="view">View</p>
+												
 												</td>
 											</tr>
 
@@ -398,7 +402,7 @@
 								</div>
 								<% } %>
 								<% } else { %>
-									<p>No Request</p>
+									<h6 class="text-center">No Request<h6>
 								<% } %>
 
 							</div>
@@ -707,7 +711,7 @@ document.getElementById("logout-link").addEventListener("click", function(e) {
 					`,
 				showCancelButton: true,
 				showConfirmButton: false,
-				cancelButtonColor: "#ff4b13",
+				cancelButtonColor: "#fff",
 				cancelButtonText: "Okay",
 				
 			}).then((result) => {

@@ -67,6 +67,14 @@
   <!-- <link rel="stylesheet" href="/css/searchresult.css"> -->
   <title>Hostel Allocation</title>
   <style>
+    .user-manual{
+      position:absolute;
+    right:7.5rem;
+    margin-top:-2.1rem;
+    color:#ff4b13;
+    opacity:90%;
+    font-size:24px;
+    }
     .search-results-container {
       display: none;
       position: absolute;
@@ -127,6 +135,11 @@
           top: 18.3rem;
           left:2.8rem;
 }
+.user-manual{
+    right:5rem;
+    margin-top: -2rem;
+/* margin-top:-1.7rem; */
+    }
 .aa span, .aa i{
 left:1.2rem;
 position:relative
@@ -136,6 +149,7 @@ left:0rem;
 position:relative
 }
 }
+
 .link {
   margin-left: 4px;
 }
@@ -204,7 +218,7 @@ position:relative
 
       </li>
       <li class="list">
-        <a href="/" onclick="activateLink(this)" class="nav-link">
+        <a href="/Allblocks" onclick="activateLink(this)" class="nav-link">
           <i class='far fa-building icon building bx-tada-hover'></i>
           <span class="link">Block</span>
         </a>
@@ -293,8 +307,9 @@ position:relative
         <div class="search-results">
         </div>
       </div>
+    
       <div class="profile">
-
+        <a href="/usermanual"><i class="far fa-question-circle user-manual"></i></a>
 				<div class="pro">
 					<img src="/img/rannas.png" class="pro-pic" alt="">
 					<i class='bx bx-cog iconn'></i>

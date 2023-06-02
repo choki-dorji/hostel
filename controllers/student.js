@@ -7,6 +7,7 @@ const Block = stud.Block;
 const rooms = stud.Room;
 const Request = stud.Request;
 const removedStudents = stud.removedStudents;
+const { Storage } = require("@google-cloud/storage");
 const api_students = require("./apiconnection_lakshay/getStudents");
 
 // get roomm mate
@@ -38,6 +39,10 @@ exports.getRoommates = async (req, res) => {
     res.status(500).json({ message: "Server error" });
   }
 };
+// const storage = new Storage({
+//   keyFilename: process.env.GOOGLE_APPLICATION_CREDENTIALS,
+//   projectId: "skillful-figure-388414",
+// });
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {

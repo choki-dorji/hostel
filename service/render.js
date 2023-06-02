@@ -2,7 +2,11 @@ const axios = require("axios");
 const userSession = require("../global");
 const request = require("../models/models");
 const Request = request.Request;
-const API = "http://localhost:5000/";
+require("dotenv").config();
+
+// const API = "http://localhost:5000/";
+const API = process.env.HOST;
+console.log("API: " + API);
 
 exports.add_room = async (req, res) => {
   const token = req.cookies.tokenABC;
@@ -434,10 +438,10 @@ exports.displaycreateallocation = async function (req, res) {
   const notificationCount = await Request.countDocuments({ clicked: false });
 
   Promise.all([
-    axios.get(`http://localhost:5000/api/blocks`),
-    axios.get(`http://localhost:5000/allocate/all`),
+    axios.get(API + "api/blocks"),
+    axios.get(API + "allocate/all"),
     axios.get(API + "room/api/rooms"),
-    axios.get(`http://localhost:5000/students/allstudents`),
+    axios.get(API + "students/allstudents"),
   ])
     .then((responses) => {
       const blockData = responses[0].data;
@@ -733,4 +737,8 @@ exports.detailsrequest = async function (req, res) {
   //   token: token,
   //   username: username,
   // });
+};
+
+exports.langing = (req, res) => {
+  res.render("landingpage");
 };

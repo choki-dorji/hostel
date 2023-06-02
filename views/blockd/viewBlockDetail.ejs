@@ -88,7 +88,7 @@
                                          <th scope="col">SID</th>
                                          <th scope="col">Course</th>
                                          <th scope="col">Year</th>
-                                         <th scope="col">Action</th>
+                                         <!-- <th scope="col">Action</th> -->
                                      </tr>
                                  </thead>
                                  <tbody>
@@ -139,14 +139,14 @@
                                                <% } %>
                                              <% }); %>
                                            </td>
-                                           <td>
+                                           <!-- <td>
                                              <% studentsInRoom.forEach(function(student, index) { %>
                                                <i data-id=<%= student.sid %> class="bx bx-trash room-ico add"></i>
                                                <% if (index < studentsInRoom.length - 1) { %>
                                                  <br>
                                                <% } %>
                                              <% }); %>
-                                           </td>
+                                           </td> -->
                                          </tr>
                                          
 
@@ -171,9 +171,9 @@
                                          <td>
 
                                          </td>
-                                         <td>
+                                         <!-- <td>
                                            <i class="bx bx-trash room-ico"></i>
-                                         </td>
+                                         </td> -->
                                        </tr>
                                         <% } 
                                         
@@ -288,19 +288,35 @@ $(".addroom").click(function() {
                     location.reload();
                 },
                 error: function(error) {
+                  if(error.statusText == "Unprocessable Entity"){
+                    Toastify({
+                      text: 'Given Room Name already exists',
+                      duration: 4000, // Display for 3 seconds
+                      gravity: 'top', // Display at the top of the screen
+                      position: 'center',
+                      className: "error", // Display in the center of the screen
+                      backgroundColor: 'rgba(243,209,209,1)', // Set a gradient background color
+                      stopOnFocus: true, // Stop the countdown when the user focuses on the screen
+                      onClick: function() { Toastify.hideAll() } // Hide all toasts when clicked
+                    }).showToast();
+
+                  }else {
+                    Toastify({
+                      
+                      text: 'Please enter details.',
+                      duration: 4000, // Display for 3 seconds
+                      gravity: 'top', // Display at the top of the screen
+                      position: 'center',
+                      className: "error", // Display in the center of the screen
+                      backgroundColor: 'rgba(243,209,209,1)', // Set a gradient background color
+                      stopOnFocus: true, // Stop the countdown when the user focuses on the screen
+                      onClick: function() { Toastify.hideAll() } // Hide all toasts when clicked
+                    }).showToast();
+
+                  }
                     // If there was an error updating the block, display an error message using Toastify
-
-                      Toastify({
-                            text: 'Please enter details.',
-                            duration: 4000, // Display for 3 seconds
-                            gravity: 'top', // Display at the top of the screen
-                            position: 'center',
-                            className: "error", // Display in the center of the screen
-                            backgroundColor: 'rgba(243,209,209,1)', // Set a gradient background color
-                            stopOnFocus: true, // Stop the countdown when the user focuses on the screen
-                            onClick: function() { Toastify.hideAll() } // Hide all toasts when clicked
-                          }).showToast();
-
+                      
+                      
                 }
             });
 

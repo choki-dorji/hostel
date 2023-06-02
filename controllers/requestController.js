@@ -171,7 +171,7 @@ exports.UpdateRequest = async (req, res) => {
         to: "ceedeejee9@gmail.com",
         // to: `${request.student_email}`,
         subject: "Request Status Updated",
-        text: `Dear ${request.student_name},\n\nYour request to change room has been approved to ${request.status}. You can now move to the new room`,
+        text: `Dear ${request.student_name},\n\nYour request to change room has been approved to ${request.status}. You can now move to the new room, You can vie detail sfrom your HAS Account`,
       };
 
       transporter.sendMail(mailOptions, (error, info) => {
@@ -234,7 +234,7 @@ exports.UpdateRequest = async (req, res) => {
         to: "ceedeejee9@gmail.com",
         // to:`${request.student_email}`,
         subject: "Request Status Updated",
-        text: `Dear ${request.student_name},\n\nYour request to change room has been rejected to ${request.status}. `,
+        text: `Dear ${request.student_name},\n\nYour request to change room has been rejected, I am so sorry for further informtion you can see your HAS system. `,
       };
 
       transporter.sendMail(mailOptions, (error, info) => {
