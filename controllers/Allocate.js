@@ -110,7 +110,7 @@ const allocateRoomByYearAndBlock = async (req, res, next) => {
     // const students = student.GetStudents(req, res, years);
     const students = student.GetStudents(years);
 
-    console.log("student", students);
+    // console.log("student", students);
     //**********************************grouping students into course******************* */
     const courseGroups = students.reduce((groups, student) => {
       const existingGroup = groups.find(
@@ -127,7 +127,7 @@ const allocateRoomByYearAndBlock = async (req, res, next) => {
       return groups;
     }, []);
 
-    console.log(courseGroups);
+    // console.log(courseGroups);
     //******************************** initialize male and female block ************** */
     const maleBlocks = await Block.find({ _id: { $in: maleBlock } }).populate(
       "rooms"
@@ -153,13 +153,13 @@ const allocateRoomByYearAndBlock = async (req, res, next) => {
     maleLength += maleStudents.length;
     femaleLength += femaleStudents.length;
 
-    console.log("Total male students:", maleLength);
-    console.log("Total female students:", femaleLength);
+    // console.log("Total male students:", maleLength);
+    // console.log("Total female students:", femaleLength);
 
-    console.log("male students:", maleStudents);
-    console.log("female students:", femaleStudents);
+    // console.log("male students:", maleStudents);
+    // console.log("female students:", femaleStudents);
     //************************************* get total capacity of the block  *********************** */
-    console.log("allocation start");
+    // console.log("allocation start");
     let blockId;
     let rooms;
 
@@ -186,12 +186,12 @@ const allocateRoomByYearAndBlock = async (req, res, next) => {
       blockId = block._id;
       rooms = block.rooms;
 
-      console.log(blockName);
-      console.log("rooms", rooms);
+      // console.log(blockName);
+      // console.log("rooms", rooms);
 
-      console.log("total capacity ", totalCapacity);
-      console.log("male ", maleLength);
-      console.log("female", femaleLength);
+      // console.log("total capacity ", totalCapacity);
+      // console.log("male ", maleLength);
+      // console.log("female", femaleLength);
 
       if (totalCapacity > maleLength || totalCapacity > femaleLength) {
         for (const student of [...maleStudents, ...femaleStudents]) {
@@ -208,12 +208,12 @@ const allocateRoomByYearAndBlock = async (req, res, next) => {
           }
 
           let room;
-          console.log("starting for");
+          // console.log("starting for");
 
           for (const r of rooms) {
-            console.log("r", r);
+            // console.log("r", r);
             const roomObj = await Room.findById(r._id);
-            console.log("roomObj", roomObj);
+            // console.log("roomObj", roomObj);
             if (
               ((student.gender === "M" && roomObj.type === "boys") ||
                 (student.gender === "F" && roomObj.type === "girls")) &&
@@ -226,9 +226,9 @@ const allocateRoomByYearAndBlock = async (req, res, next) => {
               break;
             }
           }
-          console.log("allocation start, if loop");
+          // console.log("allocation start, if loop");
           if (room) {
-            console.log("room is found");
+            // console.log("room is found");
             try {
               await Room.findByIdAndUpdate(room, {
                 $inc: { availability: -1 },
@@ -240,12 +240,12 @@ const allocateRoomByYearAndBlock = async (req, res, next) => {
                 allocatedRoomIds.add(room._id.toString())
               );
 
-              console.log(
-                `Allocated ${student.name} to room ${room.room_name}`
-              );
+              // console.log(
+              //   `Allocated ${student.name} to room ${room.room_name}`
+              // );
             } catch (e) {}
 
-            console.log("current year", currentYear);
+            // console.log("current year", currentYear);
             const allocate = new Allocate({
               student: student.id,
               student_name: student.name,
@@ -269,7 +269,7 @@ const allocateRoomByYearAndBlock = async (req, res, next) => {
               console.error(err);
             }
           }
-          console.log("room is not found");
+          // console.log("room is not found");
         }
       } else {
         console.log("couldnot allocate rooms, select more blocks");
