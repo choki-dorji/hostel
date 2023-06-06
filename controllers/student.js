@@ -7,8 +7,73 @@ const Block = stud.Block;
 const rooms = stud.Room;
 const Request = stud.Request;
 const removedStudents = stud.removedStudents;
-const { Storage } = require("@google-cloud/storage");
 const api_students = require("./apiconnection_lakshay/getStudents");
+const path = require("path");
+const { google } = require("googleapis");
+const fs = require("fs");
+
+// service account key file from Google Cloud console.
+const KEYFILEPATH = path.join(__dirname, "../hostel-management.json");
+
+// Request full drive access.
+const SCOPES = ["https://www.googleapis.com/auth/drive"];
+
+// Create a service account initialize with the service account key file and scope needed
+const auth = new google.auth.GoogleAuth({
+  keyFile: KEYFILEPATH,
+  scopes: SCOPES,
+});
+
+const driveService = google.drive({ version: "v3", auth });
+
+// check connection
+driveService.about.get(
+  {
+    fields: "user",
+  },
+  (err, res) => {
+    if (err) {
+      console.error("Error connecting to Google Drive API:", err.message);
+    } else {
+      console.log(
+        "Successfully connected to Google Drive API as user:",
+        res.data.user.emailAddress
+      );
+    }
+  }
+);
+
+//function to upload the file
+async function uploadFile(filePath, filename) {
+  // // Search for the parent folder using its name
+  let fileMetadata = {
+    name: filename,
+    parents: ["1epK4qfijzAVdIOE-CNiNdDUBOGMNZLA8"],
+  };
+
+  let media = {
+    mimeType: "image/*",
+    body: fs.createReadStream(filePath),
+  };
+
+  let response = await driveService.files.create({
+    resource: fileMetadata,
+    media: media,
+    fields: "id",
+  });
+
+  switch (response.status) {
+    case 200:
+      let fileId = response.data.id;
+      console.log("Created File Id: ", response.data.id);
+      // delete file
+      fs.unlinkSync(filePath);
+      return fileId;
+    default:
+      console.error("Error creating the file, " + response.error);
+      break;
+  }
+}
 
 // get roomm mate
 exports.getRoommates = async (req, res) => {
@@ -67,8 +132,11 @@ exports.hostelChangeRequest = async (req, res) => {
     const studentId = req.params.uid;
 
     try {
-      const fileName = req.file ? req.file.filename : null;
+      const fileName = req.file ? req.file : null;
       //console.log("file ", fileName);
+
+      console.log(`Uploading ${fileName.filename}...`);
+      const filekey = await uploadFile(fileName.path, fileName.filename);
 
       let block;
 
@@ -151,7 +219,7 @@ exports.hostelChangeRequest = async (req, res) => {
         Requested: curdate,
         status: "pending",
         Remarks: "requested",
-        image: fileName,
+        image: filekey,
         reason: reason,
         student_name: student_name,
         student_email: student_email,

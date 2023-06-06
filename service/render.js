@@ -742,3 +742,15 @@ exports.detailsrequest = async function (req, res) {
 exports.langing = (req, res) => {
   res.render("landingpage");
 };
+
+exports.usermanual = (req, res) => {
+  res.render("usermanual/index");
+};
+
+exports.resetpassword = (req, res) => {
+  res.render("Login/forgetpassword");
+};
+
+exports.successreset = (req, res) => {
+  res.render("Login/success_send");
+};

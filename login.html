@@ -1,0 +1,32 @@
+listen 80;
+    server_name 10.9.0.96;
+    root /home/admin0/FYO/backend_/views;
+
+    location /landing {	
+	    alias /home/admin0/FYO/backend_/views/landingpage;
+    index index.ejs;
+    default_type text/html;
+
+        
+    }
+
+    location @backend {
+        return 404;
+    }
+
+    location /assets {
+        alias /home/admin0/FYO/backend_/assets;
+    }
+
+    location /css {
+        alias /home/admin0/FYO/backend_/assets/css;
+    }
+
+    location /js {
+        alias /home/admin0/FYO/backend_/assets/js;
+    }
+
+    location /img {
+        alias /home/admin0/FYO/backend_/assets/img;
+        try_files $uri $uri/ =404;
+    }

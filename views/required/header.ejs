@@ -67,10 +67,15 @@
   <!-- <link rel="stylesheet" href="/css/searchresult.css"> -->
   <title>Hostel Allocation</title>
   <style>
+    .student{
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+    }
     .user-manual{
       position:absolute;
     right:7.5rem;
-    margin-top:-2.1rem;
+    margin-top:-2.2rem;
     color:#ff4b13;
     opacity:90%;
     font-size:24px;
@@ -190,7 +195,9 @@ position:relative
   color: #ff4b13;
   font-weight: bold;
 }
-
+.search-container a{
+margin-left: 1rem;
+}
   </style>
 </head>
 
@@ -309,7 +316,7 @@ position:relative
       </div>
     
       <div class="profile">
-        <a href="/usermanual"><i class="far fa-question-circle user-manual"></i></a>
+        <a href="/usermanual" target="_blank"><i class="far fa-question-circle user-manual"></i></a>
 				<div class="pro">
 					<img src="/img/rannas.png" class="pro-pic" alt="">
 					<i class='bx bx-cog iconn'></i>
@@ -713,7 +720,7 @@ if (activeLink) {
           .then(([blocksData, roomsData, studentdata]) => {
             const blocks = blocksData.map(block => ({
               id: block._id,
-              name: block.block_name,
+              name:   block.block_name,
               type: 'block'
             }));
             const rooms = roomsData.map(room => ({
@@ -724,7 +731,8 @@ if (activeLink) {
             const students = studentdata.map(student => ({
               id: student.sid,
               name: student.name + " (" + "year " + student.year + ")",
-              type: 'student'
+              type: 'student',
+              url: `https://drive.google.com/uc?id=${student.photo}`
             }));
 
             results = [...blocks, ...rooms, ...students].filter(item =>
@@ -753,18 +761,40 @@ if (activeLink) {
 
         // Create and append result elements to the container
         results.forEach((result) => {
-          const resultItem = document.createElement('div');
-          const resultLink = document.createElement('a');
-          resultLink.href = '#'; // Set an empty URL for the anchor tag
-          resultLink.textContent = result.name;
-          resultItem.appendChild(resultLink);
-          searchResultsContainer.appendChild(resultItem);
+  const resultItem = document.createElement('div');
+  const resultLink = document.createElement('a');
 
-          resultItem.addEventListener('click', () => {
-            // Handle click event to display details
-            displayDetails(result);
-          });
-        });
+  resultItem.className="search-container"
+
+  resultLink.href = '#';
+  resultLink.textContent = result.name;
+
+  if (result.type === 'block') {
+    const iconElement = document.createElement('i');
+    iconElement.className = 'far fa-building'; // Building icon class
+    resultItem.appendChild(iconElement);
+  } else if (result.type === 'room') {
+    const iconElement = document.createElement('i');
+    iconElement.className = 'bx bx-home'; // Room icon class
+    resultItem.appendChild(iconElement);
+  } else if (result.type === 'student') {
+    const imageElement = document.createElement('img');
+    imageElement.className = 'student';
+    imageElement.src = result.url; // Set the image URL for the student
+    imageElement.alt = result.name; // Set the alt text for the image
+    resultItem.appendChild(imageElement);
+  }
+
+  resultItem.appendChild(resultLink);
+  searchResultsContainer.appendChild(resultItem);
+
+  resultItem.addEventListener('click', () => {
+    // Handle click event to display details
+    displayDetails(result);
+  });
+});
+
+
 
         // Show the search results container
         const searchResultsContainerWrapper = document.querySelector('.search-results-container');

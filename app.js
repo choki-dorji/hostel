@@ -16,6 +16,8 @@ const chart = require("./routes/chart");
 const RecentActivity = require("./routes/recent");
 const login = require("./routes/login");
 const landing = require("./routes/langing");
+const usermanual = require("./routes/manual");
+const forget = require("./routes/forget_pass");
 const app = express();
 
 require("dotenv").config(); // Load environment variables from .env file
@@ -59,8 +61,11 @@ app.use("/login", login);
 
 app.use("/logout", logout);
 
+app.use("/usermanual", usermanual);
+
 app.use("/recent", RecentActivity);
 
+app.use("/forgotpassword", forget);
 // students
 app.use("/students", student.route);
 

@@ -251,7 +251,7 @@
 						<div class="my-proDetails row pt-5">
 							<div class="col-md-12 img1a">
 								<!-- <img src="https://drive.google.com/uc?id=<%= userdata.photo %>" class="img1 mt-2"> -->
-								<img src="https://drive.google.com/uc?id=1KifybWk3-v7-n8TfNzMtPKffscGCbf44" class="img1 mt-2">
+								<img src="https://drive.google.com/uc?id=<%= userdata.photo %>" class="img1 mt-2">
 							</div>
 							<div class="col-md-12 text-center">
 								<b class="dee position-relative">
@@ -371,7 +371,7 @@
 														<% }%>
 													<% } %>
 												</td>
-												<td><a class="picture" href="/uploads/<%= request[i].image %>" style="cursor: pointer; display: inline-block;"><p style="display: inline;">Attached File :</p><i class='bx bxs-file-blank' style="font-size: 24px; color: #ff4b13; display: inline;"></i></a></td>
+												<td><a class="picture" target="_blank" href="https://drive.google.com/uc?id=<%= request[i].image %>" style="cursor: pointer; display: inline-block;"><p style="display: inline;">Attached File :</p><i class='bx bxs-file-blank' style="font-size: 24px; color: #ff4b13; display: inline;"></i></a></td>
 
 												<td class="fixed-width text-left">
 													<p><%= request[i].reason %></p>
@@ -763,6 +763,17 @@ document.getElementById("logout-link").addEventListener("click", function(e) {
 		});
 	})
 
+</script>
+<script type="text/javascript">
+    (function(d, m){
+        var kommunicateSettings = 
+            {"appId":"25f7bf7d8fec4986abcc384acb0748266","popupWidget":true,"automaticChatOpenOnNavigation":true};
+        var s = document.createElement("script"); s.type = "text/javascript"; s.async = true;
+        s.src = "https://widget.kommunicate.io/v2/kommunicate.app";
+        var h = document.getElementsByTagName("head")[0]; h.appendChild(s);
+        window.kommunicate = m; m._globals = kommunicateSettings;
+    })(document, window.kommunicate || {});
+/* NOTE : Use web server to view HTML files as real-time update will not work if you directly open the HTML file in the browser. */
 </script>
 
 </body>

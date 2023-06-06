@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "hostel-management-384710",
+  "private_key_id": "a33e9e404fc68e53943bc5e8a5c88766e64917ad",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCVTKCJLdtekygS\nYtPnQWWXPwxhL1ZbXQxQnNCYJ2KnQpZpVzI4fgkLtc2tO34q8ECFbWq4hlazanmx\nvWa1yEFDvgfKrh+BgX1KML9ufOHAV0bgkvpS8GECmPL6btKW7u/VVzUnq5FsgtvX\no4zRe5Dnw3EMY7wHmsSqnhaLIAb56sJSbwkVCX+88jW1ttf1y7D7dXvFC9BdaUop\nplrTDp2yD0NmT8VsIwt3vdzfXLeJVcQLneV2mls/2LonGercFDSy0oW6zq+6mjxB\nH73+dW90a5T5dTbfvaZWq2Eaa63g8yDVaEtxuG7gfoDVQ0Ovm+2fGmcUxm2THMnk\nC/u+dd/dAgMBAAECggEAAIuJufSt6WQWAFOBaZhEU15lpaYvaI0QRxl8HCbfTd9t\nCBKyj32LqUeleGaC0xQxviyC33/tvC98OaAQ2uf/CnxxTuNfnHGlp10+V5w85hRU\nREMH8n6eYZk/f3XfGhkDhu7LreBwLZnL5dIWzghOqHkNcYBexztDxE3sf5TfDccm\nga06XKHvIOekQjq2NVVL/WJAQyAW49vkDHwCUrulcN5/RfUaf2cdBu9sGodSg8KA\nRbXzbHT+b7GZrYbRgvH4nZkOfcQxRG3ZhtFGJ8+RznjBh8qDJh1rvs2B9BVF1z9d\ngBwT4/TAcBQSeBWdclmQmj0Ro3rqY8+0Vk4mb+xQ2QKBgQDE/sud6rwzkT8HNlsc\ng0ybTWtpm5bAYyNboab1ZySUFgYbvVpPY5NJYtydldNh4J6FCBjhcCMUr9YQHEhG\nPKu0i9tl+b+eXAMCcHrTBADlZMvk5KBMPGX4x873+3aB1C8Zi6xlEu8T05p3MD6e\nnLPjYe4jwZoVE0vJkYPcJVGR1QKBgQDCBJmrmNg/jAHfFs2v2qv8tsxrTmHY8I8U\nZbcJO/AQZHB51/X70h4TFgM6Wj4tSNpqj0deIv5ouq63b5zj+eEzU9kPzuRsko5V\ng9JpGNzsLNMsCB6KABotNf4W+9bNqpyFRjLwYuoIhxGdU7dlD9KC0T64sITmv4PO\njR2nxeUR6QKBgAVB24NCYXVq2ejCXZocMu4uGcC+wz4tJyNp4//GmeZN1CnnWsKl\noKejuMmH1xVUnkZkme1iRb1ml+rkJlWhht+Rn/BPwvph8D6fa9e30qJMl1hrdY+z\nSPFju7VIg7ghRoSDAr3LzI+V5RhrNDCdc/uMgIN5xjfrxOkDNiao5E1lAoGATJtu\nZd/6+tR4ZLLnUllgcW9oNbKEVhleFWq4I/BDsOVHuAR6vwzPDTAy5BZ/2HecrliW\nkGf21jloBUwPwcCHmDGyUliZvvj7NG7RZOgJS0PDue4WyNyTeWiJRF/6B8km9kSq\nllooGGfkn59PmZruvvKJ9njUcRwLmkIEBJvSAAkCgYEAjsuVr1ZlDUjyi5QfDxNe\nyvzA9FZyw4qQI9Tcoi2oOGfOwjbi8Sp9wMX2umHOOaU5jsC93S0Q+afsU3miHTw3\n56DghUvRaejdczaZVHFBMq5ZMmlO63E7G2ltA8F/dFfVeNgUoYwNZtP6H32yaZ5B\nepLH/2p3XmJReSLS7h1vB1U=\n-----END PRIVATE KEY-----\n",
+  "client_email": "fyp-2023-hm@hostel-management-384710.iam.gserviceaccount.com",
+  "client_id": "105805459852820777036",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/fyp-2023-hm%40hostel-management-384710.iam.gserviceaccount.com"
+}

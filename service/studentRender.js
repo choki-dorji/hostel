@@ -56,6 +56,7 @@ exports.search_student = async (req, res) => {
   const token = req.cookies.tokenABC;
   const user = req.cookies.userData;
   const username = JSON.parse(user);
+  console.log("user: " + username);
   const notificationCount = await Request.countDocuments({ clicked: false });
   const urlParams = new URLSearchParams(req._parsedUrl.search);
   const id = urlParams.get("id");
@@ -82,7 +83,7 @@ exports.search_student = async (req, res) => {
         ) {
           // console.log(req.path);
 
-          console.log("member ", allocationsResponse.data);
+          console.log("member ", membersResponse.data);
           res.render("students/student-details", {
             blocks: blocksResponse.data,
             rooms: roomsResponse.data,

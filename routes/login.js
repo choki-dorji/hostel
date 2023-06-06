@@ -7,6 +7,4 @@ const logincontrol = require("../controllers/login");
 route.get("/", logincontrol.loginpage);
 route.post("/", logincontrol.Login);
 
-
-
 module.exports = route;

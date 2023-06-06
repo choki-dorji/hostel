@@ -84,7 +84,7 @@
                                          <th scope="col">SI.NO</th>
                                          <th scope="col">Room</th>
                                          <th scope="col">Capacity</th>
-                                         <th scope="col">Name</th>
+                                         <th scope="col" style="padding-left: 4rem; padding-right: 4rem;">Name</th>
                                          <th scope="col">SID</th>
                                          <th scope="col">Course</th>
                                          <th scope="col">Year</th>
@@ -300,20 +300,33 @@ $(".addroom").click(function() {
                       onClick: function() { Toastify.hideAll() } // Hide all toasts when clicked
                     }).showToast();
 
-                  }else {
-                    Toastify({
-                      
-                      text: 'Please enter details.',
-                      duration: 4000, // Display for 3 seconds
-                      gravity: 'top', // Display at the top of the screen
-                      position: 'center',
-                      className: "error", // Display in the center of the screen
-                      backgroundColor: 'rgba(243,209,209,1)', // Set a gradient background color
-                      stopOnFocus: true, // Stop the countdown when the user focuses on the screen
-                      onClick: function() { Toastify.hideAll() } // Hide all toasts when clicked
-                    }).showToast();
+                  }else if (error.status === "422") {
+                Toastify({
 
-                  }
+                  text: 'Room already exists',
+                  duration: 4000, // Display for 3 seconds
+                  gravity: 'top', // Display at the top of the screen
+                  position: 'center',
+                  className: "error", // Display in the center of the screen
+                  backgroundColor: 'rgba(243,209,209,1)', // Set a gradient background color
+                  stopOnFocus: true, // Stop the countdown when the user focuses on the screen
+                  onClick: function () { Toastify.hideAll() } // Hide all toasts when clicked
+                }).showToast();
+
+              } else {
+                Toastify({
+
+                  text: 'Please enter details',
+                  duration: 4000, // Display for 3 seconds
+                  gravity: 'top', // Display at the top of the screen
+                  position: 'center',
+                  className: "error", // Display in the center of the screen
+                  backgroundColor: 'rgba(243,209,209,1)', // Set a gradient background color
+                  stopOnFocus: true, // Stop the countdown when the user focuses on the screen
+                  onClick: function () { Toastify.hideAll() } // Hide all toasts when clicked
+                }).showToast();
+
+              }
                     // If there was an error updating the block, display an error message using Toastify
                       
                       

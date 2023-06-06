@@ -74,25 +74,29 @@
               </tr>
             </thead>
             <tbody>
-              <% if(recentactivity.length > 0) { %>
-                <% var reversedActivity = recentactivity.slice().reverse(); %>
-                <% var limit = Math.min(reversedActivity.length, 5); %>
-                <% for(var i = limit - 1; i >= 0; i--) { %>
+              <% if (recentactivity.length > 0) { %>
+                <% var sortedActivity = recentactivity.slice().sort(function(a, b) {
+                      return new Date(b.date) - new Date(a.date);
+                   });
+                %>
+                <% var limit = Math.min(sortedActivity.length, 5); %>
+                
+                <% for (var i = 0; i < limit; i++) { %>
                   <tr>
                     <th scope="row">
-                      <%= limit - i %>
+                      <%= i+1 %>
                     </th>
                     <td>
-                      <%= reversedActivity[i].student %>
+                      <%= sortedActivity[i].student %>
                     </td>
                     <td>
-                      <%= reversedActivity[i].date %>
+                      <%= sortedActivity[i].date %>
                     </td>
                     <td>
-                      <%= reversedActivity[i].room %>
+                      <%= sortedActivity[i].room %>
                     </td>
                     <td>
-                      <%= reversedActivity[i].Description %>
+                      <%= sortedActivity[i].Description %>
                     </td>
                   </tr>
                 <% } %>

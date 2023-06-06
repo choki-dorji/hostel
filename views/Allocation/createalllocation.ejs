@@ -120,6 +120,7 @@
     <div class="loader">
       <img src="/img/hostel.png" width="60px" height="54px"/>
       <span id="loader-percentage"></span>
+      <p class="mt-4" id="loader-text">Allocating rooms...</p>
     </div>
   </div>
         <main>
@@ -292,10 +293,16 @@
 
 </script>
 <script>
-  function updateLoaderPercentage(percentage) {
+ function updateLoaderPercentage(percentage) {
   const loaderPercentage = document.getElementById('loader-percentage');
+  const loaderText = document.getElementById('loader-text');
   loaderPercentage.textContent = percentage + '%';
+  loaderText.textContent = 'Loading ' + percentage + '%';
 }
+
+// Helper function to handle each request
+
+
 
 </script>
 

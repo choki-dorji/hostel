@@ -168,6 +168,19 @@ const allocateRoomByYearAndBlock = async (req, res, next) => {
     // Keep track of rooms already allocated to each student
     const allocatedRooms = new Map(); // Map<studentId, Set<roomId>>
 
+    let totalCapacity = 0;
+
+    for (const block of blocks) {
+      blockName = block.block_name;
+      blockId = block._id;
+      rooms = block.rooms;
+
+      for (const room of rooms) {
+        const populatedRoom = await Room.findById(room._id);
+        totalCapacity += populatedRoom.availability;
+      }
+    }
+
     for (const block of blocks) {
       blockName = block.block_name;
       blockId = block._id;
@@ -176,12 +189,6 @@ const allocateRoomByYearAndBlock = async (req, res, next) => {
       console.log(blockName);
       console.log("rooms", rooms);
 
-      let totalCapacity = 0;
-
-      for (const room of rooms) {
-        const populatedRoom = await Room.findById(room._id);
-        totalCapacity += populatedRoom.availability;
-      }
       console.log("total capacity ", totalCapacity);
       console.log("male ", maleLength);
       console.log("female", femaleLength);

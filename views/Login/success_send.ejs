@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+
+<html lang="en" dir="ltr">
+
+<head>
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta content="text/html; charset=utf-8" http-equiv="content-type" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="shortcut icon" href="/img/hostel.png" type="image/x-icon">
+
+  <title> Hostel Allocation</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+  <div class="form" style="padding-top:12%"></div>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6 col-md-offset-3">
+        <div class="panel panel-default">
+          <div class="panel-body">
+
+            <h4 class="text-center" style="color:#ff4b13; margin-top:3rem;">Please check your email</h4>
+            <p style="text-align: justify; margin:4rem; margin-bottom:4rem; margin-top:3rem; opacity:90%">Thank you. If
+              we
+              find an
+              account associated
+              with this email,
+              you'll receive
+              an email with password reset
+              instructions shortly. Please check your inbox and spam folder. If you don't receive an email, please try
+              again or contact support.</p>
+
+            <div class="form-group " style="width:84%; margin-left:8%">
+              <input name="recover-submit" class="btn btn-lg btn-block" onclick="done()" value="Login" type="submit"
+                style="background-color:#ff4b13;color: white; margin-bottom:3rem;">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+<script>
+  function done() {
+    location.href = '/login'
+  }
+</script>
+
+</html>
