@@ -228,7 +228,7 @@ const allocateRoomByYearAndBlock = async (req, res, next) => {
           }
           // console.log("allocation start, if loop");
           if (room) {
-            // console.log("room is found");
+            console.log("room is found", room);
             try {
               await Room.findByIdAndUpdate(room, {
                 $inc: { availability: -1 },

@@ -511,7 +511,9 @@ document.getElementById("logout-link").addEventListener("click", function(e) {
 													<%
 													var room = userdata.gender === 'F' ? 'girls' : 'boys';
 													if(block[j].type === room && block[j].status === "available") { %>
+														<% if (block[j].no_of_rooms !== 0) { %>
 															<option value="<%= block[j]._id %>">block <%= block[j].block_name %></option>
+														<% } %>
 													<% } %>
 												<% } %>
 											</select>
@@ -631,6 +633,39 @@ document.getElementById("logout-link").addEventListener("click", function(e) {
           }).showToast();
         }
       });
+
+	  ///////////////////////////////////////
+	   $.ajax({
+        url: `/room/api/room/block/${x}`,
+        method: "GET",
+        success: function(response) {
+			console.log(response);
+          // Clear the current options in the room select element
+          $("#room-select").empty();
+          // Add new options to the room select element based on the response
+          for (var i = 0; i < response.length; i++) {
+			if(response[i].status !== "unavailable" && response[i].isDisabled === false && response[i].availability === response[i].room_capacity){
+            $("#room-select").append(`<option value="${response[i]._id}">${response[i].room_name}</option>`);
+			}
+          }
+        },
+        error: function(error) {
+			$("#room-select").empty();
+
+			$("#room-select").append(`<option style="border-color: red;" value=""></option>`);
+        //   If there was an error fetching the rooms, display an error message using Toastify
+          Toastify({
+            text: "Error fetching rooms: " + error.responseText,
+            backgroundColor: "linear-gradient(to right, #ff5f6d, #ffc371)",
+            className: "error",
+            position: "top-center"
+          }).showToast();
+        }
+      });
+
+
+
+
     }
 
 	</script>

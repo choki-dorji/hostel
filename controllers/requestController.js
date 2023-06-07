@@ -82,7 +82,7 @@ exports.UpdateRequest = async (req, res) => {
   const month = now.getMonth() + 1;
   const date = now.getDate();
   const time = now.getTime();
-  const currentDateTime = now.toLocaleDateString();
+  const currentDateTime = `${date}-${month}-${year}`;
 
   let request;
   try {
@@ -197,6 +197,12 @@ exports.UpdateRequest = async (req, res) => {
         { $inc: { availability: -1 } },
         { new: true }
       );
+      const currroom = await Room.findByIdAndUpdate(
+        currentRoom,
+        { $inc: { availability: +1 } },
+        { new: true }
+      );
+      console.log(room);
     } catch (err) {
       console.error(err);
       const error = new HttpError(
