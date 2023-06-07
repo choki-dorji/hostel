@@ -11,6 +11,9 @@ route.get("/dashboard", service.getBlocks);
 route.get("/view-block", service.getBlockById);
 // route.get("/add-block", service.add_block);
 route.get("/update-block", service.update_block);
+route.get("/", (req, res) => {
+  res.render("landingpage/index");
+});
 
 // API for Block
 route.post(
