@@ -116,6 +116,7 @@
 	</section>
 <!-- ************************************************************* add ***************************************** -->
 <script>
+</script>
 $(".add").click(function() {
     // Show confirmation message using SweetAlert2
     Swal.fire({
@@ -125,7 +126,9 @@ $(".add").click(function() {
 										<div class="form-group" >
 												<div class="input-box">
 														<label class="input-label mt-1" style="color:#4f4f4f">Block Name</label>
-														<input type="text" class="input-1" onfocus="setFocus(true)" id="block-name" onblur="setFocus(false)" style="border-color:#4f4f4f;" />
+														<input type="text" class="input-1"onfocus="setFocus(true)" id="block-name" onblur="validateInput()" style="border-color:#4f4f4f;" />
+														<span id="error-msg" style="color: red;"></span>
+
 												</div>
 
 												<div class="input-box active-grey mt-4">
@@ -156,6 +159,14 @@ $(".add").click(function() {
 					const blockName = document.getElementById('block-name').value;
 					const blockType = document.getElementById('block-type').value;
 					const status = document.getElementById('status').value;
+					if (!isValidYear(blockName)) {
+						document.getElementById('error-msg').textContent = 'Block name should be single character';
+						
+						return null; // Return null to prevent data submission
+					} else {
+						return { blockName, blockType,  status};
+					}
+
 					// Return the values as an object
 					return { blockName, blockType, status };
 				}
@@ -222,11 +233,25 @@ $(".add").click(function() {
     });
 });
 
-</script>
+function validateInput() {
+  var input = document.getElementById('block-name').value;
 
+  if (!/^[A-Z]$/.test(input)) {
+    document.getElementById('error-msg').textContent = 'Please enter a single capital letter.';
+    document.getElementById('block-name').classList.add('error-validation');
+  } else {
+    document.getElementById('error-msg').textContent = '';
+    document.getElementById('block-name').classList.remove('error-validation');
+  }
+}
+
+function isValidYear(year) {
+  var pattern = /^[A-Z]$/;
+  return pattern.test(year);
+}
 
 <!-- ************************************************************* delete***************************************** -->
-			<script>
+<script>
 				// Attach event listener to delete icon
 $(".delete").click(function() {
     var id = $(this).attr("data-id");
