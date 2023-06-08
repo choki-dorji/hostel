@@ -136,6 +136,32 @@ outline:none;
   cursor: pointer;
   opacity: 90%;
 }
+
+#block11 .visit:active, #block11 .visit:focus {
+  outline:none;
+  border:none;
+
+}
+#block11 .visit:hover{
+outline:none;
+}
+#block11 .visit {
+  width: 200px;
+  height: 45px;
+  right: 0px;
+  margin-top: -3.6rem;
+  margin-left: 1rem;
+  background-color: #ff4b13;
+  color: #ffffff;
+  font-weight: 100;
+  font-size: 14px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  opacity: 90%;
+}
+
+
 #block11 .view {
   padding-top: 0.1rem;
 }
@@ -339,6 +365,10 @@ color:#ff4b13;
 					padding-left:2rem; /* Set the border properties as per your requirement */
           margin-top:-1.3rem;
     }
+    .error {
+  border-color: red;
+}
+
  </style>
 
 <main>
@@ -382,8 +412,10 @@ color:#ff4b13;
             </div>
 
             <div class="table-responsive">
+              <button id="continueAllocationBtn"  class="visit text-center" style="margin-top: 30px;" disabled>
+                <p class="view view1">Continue Allocation</p>
+              </button>
              <%- include('./table.ejs') %>
-
               <hr>
               <br>
             </div>
@@ -518,6 +550,31 @@ function isValidYear(year) {
   var pattern = /^\d{4}$/;
   return pattern.test(year);
 }
+
+
+
+</script>
+
+<script>
+
+yearSelect.addEventListener("change", () => {
+  const selectedYear = yearSelect.value;
+  const continueAllocationBtn = document.getElementById("continueAllocationBtn");
+  
+  if (selectedYear) {
+    continueAllocationBtn.disabled = false;
+  } else {
+    continueAllocationBtn.disabled = true;
+  }
+});
+
+
+  document.getElementById('continueAllocationBtn').addEventListener('click', function() {
+  const selectedYear = yearSelect.value;
+  const url = `/year/create-allocations?year=${encodeURIComponent(selectedYear)}`;
+  window.location.href = url;
+});
+
 
 </script>
 
