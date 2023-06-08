@@ -1,5 +1,91 @@
 <%- include("../required/header") %>
+<style>
+.r-detail{
+    gap:1rem;
+height:50px;
+margin-top:-1.4rem;
+}
+.r-detail-1{
+    background:#ff4a131e;
+    min-height:60px;
+    border-radius:5px;
+}
+.r-detail-1 h5{
+    color:#ff4b13;
+    opacity:90%;
+}
+@media(max-width:574px){
+    .r-detail{
+  flex-direction:column;
+padding-top:8rem;
+}
+.icon-member{
+    padding-top:6rem;
+    margin-left:.2rem;
+}
+.padd{
+    padding-right:.7rem;
+    padding-left:.7rem;
+}
 
+}   
+.table{
+    padding-top:1rem;
+    margin:0 auto;
+    overflow-x:auto;
+}
+
+.table tr {
+  color: #ffffff;
+}
+
+.table td{
+padding-left:1.5rem;
+border: 1px solid #d7c8c8;
+  opacity: 90%;
+}
+.table th, .table td{
+  padding: 1rem;
+  padding-left:1.5rem;
+  vertical-align: top;
+  border: 1px solid #d7c8c8;
+  opacity: 90%;
+}
+.table tbody tr {
+  color: #4f4f4f;
+  
+}
+.table thead th {
+  vertical-align: bottom;
+  border: 0px solid #e9e0e0;
+  background: #ff4b13;
+  opacity: 90%;
+}
+.image-section{
+    width:150px; height:150px;
+    border-radius:50%;
+
+}
+@media (max-width:630px){
+    .profile-contain{
+        display:flex;
+        flex-direction:column;
+       
+    }
+    .detail-section{
+        text-align: left;
+        padding-top: 14rem;
+        padding-left: 1rem;
+    }
+    .image-section{
+        /* align-content: center; */
+        justify-self: center;
+    }
+}
+.detail-section{
+    margin-top: -9rem;
+}
+</style>
         <!-- MAIN -->
         <main>
             <main id="stu-result">
@@ -12,15 +98,58 @@
                         </div>
                     </div>
                     <div class="col-lg-12 col-md-12 col-sm-12">
-                        <div class="bx-shadow1 bxx">
+                        <div class="bx-shadow1 bxx pb-4 ">
                             <br>
-                            <div class="col-lg-6 col-md-12 col-sm-12  search-bx text-center cursor-pointer">
+                            <div class="col-lg-12 col-md-12 col-sm-12  search-bx text-center cursor-pointer ">
+                                <!-- <div class=" col-lg-12 d-flex justify-content-left profile-contain" style="gap:4rem;"> -->
+                                    <div class="image-section ml-4">
+                                        <img  src="https://drive.google.com/uc?id=<%= students[0].photo %>" width="200px" height="200px" class="picture-profile"
+                                        alt="" style="border-radius:50%;  border:3px solid #FF4B13;">
+                                    </div>
+                                    <div class="detail-section" style="color:#4f4f4f;">
+                                        <h6><strong>Name:</strong><span ><%= students[0].name %></span></h6>
+                                        <h6><strong>SID:</strong><span > <%= students[0].sid %></span></h6>
+                                        <h6><strong>Course:</strong><span> <%= students[0].course %></span></h6>
+                                        <h6><strong>Year:</strong><span > <%= students[0].year %></span></h6>
+                                        <h6><strong>Gender:</strong><span> <%= students[0].gender == "F" ? "Female" : "Male"  %></span></h6>
+                                        <h6><strong>Email:</strong><span> <%= students[0].email %></span></h6>
+                                    </div>
+                                    <div class="icon-member mt-5 d-flex">
+                                        <!-- <i class="bx bx-male" style="font-size:32px;"></i> -->
+                                        <h5 class="mt-2 ml-2" ><strong>Rooms</strong></h5>
+                                    </div>
+                                    <div class="padd">
+                                        <div class="table-responsive "  style="overflow-x:auto;">
+                                            <table class="table">
+                                                <thead>
+                                                    <tr>
+                                                        <th scope="col">Year</th>
+                                                        <th scope="col">Room</th>
+                                                        
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr id="roomRow">
+                                                        <td id="year"  scope="row"></td>
+                                                        <td id="roomName" scope="row"></td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                
+                                    </div>
+                                
+                                <!-- </div> -->
+
+                                
+                            </div>
+                                <br>
+                            <!-- <div class="col-lg-6 col-md-12 col-sm-12  search-bx text-center cursor-pointer">
                                 <img src="https://drive.google.com/uc?id=<%= students[0].photo %>" width="200px" height="200px" class="picture-profile"
                                     alt="" style="border-radius:50%;  border:3px solid #FF4B13;">
                                 <h5 class="text-center font-weight-bold pb-3 search-tit mt-4"><%= students[0].name %></h5>
-                            </div>
+                            </div> -->
 
-                            <div class="col-lg-6 col-md-12 col-sm-12 search-bx text-center" id="myDiv"
+                            <!-- <div class="col-lg-6 col-md-12 col-sm-12 search-bx text-center" id="myDiv"
                                 style="cursor:pointer">
                                 <div class="dis" style="overflow-x:auto;">
                                     <div class=" proo pl-4 pr-4">
@@ -103,7 +232,7 @@
                                     </div>
                                 </div>
 
-                            </div><br><br> <br>
+                            </div><br><br> <br> -->
 
                         </div>
                     </div>
@@ -129,22 +258,28 @@
             var roomData = response.room;
             var roomRow = document.getElementById("roomRow");
             var roomNameCell = roomRow.querySelector("#roomName");
+            var yearCell = roomRow.querySelector("#year");
 
             // Clear existing content
             roomNameCell.innerHTML = "";
+            yearCell.innerHTML = ""
 
             // Create the content string
             var content = "";
+            var content1="";
 
             for (var i = 0; i < roomData.length; i++) {
-                content += roomData[i].roomdata + " (" + roomData[i].allocationRecords + ")";
+                content1 += roomData[i].allocationRecords
+                content +=  roomData[i].roomdata;
                 if (i < roomData.length - 1) {
+                    content1 += "<br/>";
                     content += "<br>"; // Add line break between items
                 }
             }
 
             // Set the content in the table cell
             roomNameCell.innerHTML = content;
+            yearCell.innerHTML=content1
         },
         error: function(error) {
             console.log("errer", error);

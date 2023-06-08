@@ -36,11 +36,9 @@
 					padding-left:2rem;
 					margin-bottom:2rem;
 		    }
-
 			.input-1{
 				color:#4f4f4f;
 			}
-
  </style>
 
 	<main>
@@ -62,8 +60,6 @@
 							</a>
 					</div>
 
-
-
 					<% for(var i = 0; i < blocks.length; i++) { %>
 						<% let sum = 0 %>
 						<% for(var j = 0; j < rooms.length; j++) { %>
@@ -71,7 +67,6 @@
 								<% sum = sum + rooms[j].members.length %>
 							<% } %>
 						 <% } %>
-
 
 					<div class="col-lg-4 col-md-6 col-sm-12 block1">
 						<div class="shadow-box">
@@ -85,12 +80,10 @@
                   <span class="text-gradient"><i class="bx bx-edit edit-icon" id="edit-btn"></i></span>
                 </a>
 
-
                 <a class="delete" data-id=<%= blocks[i]._id%> >
                   <span class="text-gradient"><i class="bx bx-trash trash-icon"></i></span>
                 </a>
 							</div>
-
 							<div class="room-details pt-4">
 								<h5 class="room-number "><%= blocks[i].rooms.length %></h5>
 								<span class="room-total">Rooms</span>
@@ -108,6 +101,7 @@
 							<!-- <a href="/view-block?id=<%= blocks[i]._id%>" class="btn border-shadow update">
 								<span class="text-gradient"><i class="fas fa-pencil-alt"></i>njrhbjhbfjahb</span>
 							</a> -->
+							
 						</div>
 					</div>
 
