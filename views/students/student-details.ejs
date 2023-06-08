@@ -1,4 +1,4 @@
-<%- include("../required/header") %>
+<%- include('../required/header.ejs') %>
 <style>
 .r-detail{
     gap:1rem;
@@ -14,20 +14,32 @@ margin-top:-1.4rem;
     color:#ff4b13;
     opacity:90%;
 }
+
+.profile-contain{
+    justify-content:left;
+}
 @media(max-width:574px){
     .r-detail{
   flex-direction:column;
-padding-top:8rem;
+padding-top:1rem;
+
 }
 .icon-member{
-    padding-top:6rem;
+    padding-top:3rem;
     margin-left:.2rem;
 }
 .padd{
     padding-right:.7rem;
     padding-left:.7rem;
 }
-
+.heading-search{
+        font-size:16px !important;
+        margin-top:20px !important;
+    }
+    .image-section{
+        margin-left:-1rem !important;
+    }
+   
 }   
 .table{
     padding-top:1rem;
@@ -64,185 +76,90 @@ border: 1px solid #d7c8c8;
 .image-section{
     width:150px; height:150px;
     border-radius:50%;
-
+   margin-top:-.5rem;
 }
 @media (max-width:630px){
     .profile-contain{
         display:flex;
         flex-direction:column;
-       
+      
     }
-    .detail-section{
-        text-align: left;
-        padding-top: 14rem;
-        padding-left: 1rem;
+    .image-section,.detail-section{
+        margin:0 auto !important;
+        text-align:left;
+        
     }
-    .image-section{
-        /* align-content: center; */
-        justify-self: center;
-    }
-}
-.detail-section{
-    margin-top: -9rem;
+   
+   
 }
 </style>
-        <!-- MAIN -->
-        <main>
-            <main id="stu-result">
-                <div class="row">
-                    <div class="col-lg-12 col-md-12 col-sm-12">
-                        <div class="bx-shadow ">
-                            <% if(students){ %>                                
-                            <p class="heading-search text-left pl-2"><strong>Search result for <span><%= students[0].name %></span> </strong></p>
-                            <% } %>
+<main>
+    <main id="block20">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <div class="bx-shadow">
+                  
+                    <p class="heading-search font-weight-bold text-left  pb-auto">Search
+                        result <span> for </span><span><%= students[0].name %></span></p>
+                </div>
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12 search-div2">
+                <div class="bx-shadow2">
+                    <div class=" proo pl-4 pr-4 ">
+                        <div class="r-detail col-lg-12 d-flex justify-content-center">
+                            
+                        </div>
+                        <!--search user -->
+                        <br><br>
+                        <div class=" col-lg-12 d-flex  profile-contain" style="gap:6rem;">
+                            <div class="image-section ml-4"  >
+                                <img src="https://drive.google.com/uc?id=<%= students[0].photo %>"  width="180px" height="180px" class="picture-profile"
+                                alt="" style="border-radius:50%;  border:2px solid #FF4B13;">
+                            </div>
+                            <div class="detail-section " style="color:#4f4f4f;">
+                                <h6><strong>Name:</strong><span > <%= students[0].name %></span></h6>
+                                <h6><strong>SID:</strong><span > <%= students[0].sid %></span></h6>
+                                <h6><strong>Course:</strong><span> <%= students[0].course %></span></h6>
+                                <h6><strong>Year:</strong><span > <%= students[0].year %></span></h6>
+                                <h6><strong>Gender:</strong><span> <%= students[0].gender == "F" ? "Female" : "Male"   %></span></h6>
+                                <h6><strong>Email:</strong><span> <%= students[0].email %></span></h6>
+                            </div>
+                        </div>
+                        
+                        <div class="icon-rooms mt-5 d-flex">
+                            <!-- <i class="bx bx-male" style="font-size:32px;"></i> -->
+                            <h5 class="mt-2 ml-2" style="color:#4f4f4f; opacity:90%;"><strong>Room details</strong></h5>
+                        </div>
+                        <div class="padd">
+                            <div class="table-responsive "  style="overflow-x:auto;">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Year</th>
+                                            <th scope="col">Room</th>
+                                            
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr id="roomRow">
+                                            <td id="year"  scope="row" class="font-weight-bold"></td>
+                                            <td id="roomName" scope="row"></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                    
                         </div>
                     </div>
-                    <div class="col-lg-12 col-md-12 col-sm-12">
-                        <div class="bx-shadow1 bxx pb-4 ">
-                            <br>
-                            <div class="col-lg-12 col-md-12 col-sm-12  search-bx text-center cursor-pointer ">
-                                <!-- <div class=" col-lg-12 d-flex justify-content-left profile-contain" style="gap:4rem;"> -->
-                                    <div class="image-section ml-4">
-                                        <img  src="https://drive.google.com/uc?id=<%= students[0].photo %>" width="200px" height="200px" class="picture-profile"
-                                        alt="" style="border-radius:50%;  border:3px solid #FF4B13;">
-                                    </div>
-                                    <div class="detail-section" style="color:#4f4f4f;">
-                                        <h6><strong>Name:</strong><span ><%= students[0].name %></span></h6>
-                                        <h6><strong>SID:</strong><span > <%= students[0].sid %></span></h6>
-                                        <h6><strong>Course:</strong><span> <%= students[0].course %></span></h6>
-                                        <h6><strong>Year:</strong><span > <%= students[0].year %></span></h6>
-                                        <h6><strong>Gender:</strong><span> <%= students[0].gender == "F" ? "Female" : "Male"  %></span></h6>
-                                        <h6><strong>Email:</strong><span> <%= students[0].email %></span></h6>
-                                    </div>
-                                    <div class="icon-member mt-5 d-flex">
-                                        <!-- <i class="bx bx-male" style="font-size:32px;"></i> -->
-                                        <h5 class="mt-2 ml-2" ><strong>Rooms</strong></h5>
-                                    </div>
-                                    <div class="padd">
-                                        <div class="table-responsive "  style="overflow-x:auto;">
-                                            <table class="table">
-                                                <thead>
-                                                    <tr>
-                                                        <th scope="col">Year</th>
-                                                        <th scope="col">Room</th>
-                                                        
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr id="roomRow">
-                                                        <td id="year"  scope="row"></td>
-                                                        <td id="roomName" scope="row"></td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                
-                                    </div>
-                                
-                                <!-- </div> -->
-
-                                
-                            </div>
-                                <br>
-                            <!-- <div class="col-lg-6 col-md-12 col-sm-12  search-bx text-center cursor-pointer">
-                                <img src="https://drive.google.com/uc?id=<%= students[0].photo %>" width="200px" height="200px" class="picture-profile"
-                                    alt="" style="border-radius:50%;  border:3px solid #FF4B13;">
-                                <h5 class="text-center font-weight-bold pb-3 search-tit mt-4"><%= students[0].name %></h5>
-                            </div> -->
-
-                            <!-- <div class="col-lg-6 col-md-12 col-sm-12 search-bx text-center" id="myDiv"
-                                style="cursor:pointer">
-                                <div class="dis" style="overflow-x:auto;">
-                                    <div class=" proo pl-4 pr-4">
-                                        <div class="table-responsive">
-                                            <table class="tab">
-                                                <thead>
-                                                    <tr>
-                                                        <th scope="row">Enrolment No.</th>
-                                                        <td scope="row"><%= students[0].sid %></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th scope="row">Course</th>
-                                                        <td scope="row"><%= students[0].specialization %></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th>Year</th>
-                                                        <td scope="row"><%= students[0].year %></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th>Gender</th>
-                                                        <td scope="row"><%= students[0].gender === "M" ? "Male" : "Female" %></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th>Email</th>
-                                                        <td scope="row"><%= students[0].email %></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th>Block</th>
-                                                        <% let displayedBlock = false; %>
-
-                                                        <% if (allocate) { %>
-                                                        <% for (let j = 0; j < allocate.length; j++) { %>
-                                                            <% for (let i = 0; i < blocks.length; i++) { %>
-                                                            <% if (allocate[j].sid == students[0].sid && allocate[j].blockid == blocks[i]._id) { %>
-                                                                <% if (!displayedBlock) { %>
-                                                                <td scope="row"><%= blocks[i].block_name %></td>
-                                                                <% displayedBlock = true; %>
-                                                                <% } %>
-                                                            <% } %>
-                                                            <% } %>
-                                                        <% } %>
-                                                        <% if (!displayedBlock) { %>
-                                                            <td scope="row">No Block Yet</td>
-                                                        <% } %>
-                                                        <% } %>
-
-                                                    </tr>
-                                                    <tr>
-                                                        <th>Present Room</th>
-                                                        <% let displayedRoom = false; %>
-                                                        <% if (allocate) { %>
-                                                        <% for (let j = 0; j < allocate.length; j++) { %>
-                                                            <% for (let i = 0; i < rooms.length; i++) { %>
-                                                            <% if (allocate[j].sid == students[0].sid && allocate[j].roomid == rooms[i]._id) { %>
-                                                                <% if (!displayedRoom) { %>
-                                                                <td scope="row"><%= rooms[i].room_name %></td>
-                                                                <% displayedRoom = true; %>
-                                                                <% } %>
-                                                            <% } %>
-                                                            <% } %>
-                                                        <% } %>
-                                                        <% if (!displayedRoom) { %>
-                                                            <td scope="row">No Room Yet</td>
-                                                        <% } %>
-                                                        <% } %>
-
-                                                    </tr>
-                                                    <tr id="roomRow">
-                                                        <th>Allocated Rooms</th>
-                                                        <td id="roomName" scope="row"></td>
-                                                    </tr>
-                                                    
-                                                </thead>
-
-                                            </table>
-                                            <br>
-
-                                        </div>
-                                        <br> <br>
-                                    </div>
-                                </div>
-
-                            </div><br><br> <br> -->
-
-                        </div>
+                        
+                        <br><br>
                     </div>
                 </div>
-            </main>
-        </main>
+            </div>
+    </main>
+</main>
+<br><br><br><br><br><br><br><br> <br><br><br><br><br><br><br><br> <br>
+</section>
 
-    </section>
-
-</body>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
    $(document).ready(function() {
@@ -290,11 +207,6 @@ border: 1px solid #d7c8c8;
 
 </script>
 
-
-</main>
-<!-- MAIN -->
-</section>
-<!-- NAVBAR -->
 
 </body>
 
