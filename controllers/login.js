@@ -17,14 +17,11 @@ exports.Login = async (req, res) => {
 
       // res.cookie("token", user.token, { httpOnly: true });
       const token = user.token;
-      res.cookie("tokenABC", token, { httpOnly: true, secure: true });
+      res.cookie("tokenABC", token);
       console.log("token", req.cookies.tokenABC);
 
       const userData = user.data.user.rows[0];
-      res.cookie("userData", JSON.stringify(userData), {
-        httpOnly: true,
-        secure: true,
-      });
+      res.cookie("userData", JSON.stringify(userData));
 
       if (roleid === 3) {
         res.redirect(`/dashboard/dash?token=${user.token}`);
