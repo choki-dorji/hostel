@@ -400,7 +400,7 @@ $(".delete").click(function() {
   spans.forEach(span => {
     const blockId = span.getAttribute('blockId');
     console.log(blockId);
-    fetch(`http://localhost:5000/api/${blockId}/students/count`)
+    fetch(`https://hostel-uuwm.onrender.com/api/${blockId}/students/count`)
     .then(response => response.json())
     .then(data => {
       span.textContent = data;
