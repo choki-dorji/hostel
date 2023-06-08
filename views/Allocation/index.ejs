@@ -410,91 +410,115 @@ color:#ff4b13;
 
 <script>
   document.getElementById('createAcademicYearBtn').addEventListener('click', function() {
-    Swal.fire({
-  html:`
-    <h5 class="mt-4 font-weight-bold pb-3"style="margin-bottom: font-weight:bold; color:#ff4b13; 30px">Academic Year</h5>
-								<form>
+  Swal.fire({
+    html: `
+      <h5 class="mt-4 font-weight-bold pb-3" style="margin-bottom: font-weight:bold; color:#ff4b13; 30px">Academic Year</h5>
+      <form>
+        <div class="form-group">
+          <div class="input-box">
+            <label class="input-label">Academic year</label>
+            <input type="text" class="input-1" onfocus="setFocus(true)" id="acadyear" onblur="validateInput()" style="color:#4f4f4f; border-color:#4f4f4f; font-size:16px;" />
+            <span id="error-msg" style="color: red;"></span>
+          </div>
 
-										<div class="form-group">
-												<div class="input-box">
-														<label class="input-label" >Acadamic year</label>
-														<input type="integer" class="input-1" onfocus="setFocus(true)" id="acadyear" onblur="setFocus(false)" style="color:#4f4f4f; border-color:#4f4f4f; font-size:16px;" />
-												</div>
+          <div class="input-box">
+            <label class="input-label">Description</label>
+            <input type="textarea" class="input-1" onfocus="setFocus(true)" id="description" onblur="setFocus(false)" style="color:#4f4f4f; border-color:#4f4f4f; font-size:16px;" />
+          </div>
+        </div>
+      </form>
+    `,
+    showCancelButton: true,
+    showConfirmButton: true,
+    confirmButtonColor: "#ff4b13",
+    cancelButtonColor: "#ffffff",
+    confirmButtonText: "Create",
+    preConfirm: () => {
+      const year = document.getElementById('acadyear').value;
+      const description = document.getElementById('description').value;
 
-                        <div class="input-box">
-														<label class="input-label">Description</label>
-														<input type="textarea" class="input-1" onfocus="setFocus(true)" id="description" onblur="setFocus(false)" style="color:#4f4f4f; border-color:#4f4f4f; font-size:16px;" />
-												</div>
-										</div>
-								</form>
-  `,
-  showCancelButton: true,
-        showConfirmButton: true,
-        confirmButtonColor: "#ff4b13",
-        cancelButtonColor: "#ffffff",
-        confirmButtonText: "Create",
-
-  preConfirm: () => {
-									    // Retrieve the values of the input fields
-									    const year = document.getElementById('acadyear').value;
-									    const description = document.getElementById('description').value;
-									    return { year, description };
-									  }
-}).then((result) => {
-  if (result.isConfirmed) {
-    const { year, description } = result.value;
-    console.log(`${description}`)
-    fetch("/year/api/years", {
-  method: "POST",
-  headers: {
-    "Content-Type": "application/json",
-  },
-  body: JSON.stringify({ year, description }),
-})
-  .then((response) => {
-    if (response.ok) {
-      return response.json();
-    } else if (response.status === 422) {
-      throw new Error(`Already have allocation for ${year}`);
-    } else if (response.status === 500) {
-      throw new Error(`Please enter details`);
+      if (!isValidYear(year)) {
+        document.getElementById('error-msg').textContent = 'Please enter a valid 4-digit year.';
+        document.getElementById('acadyear').classList.add('error');
+        return null; // Return null to prevent data submission
+      } else {
+        return { year, description };
+      }
     }
+  }).then((result) => {
+    if (result.isConfirmed) {
+      const { year, description } = result.value;
+      console.log(`${description}`);
 
-  })
-  .then((data) => {
-    console.log(data);
-    // Handle success
-    Toastify({
-      text: "Academic year successfully created",
-      backgroundColor: "rgba(0,143,32,.2)",
-      className: "success",
-      position: "top-center",
-    }).showToast();
-    const url = `/year/create-allocations?year=${encodeURIComponent(year)}`;
-    window.location.href = url;
-
-  })
-  .catch((error) => {
-    console.log("Error:", error.message);
-    // Handle error
-    Toastify({
-      text: `${error.message}`,
-      duration: 3000,
-      gravity: "top",
-      position: "center",
-      className: "failed",
-      backgroundColor: "rgba(243,209,209,1)",
-      stopOnFocus: true,
-      onClick: function () {
-        Toastify.hideAll();
-      },
-    }).showToast();
+      if (year !== null) {
+        // Proceed with data submission if year is not null
+        fetch("/year/api/years", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ year, description }),
+        })
+          .then((response) => {
+            if (response.ok) {
+              return response.json();
+            } else if (response.status === 422) {
+              throw new Error(`Already have allocation for ${year}`);
+            } else if (response.status === 500) {
+              throw new Error(`Please enter details`);
+            }
+          })
+          .then((data) => {
+            console.log(data);
+            // Handle success
+            Toastify({
+              text: "Academic year successfully created",
+              backgroundColor: "rgba(0,143,32,.2)",
+              className: "success",
+              position: "top-center",
+            }).showToast();
+            const url = `/year/create-allocations?year=${encodeURIComponent(year)}`;
+            window.location.href = url;
+          })
+          .catch((error) => {
+            console.log("Error:", error.message);
+            // Handle error
+            Toastify({
+              text: `${error.message}`,
+              duration: 3000,
+              gravity: "top",
+              position: "center",
+              className: "failed",
+              backgroundColor: "rgba(243,209,209,1)",
+              stopOnFocus: true,
+              onClick: function () {
+                Toastify.hideAll();
+              },
+            }).showToast();
+          });
+      }
+    }
   });
-
-  }
 });
 
-  });
+function validateInput() {
+  var input = document.getElementById('acadyear').value;
+  var pattern = /^\d{4}$/;
+
+  if (!pattern.test(input)) {
+    document.getElementById('error-msg').textContent = 'Please enter a valid 4-digit year.';
+    document.getElementById('acadyear').classList.add('error');
+  } else {
+    document.getElementById('error-msg').textContent = '';
+    document.getElementById('acadyear').classList.remove('error');
+  }
+}
+
+function isValidYear(year) {
+  var pattern = /^\d{4}$/;
+  return pattern.test(year);
+}
+
 </script>
 
 <script>
