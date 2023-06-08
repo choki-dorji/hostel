@@ -459,7 +459,7 @@ function submitNewForm(event) {
     const queryParams = new URLSearchParams(window.location.search);
     const year = queryParams.get("year");
 
-    fetch(`http://localhost:5000/Allocate/api/years/${year}`, {
+    fetch(`https://hostel-uuwm.onrender.com/Allocate/api/years/${year}`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
