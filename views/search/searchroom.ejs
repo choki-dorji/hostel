@@ -362,7 +362,7 @@ async function handleSearch1(event) {
                                                                   <td style="vertical-align: middle;">${year}</td>
                                                                   <td >
                                                                     <ul>
-                                                                    ${members.filter(member => member.academicyear === year).map(member => `<li>${member.student_name}</li>`).join('')}
+                                                                    ${members.filter(member => member.academicyear === year).map(member => `<li>${member.student_name} - (${member.sid})</li>`).join('')}
                                                                   </ul>
                                                                 `).join('')}
                                                             </tr>
