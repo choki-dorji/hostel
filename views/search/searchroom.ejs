@@ -241,7 +241,7 @@ async function handleSearch1(event) {
 
                               `;
 
-    fetch(`http://localhost:5000/students/getroom/${student.sid}`)
+    fetch(`https://hostel-uuwm.onrender.com/students/getroom/${student.sid}`)
     .then(response => response.json())
     .then(data => {
         const roomData = data.room;
