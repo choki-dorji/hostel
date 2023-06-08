@@ -428,7 +428,6 @@ exports.search_room = async (req, res) => {
       res.send(err);
     });
 };
-
 exports.displaycreateallocation = async function (req, res) {
   const currentYear = new Date().getFullYear();
   const year = req.query.year;
@@ -444,14 +443,20 @@ exports.displaycreateallocation = async function (req, res) {
     axios.get(API + "students/allstudents"),
   ])
     .then((responses) => {
+      const block_ = [];
       const blockData = responses[0].data;
       const allocation = responses[1].data;
       const roomresponse = responses[2].data;
       const studentResponse = responses[3].data;
-      console.log("allocations", allocation);
+
+      for (var i = 0; i < allocation.length; i++) {
+        block_.push(allocation[i].blockid);
+      }
+      // console.log("allocations", allocation);
       res.render("Allocation/createalllocation", {
         block: blockData,
         allocate: allocation,
+        blocks: block_,
         token: token,
         year: year,
         room: roomresponse,
