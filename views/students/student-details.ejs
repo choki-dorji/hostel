@@ -168,7 +168,7 @@ border: 1px solid #d7c8c8;
     console.log(sid);
     // Make the AJAX request to the API
     $.ajax({
-        url: `http://localhost:5000/students/getroom/${sid}`,
+        url: `https://hostel-uuwm.onrender.com/students/getroom/${sid}`,
         method: "GET",
         success: function(response) {
             console.log("response", response);
