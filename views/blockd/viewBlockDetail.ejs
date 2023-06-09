@@ -300,7 +300,7 @@ $(".addroom").click(function() {
                       onClick: function() { Toastify.hideAll() } // Hide all toasts when clicked
                     }).showToast();
 
-                  }else if (error.status === "422") {
+                  }else if (error.status === 422) {
                 Toastify({
 
                   text: 'Room already exists',
