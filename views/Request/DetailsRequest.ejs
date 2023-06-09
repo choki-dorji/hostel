@@ -227,7 +227,7 @@ width:93%;
 
                     <div class="col-lg-12 col-md-12 col-sm-6 search-bx bx-1 mt-4 " id="myDiv">
                         <div class="row-view pt-3">
-                            <i class="material-icons icon position-absolute  pt-0 ml-2 ">male</i>
+                            <i class="material-icons icon position-absolute  pt-0 ml-2 "><%= request.student_gender == "F" ? "female" : "male" %></i>
                             <!-- <img src="/img/hostel.png" height="30" width="30" /> -->
                             <h6 class="fs-1 fst-bold pt-1 pl-5 "> <b class="mt-3"><%= request.student_name %></b></h6>
                             <p class="fw-300 ml-5 mb-0 custom-line-height nameee"
