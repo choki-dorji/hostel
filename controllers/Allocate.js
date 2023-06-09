@@ -8,6 +8,18 @@ const AcadYear = stdb.AcadYear;
 const student = require("./apiconnection_lakshay/getStudents");
 
 const allocateRoomByYearAndBlock = async (req, res, next) => {
+    const rooms = await Room.find();
+  for (const room of rooms) {
+    if (!allocatedRoomIds.includes(room._id)) {
+      const room_capacity = room.room_capacity;
+      await Room.updateOne(
+        { _id: room._id },
+        { $set: { availability: room_capacity, members: [] } }
+      );
+    }
+  }
+  
+  
   currentYear = req.params.year;
   const { years, maleBlock, femaleBlock } = req.body;
   const bid = [...maleBlock, ...femaleBlock];
@@ -94,16 +106,7 @@ const allocateRoomByYearAndBlock = async (req, res, next) => {
   const allocatedRoomIds = (await Allocate.find({ year: currentYear })).map(
     (allocation) => allocation.roomid
   );
-  const rooms = await Room.find();
-  for (const room of rooms) {
-    if (!allocatedRoomIds.includes(room._id)) {
-      const room_capacity = room.room_capacity;
-      await Room.updateOne(
-        { _id: room._id },
-        { $set: { availability: room_capacity, members: [] } }
-      );
-    }
-  }
+
 
   try {
     //*********************getting student Data****************************** */
