@@ -428,11 +428,13 @@ exports.search_room = async (req, res) => {
       res.send(err);
     });
 };
+
 exports.displaycreateallocation = async function (req, res) {
   const currentYear = new Date().getFullYear();
   const year = req.query.year;
   const token = req.cookies.tokenABC;
   const user = req.cookies.userData;
+  const yearSelect = req.query.year;
   const username = JSON.parse(user);
   const notificationCount = await Request.countDocuments({ clicked: false });
 
@@ -441,23 +443,33 @@ exports.displaycreateallocation = async function (req, res) {
     axios.get(API + "allocate/all"),
     axios.get(API + "room/api/rooms"),
     axios.get(API + "students/allstudents"),
+    axios.get(API + `year/allocations`),
   ])
     .then((responses) => {
       const block_ = [];
+      const alloc_year = [];
       const blockData = responses[0].data;
       const allocation = responses[1].data;
       const roomresponse = responses[2].data;
       const studentResponse = responses[3].data;
+      const YearResponse = responses[4].data;
 
       for (var i = 0; i < allocation.length; i++) {
         block_.push(allocation[i].blockid);
       }
+
+      for (var i = 0; i < YearResponse.length; i++) {
+        alloc_year.push(YearResponse[i].Year);
+      }
+
       // console.log("allocations", allocation);
       res.render("Allocation/createalllocation", {
         block: blockData,
         allocate: allocation,
         blocks: block_,
+        alloc_year: alloc_year,
         token: token,
+        yearSelect: yearSelect,
         year: year,
         room: roomresponse,
         students: studentResponse,
