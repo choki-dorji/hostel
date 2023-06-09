@@ -118,6 +118,16 @@ exports.getBlocks = async (req, res) => {
                 return acc;
               }, {});
             }
+            const sortedData = Object.entries(groupedData)
+              .sort(([yearA], [yearB]) => {
+                const yearOrder = { year1: 1, year2: 2, year3: 3, year4: 4 };
+                return yearOrder[yearA] - yearOrder[yearB];
+              })
+              .reduce((acc, [year, genderCounts]) => {
+                acc[year] = genderCounts;
+                return acc;
+              }, {});
+
             console.log("grouped data", groupedData);
             console.log("host", req.hostname);
             res.render("Dashboard/index", {
@@ -127,7 +137,7 @@ exports.getBlocks = async (req, res) => {
               recentactivity: recent.data,
               username: username,
               token: token,
-              chart: groupedData,
+              chart: sortedData,
               notificationCount: notificationCount,
             });
           }
