@@ -134,6 +134,7 @@
                                 <label for="exampleSelect">Select student year
                                     :</label>
                                     <% const x = blocks %>
+                                    <% const allocation_year = alloc_year %>
 
 
                                     <% let uniqueYears = new Set(); %>
@@ -187,23 +188,46 @@
                                             { %>
                                               <% } %>
                                                 <% } %>
-                                                
-                                           <% if(block[i].type === "boys" && sum > 0 && x.includes(block[i]._id)) { %>
-                                        <div class="form-check-inline ml-4 fll">
-                                            <input class="form-check-input checkmale"  type="checkbox" id="checkbox<%= i %>"  value="<%= block[i]._id %>" disabled>
-                                            <label class="form-check-label pt-1" for="checkbox<%= i %>">
-                                                <span></span>
-                                                Block 
-                                                <%= block[i].block_name %>
-                                                <span class="slott">
-                                                    <p>
-                                                      <%= sum %> slots
-                                                    </p>
-                                                </span>
-
-                                            </label>
-                                        </div>
-                                        <% } else if (block[i].type === "boys" && sum > 0 && !x.includes(block[i]._id)) { %>
+                                               
+                                           <% if(block[i].type === "boys" && sum > 0 && x.includes(block[i]._id)  ) { %>
+                                           
+                                            <% if (allocate.some(entry => entry.academicyear == yearSelect && entry.blockid == block[i]._id )) { %>
+                                              <!-- Block is allocated for the selected year -->
+                                              <div class="form-check-inline ml-4 fll">
+                                                <input class="form-check-input checkmale"  type="checkbox" id="checkbox<%= i %>"  value="<%= block[i]._id %>" disabled>
+                                                <label class="form-check-label pt-1" for="checkbox<%= i %>">
+                                                    <span></span>
+                                                    Block 
+                                                    <%= block[i].block_name %>
+                                                    <span class="slott">
+                                                        <p>
+                                                          <%= sum %> slots
+                                                        </p>
+                                                    </span>
+    
+                                                </label>
+                                            </div>
+                                            
+                                            <% } else { %>
+                                              <!-- Block is not allocated for the selected year -->
+                                              <div class="form-check-inline ml-4 fll">
+                                                <input class="form-check-input checkmale"  type="checkbox" id="checkbox<%= i %>"  value="<%= block[i]._id %>">
+                                                <label class="form-check-label pt-1" for="checkbox<%= i %>">
+                                                    <span></span>
+                                                    Block 
+                                                    <%= block[i].block_name %>
+                                                    <span class="slott">
+                                                        <p>
+                                                          <%= sum %> slots
+                                                        </p>
+                                                    </span>
+    
+                                                </label>
+                                            </div>
+                                            
+                                            <% } %>
+                                            
+                                        <% } else if (block[i].type === "boys" && sum > 0 && !x.includes(block[i]._id) ) { %>
                                           <div class="form-check-inline ml-4 fll">
                                             <input class="form-check-input checkmale"  type="checkbox" id="checkbox<%= i %>"  value="<%= block[i]._id %>" >
                                             <label class="form-check-label pt-1" for="checkbox<%= i %>">
@@ -221,6 +245,7 @@
                                         
                                           <% } %>
                                         <% } %>
+                                     
                                                                      
                                  
 
@@ -251,8 +276,10 @@
                                             { %>
                                               <% } %>
                                                 <% } %>
-                                          <% if(block[j].type == "girls" && sum > 0 && x.includes(block[j]._id)) { %>
-                                          <div class=" form-check-inline ml-4 fll">
+                                          <% if(block[j].type == "girls" && sum > 0 && x.includes(block[j]._id )) { %>
+                                            <% if (allocate.some(entry => entry.academicyear == yearSelect  && entry.blockid == block[j]._id )) { %>
+                                            <div class=" form-check-inline ml-4 fll">
+
                                               <input class="form-check-input checkfemale" type="checkbox" id="checkboxf<%= j %>" value="<%= block[j]._id %>" disabled>
                                               <label class="form-check-label pt-1" for="checkboxf<%= j %>"  >
                                                   <span></span>
@@ -276,6 +303,34 @@
 
                                               </label>
                                           </div>
+                                          <% } else { %>
+                                            <div class=" form-check-inline ml-4 fll">
+
+                                              <input class="form-check-input checkfemale" type="checkbox" id="checkboxf<%= j %>" value="<%= block[j]._id %>">
+                                              
+                                              <label class="form-check-label pt-1" for="checkboxf<%= j %>"  >
+                                                  <span></span>
+                                                  Block
+                                                  <%= block[j].block_name %>
+                                                  <% var sum = 0
+                                                  for(var k = 0; k < room.length; k++) { %>
+                                                    <%
+
+                                                    if(room[k].blockid === block[j]._id && room[k].isDisabled === false) 
+                                                      sum += room[k].room_capacity
+                                                    { %>
+                                                      <% } %>
+                                                        <% } %>
+                                                  <span class="slott">
+                                                      <p>
+                                                        <%= sum %> slots
+                                                      </p>
+                                                  </span>
+
+
+                                              </label>
+                                          </div>
+                                          <% } %>
                                         <% } else if(block[j].type === "girls" && sum > 0 && !x.includes(block[j]._id)) { %>
                                           <div class=" form-check-inline ml-4 fll">
                                             <input class="form-check-input checkfemale" type="checkbox" id="checkboxf<%= j %>" value="<%= block[j]._id %>">
@@ -410,7 +465,7 @@
 
  spans.forEach(span => {
    const blockId = span.getAttribute('blockId');
-   fetch(`https://hostel-uuwm.onrender.com/api/${blockId}/students/count`)
+   fetch(`http://localhost:5000/api/${blockId}/students/count`)
    .then(response => response.json())
    .then(data => {
      span.textContent = data + " slots";
@@ -459,7 +514,7 @@ function submitNewForm(event) {
     const queryParams = new URLSearchParams(window.location.search);
     const year = queryParams.get("year");
 
-    fetch(`https://hostel-uuwm.onrender.com/Allocate/api/years/${year}`, {
+    fetch(`http://localhost:5000/Allocate/api/years/${year}`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
