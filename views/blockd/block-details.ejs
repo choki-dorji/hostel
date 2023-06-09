@@ -1,27 +1,47 @@
 <%- include('../required/header') %>
 <style>
-	.error{
-		border-radius: 5px;
-      margin-top: 15px;
-      width: 390px;
-      color: rgba(255, 0, 0, 0.512);
-}
-
-/* .failed {
-      border-radius: 5px;
-      margin-top: 15px;
-      width: 390px;
-      color: rgba(255, 0, 0, 0.711);
-    } */
-
+	
 .toastify-success {
-  color: #fff;
-  box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.2);
-  width: "90%";
+  color: rgba(0,143,32);
+  box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.2);
+  padding:1.5rem 5rem;
+  min-width:360px;
+  border-radius:30px 0 30px 0;
 }
-.toastify-success .toastify-text {
-  border-bottom: 2px solid #00b894;
+
+.failed, .error{
+	  color: rgba(215, 42, 42);
+	padding:1.5rem 5rem;
+	border-radius:30px 0 30px 0;
 }
+.swal2-popup .swal2-styled.swal2-cancel {
+      border: 1px solid #ff4b13;
+			color:#ff4b13;
+			padding-right:2rem;
+			padding-left:2rem; /* Set the border properties as per your requirement */
+			margin-bottom:2rem;
+    }
+	.swal2-popup .swal2-styled.swal2-confirm:hover, .swal2-popup .swal2-styled.swal2-confirm:focus{
+	color:#fff;
+		background:#ff4b13;
+		outline:#ff4b13;
+	}
+	.swal2-popup .swal2-styled.swal2-cancel:hover, .swal2-popup .swal2-styled.swal2-cancel:focus{
+	background:#fff;
+	}
+		.swal2-popup .swal2-styled.swal2-confirm {
+					padding-right:2rem;
+					padding-left:2rem;
+					margin-bottom:2rem;
+		    }
+			.input-1{
+				color:#4f4f4f;
+			}
+			.error-validation {
+  border-color: red;
+}
+
+
  </style>
 
 	<main>
@@ -37,7 +57,6 @@
 											<% if (id === blocks[i]._id && !displayed) { %>
 												<% displayed = true; %>
 							<p class="block-title pt-3" style="font-size: 20px;">
-								
 								Search result for <%= blocks[i].block_name %>
 							</p>
 							  
@@ -157,7 +176,7 @@ $(".add").click(function() {
 				showCancelButton: true,
 				showConfirmButton: true,
 				confirmButtonColor: "#ff4b13",
-				cancelButtonColor: "#000",
+				cancelButtonColor: "#ffffff",
 				confirmButtonText: "Create",
 				preConfirm: () => {
 					// Retrieve the values of the input fields
@@ -186,7 +205,7 @@ $(".add").click(function() {
 									      gravity: 'top', // Display at the top of the screen
 									      position: 'center', // Display in the center of the screen
 									      backgroundColor: 'rgba(196,293,206,1)', // Set the background color to white
-									      className: 'toastify-success', // Add a custom CSS class for styling
+										  className: 'toastify-success', // Add a custom CSS class for styling
 									      stopOnFocus: true, // Stop the countdown when the user focuses on the screen
 									      onClick: function() { Toastify.hideAll() } // Hide all toasts when clicked
 									    }).showToast();
@@ -202,7 +221,7 @@ $(".add").click(function() {
 									          duration: 3000, // Display for 3 seconds
 									          gravity: 'top', // Display at the top of the screen
 									          position: 'center',
-									          className: "failed", // Display in the center of the screen
+											  className: "error",// Display in the center of the screen
 									          backgroundColor: 'rgba(243,209,209,1)', // Set a gradient background color
 									          stopOnFocus: true, // Stop the countdown when the user focuses on the screen
 									          onClick: function() { Toastify.hideAll() } // Hide all toasts when clicked
@@ -303,7 +322,7 @@ $(".delete").click(function() {
 		        success: function(response) {
 		            // If the block details were successfully fetched, display them in the input form inside the SweetAlert popup
 		            Swal.fire({
-		                html: `<h5>Update Block</h5>
+		                html: `<h5 class="mt-4 pb-3 font-weight-bold" style="color:#ff4b13; opacity:90%;">Update Block</h5>
 		                        <form>
 		                            <div class="form-group">
 		                                <div class="input-box">
@@ -319,10 +338,7 @@ $(".delete").click(function() {
 		                                    </select>
 		                                </div>
 
-		                                <div class="input-box">
-		                                    <label class="input-label">Number of Rooms</label>
-		                                    <input type="text" class="input-1" onfocus="setFocus(true)" id="num-rooms" onblur="setFocus(false)" disabled value="${response.rooms.length}"/>
-		                                </div>
+		                               
 
 		                                <div class="input-box active-grey">
 		                                    <label class="input-label">Status</label>
@@ -338,34 +354,34 @@ $(".delete").click(function() {
 		                showCancelButton: true,
 		                showConfirmButton: true,
 										confirmButtonColor: "#ff4b13",
-										cancelButtonColor: "#000",
+										cancelButtonColor: "#ffffff",
 										confirmButtonText: "Update",
 										preConfirm: () => {
 									    // Retrieve the values of the input fields
 									    const blockName = document.getElementById('block-name').value;
 									    const blockType = document.getElementById('block-type').value;
-									    const numRooms = document.getElementById('num-rooms').value;
+									    // const numRooms = document.getElementById('num-rooms').value;
 									    const status = document.getElementById('status').value;
 									    // Return the values as an object
-									    return { blockName, blockType, numRooms, status };
+									    return { blockName, blockType, status };
 									  }
 
 		            }).then((result) => {
 		                if (result.isConfirmed) {
-											const {blockName, blockType, numRooms, status} = result.value;
+											const {blockName, blockType, status} = result.value;
 											console.log(blockName)
 
 
 											$.ajax({
 													url: "/api/blocks/" + id,
 													method: "PUT",
-													data: { block_name: blockName, type:blockType, no_of_rooms:numRooms, status: status   },
+													data: { block_name: blockName, type:blockType, status: status   },
 													success: function(response) {
 															// If the block was successfully updated, display a success message using Toastify and reload the page
 															Toastify({
 																	text: "Block updated successfully!",
-																	backgroundColor: "#00b09b",
-																	className: "success",
+																	backgroundColor:'rgba(196,293,206,1)',
+																	className: "toastify-success",
 																	position:"top-center",
 															}).showToast();
 															location.reload();
@@ -374,7 +390,7 @@ $(".delete").click(function() {
 															// If there was an error updating the block, display an error message using Toastify
 															Toastify({
 																	text: "Error updating block: " + error.responseText,
-																	backgroundColor: "#ff5f6d",
+																	backgroundColor:'rgba(243,209,209,1)',
 																	className: "error",
 																	position:"top-center",
 															}).showToast();
