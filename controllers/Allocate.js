@@ -8,10 +8,8 @@ const AcadYear = stdb.AcadYear;
 const student = require("./apiconnection_lakshay/getStudents");
 
 const allocateRoomByYearAndBlock = async (req, res, next) => {
-   
-  
-  
   currentYear = req.params.year;
+
   const { years, maleBlock, femaleBlock } = req.body;
   const bid = [...maleBlock, ...femaleBlock];
 
@@ -93,9 +91,6 @@ const allocateRoomByYearAndBlock = async (req, res, next) => {
   if (!veriifyYear) {
     throw new Error("Invalid year entered");
   }
-
-  
-
 
   try {
     //*********************getting student Data****************************** */
