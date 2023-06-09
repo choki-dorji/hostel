@@ -19,12 +19,12 @@ const allocateRoomByYearAndBlock = async (req, res, next) => {
     return res.status(error.code).json({ message: error.message });
   }
 
-  if (req.body.femaleBlock.length === 0) {
+  if (req.body.maleBlock.length === 0) {
     const error = new HttpError(`Please choose male block to allocate`, 404);
     console.log(error.message);
     return res.status(error.code).json({ message: error.message });
   }
-  if (req.body.femaleBlock === 0) {
+  if (req.body.femaleBlock.length === 0) {
     const error = new HttpError(`Please choose female block to allocate`, 404);
     console.log(error.message);
     return res.status(error.code).json({ message: error.message });
@@ -80,6 +80,7 @@ const allocateRoomByYearAndBlock = async (req, res, next) => {
     }
   }
   let veriifyYear;
+
   try {
     veriifyYear = await AcadYear.findOne({ Year: currentYear });
     console.log("success current year", veriifyYear);
@@ -90,6 +91,30 @@ const allocateRoomByYearAndBlock = async (req, res, next) => {
 
   if (!veriifyYear) {
     throw new Error("Invalid year entered");
+  }
+
+  const allocated_room_id = (await Allocate.find({ year: currentYear })).map(
+    (allocation) => allocation.roomid
+  );
+  const rooms = await Room.find({
+    blockid: { $in: [...maleBlock, ...femaleBlock] },
+  });
+  for (const room of rooms) {
+    const room_capacity = room.room_capacity;
+    await Room.updateOne(
+      { _id: room._id },
+      { $set: { availability: room_capacity, members: [] } }
+    );
+  }
+
+  for (const room of rooms) {
+    if (!allocated_room_id.includes(room._id)) {
+      const room_capacity = room.room_capacity;
+      await Room.updateOne(
+        { _id: room._id },
+        { $set: { availability: room_capacity, members: [] } }
+      );
+    }
   }
 
   try {
@@ -176,9 +201,9 @@ const allocateRoomByYearAndBlock = async (req, res, next) => {
       // console.log(blockName);
       // console.log("rooms", rooms);
 
-      // console.log("total capacity ", totalCapacity);
-      // console.log("male ", maleLength);
-      // console.log("female", femaleLength);
+      console.log("total capacity ", totalCapacity);
+      console.log("male ", maleLength);
+      console.log("female", femaleLength);
 
       if (totalCapacity > maleLength || totalCapacity > femaleLength) {
         for (const student of [...maleStudents, ...femaleStudents]) {
@@ -216,19 +241,7 @@ const allocateRoomByYearAndBlock = async (req, res, next) => {
           // console.log("allocation start, if loop");
           if (room) {
             console.log("room is found", room);
-            const allocatedRoomIds = (
-              await Allocate.find({ year: currentYear })
-            ).map((allocation) => allocation.roomid);
-            const rooms = await Room.find(room);
-            for (const room of rooms) {
-              if (!allocatedRoomIds.includes(room._id)) {
-                const room_capacity = room.room_capacity;
-                await Room.updateOne(
-                  { _id: room._id },
-                  { $set: { availability: room_capacity, members: [] } }
-                );
-              }
-            }
+
             try {
               await Room.findByIdAndUpdate(room, {
                 $inc: { availability: -1 },
