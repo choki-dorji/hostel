@@ -150,7 +150,7 @@ exports.UpdateRequest = async (req, res) => {
     request.remarks = remarks || request.remarks;
     request.status = "accepted";
     request.clicked = true;
-    request.reason = request.remarks;
+    request.reason = request.reason;
     request.reqyear = request.reqyear;
 
     // in recent table
