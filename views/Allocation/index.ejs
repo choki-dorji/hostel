@@ -792,7 +792,8 @@ yearSelect.addEventListener("change", () => {
     }
             });
             // window.open(URL.createObjectURL(pdf.output("blob")))
-            window.open(pdf.output("bloburl"), "_blank");
+            //window.open(pdf.output("bloburl"), "_blank");
+	          pdf.save("table.pdf");
 
          }
 </script>
