@@ -309,7 +309,11 @@ async function handleSearch1(event) {
     const response = await fetch(`/room/api/search?room_name=${roomName}`);
     const data = await response.json();
 
-    console.log(data.room._id)
+      if(response.status === 404 || !response.ok()){
+      searchResults.innerHTML = "<p>No search Results</p>";
+
+    }
+
 
     const memberResponse = await fetch(`/room/api/member/${data.room._id}`)
     const memberdata = await memberResponse.json()
