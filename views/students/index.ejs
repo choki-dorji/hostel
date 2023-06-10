@@ -258,8 +258,13 @@
 									<%= userdata.name %> <br>
 								</b>
 								<div class="profile-details text-center pt-3">
+									<% const x = userdata.year_enrolled 
+										const date = new Date(x)
+										const year = date.getFullYear()
 
-									
+										const curryear  = new Date().getFullYear()
+									%> 
+									<span class="de">Year: <%= curryear -  year  %></span> <br>								
 									<span class="de"><a><%= userdata.email %></a></span><br>
 									<span class="de"> <%= userdata.specializationid === 1 ? "FullStack" :
 										userdata.specializationid === 2 ? "BlockChain" :
